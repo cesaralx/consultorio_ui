@@ -1,0 +1,16 @@
+/* You can add global styles to this file, and also import other style files */
+@import "bootstrap/bootstrap";
+@import "spinner";
+@import "utils";
+@import "rtl";
+@import "responsive";
+/* angular-cli file: src/styles.css */
+@import "../../node_modules/angular-calendar/css/angular-calendar.css";
+@import "flatpickr/dist/flatpickr.css";
+
+
+@media print {
+    .breadcrumb {
+        display: none !important;
+    }
+}
