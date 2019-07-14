@@ -21,6 +21,7 @@ import {
   CalendarEventTimesChangedEvent,
   CalendarView
 } from 'angular-calendar';
+import { TranslateService } from '@ngx-translate/core';
 
 const colors: any = {
   red: {
@@ -117,7 +118,7 @@ export class AgendaComponent implements OnInit {
 
   activeDayIsOpen = true;
 
-  constructor(private modal: NgbModal) { }
+  constructor(private translate: TranslateService, private modal: NgbModal) { }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
@@ -183,6 +184,10 @@ export class AgendaComponent implements OnInit {
   closeOpenMonthViewDay() {
     this.activeDayIsOpen = false;
   }
+
+  changeLang(language: string) {
+    this.translate.use(language);
+}
 
   ngOnInit() {
   }

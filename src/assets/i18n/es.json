@@ -43,6 +43,22 @@
     "Medical Visits": "Visitas Medicas",
     "Statics": "Estadisticas",
     "Patients": "Pacientes",
-    "Schedule": "Agenda"
+    "Schedule": "Agenda",
+    "Month": "Mes",
+    "Week": "Semana",
+    "Day": "Dia",
+    "Edit Events": "Editar Eventos",
+    "Add New": "Agregar nuevo",
+    "Tittle": "Titulo",
+    "Primary color": "Color primario",
+    "Secondary color": "Color secundario",
+    "Starts at": "Inicia en",
+    "Ends at": "Termina en",
+    "Remove": "Remover",
+    "Previous": "Anterior",
+    "Today": "Hoy",
+    "Next": "Siguiente"
+
+
 
 }

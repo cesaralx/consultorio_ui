@@ -11,6 +11,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { FormsModule } from '@angular/forms';
 import { FlatpickrModule } from 'angularx-flatpickr';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 
@@ -19,6 +20,7 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
   declarations: [AgendaComponent],
   exports: [AgendaComponent],
   imports: [
+    TranslateModule,
     CommonModule,
     AgendaRoutingModule,
     NgbModalModule,
