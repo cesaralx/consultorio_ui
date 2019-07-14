@@ -28,6 +28,7 @@ Provides fast, reliable and extensible starter for the development of Angular pr
 *   Official Angular i18n support.
 *   Production and development builds.
 *   Tree-Shaking production builds.
+*   [angular-calendar](https://github.com/mattlewis92/angular-calendar#documentation)
 
 ### How to start
 
