@@ -16,6 +16,10 @@
             <i class="fa fa-fw fa-desktop"></i>&nbsp;
             <span>{{ 'Schedule' | translate }}</span>
         </a>
+        <a [routerLink]="['/consultorio']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-hospital-o"></i>&nbsp;
+            <span>{{ 'Doctors office' | translate }}</span>
+        </a>
         <a [routerLink]="['/tables']" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-table"></i>&nbsp;
             <span>{{ 'Tables' | translate }}</span>
