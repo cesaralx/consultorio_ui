@@ -17,7 +17,8 @@ const routes: Routes = [
             { path: 'components', loadChildren: () => import('./bs-component/bs-component.module').then(m => m.BsComponentModule) },
             { path: 'blank-page', loadChildren: () => import('./blank-page/blank-page.module').then(m => m.BlankPageModule) },
             { path: 'pacientes', loadChildren: () => import('./pacientes/pacientes.module').then(m => m.PacientesModule) },
-            { path: 'agenda', loadChildren: () => import('./agenda/agenda.module').then(m => m.AgendaModule) }
+            { path: 'agenda', loadChildren: () => import('./agenda/agenda.module').then(m => m.AgendaModule) },
+            { path: 'consultorio', loadChildren: () => import('./consultorios/consultorios.module').then(m => m.ConsultoriosModule) }
 
         ]
     }
