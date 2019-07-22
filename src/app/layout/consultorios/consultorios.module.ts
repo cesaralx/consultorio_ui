@@ -2,9 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule } from '@angular/forms';
+
 
 // Componentes
-
 import { ConsultoriosComponent } from './consultorios.component';
 import { ConsultoriosRoutingModule } from './consultorios-routing.module';
 
@@ -19,7 +20,8 @@ import { ConsultoriosRoutingModule } from './consultorios-routing.module';
     CommonModule,
     NgbModalModule,
     TranslateModule,
-    ConsultoriosRoutingModule
+    ConsultoriosRoutingModule,
+    FormsModule
   ]
 })
 export class ConsultoriosModule { }
