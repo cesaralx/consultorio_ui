@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { ConsultorioModel } from './consultorio.model';
 
 import { map } from 'rxjs/operators';
@@ -12,7 +12,18 @@ import { map } from 'rxjs/operators';
 export class ConsultoriosService {
   private url = 'http://localhost:3000/consultorio';
 
+  // Constructor
   constructor( private http: HttpClient) { }
+
+  // Funciones
+  getUsuarios () {
+    const url = `http://localhost:3000/users/`;
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get( url, { headers});
+}
 
   getConsultorios() {
     return this.http.get(`${this.url}`);
@@ -37,5 +48,7 @@ export class ConsultoriosService {
   actualizaConsultorio(consultorio: ConsultorioModel) {
   return this.http.put(`${ this.url }?id=${consultorio._id}`, consultorio);
   }
+
+
 
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ConsultoriosService } from './consultorios.service';
-import { ConsultorioModel } from './consultorio.model';
+import { ConsultorioModel, UsModel } from './consultorio.model';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 
@@ -16,16 +16,20 @@ import { Observable } from 'rxjs';
   styleUrls: ['./consultorios.component.scss']
 })
 export class ConsultoriosComponent implements OnInit {
+
   closeResult: string;
   cargando = false;
   consultorio = new ConsultorioModel();
   consultorios: ConsultorioModel[] = [];
+  users: UsModel[] = [];
+
   constructor( private consultoriosServices: ConsultoriosService,
                 private modal: NgbModal) { }
 
   ngOnInit() {
       this.cargando = true;
       this.consultarConsultorios();
+      this.getUsuarios();
   }
 
   open(content) {
@@ -105,6 +109,14 @@ export class ConsultoriosComponent implements OnInit {
                   // console.log('consultorios: ', resp);
                   this.cargando = false;
               });
+   }
+
+   getUsuarios() {
+       this.consultoriosServices.getUsuarios()
+             .subscribe( (resp: any) => {
+                console.log(resp);
+                this.users = resp;
+             });
    }
 
 
