@@ -46,8 +46,10 @@ export class ConsultoriosComponent implements OnInit {
         showCancelButton: true
        }).then( resp => {
            if ( resp.value ) {
-             this.consultoriosServices.borrarConsultorio(consultorio._id);
-             this.consultorios.splice(i, 1);
+             this.consultoriosServices.borrarConsultorio(consultorio._id).subscribe( ( resp: any) => {
+              console.log(resp);
+              this.consultorios.splice(i, 1);
+             });
            }
        });
     }
@@ -64,13 +66,14 @@ export class ConsultoriosComponent implements OnInit {
       let peticion: Observable <any>;
       if (!this.consultorio._id) {
       peticion = this.consultoriosServices.altaConsultorio(this.consultorio);
-      this.consultorios.push(this.consultorio);
+      // this.consultorios.push(this.consultorio);
       } else {
         console.log('actualizar');
        peticion = this.consultoriosServices.actualizaConsultorio(this.consultorio);
       }
           // console.log(this.consultorio);
           peticion.subscribe( resp => {
+            this.ngOnInit();
             Swal.fire({
               title: this.consultorio.nombre,
               text: 'Se actualizo correctamente',

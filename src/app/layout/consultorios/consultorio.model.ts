@@ -7,6 +7,6 @@ export class ConsultorioModel {
     encargado: string;
     horario: string;
     fecha_alta: Date;
-    fecha_update: Date;
+    fecha_update: Date ;
 }
 

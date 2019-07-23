@@ -122,7 +122,25 @@ class="alert alert-info text-center mt-3 animated fadeIn faster">
                         name="horario"
                         [(ngModel)]="consultorio.horario"
                         placeholder="Horario">
-            </div>     
+            </div>  
+            <div class="form-group" *ngIf="consultorio._id !== null">
+              <label>Fecha de alta</label> 
+               <input type="text"
+                      class="form-control"
+                      disabled
+                      name="fecha_alta"
+                      [(ngModel)]="consultorio.fecha_alta"
+                      placeholder="Horario">
+          </div>  
+          <div class="form-group" *ngIf="consultorio._id !== null">
+            <label>Fecha de ultima actualiazación</label> 
+             <input type="text"
+                    class="form-control"
+                    disabled
+                    name="fecha_update"
+                    [(ngModel)]="consultorio.fecha_update"
+                    placeholder="Horario">
+        </div>     
     </div>
     <div class="modal-footer align-content-center">
         <button 
