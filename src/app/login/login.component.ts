@@ -26,7 +26,9 @@ export class LoginComponent implements OnInit {
         this.loginService.login(data.email.value, data.pwd.value).subscribe(
             res => {
               localStorage.setItem('token', res['token']);
-              if (res['token'] === undefined) {this.navigateErr(); } else {this.navigateOk(); }
+              if (res['token'] === undefined) {this.navigateErr(); } else {
+              if (res['type'] === 'user') {this.navigateOk(); } else { this.navigateOkExterno(); }
+            }
           },
           error => {
             console.error(error);
@@ -43,7 +45,17 @@ export class LoginComponent implements OnInit {
         );
         localStorage.setItem('isLoggedin', 'true');
         this.router.navigateByUrl('/dashboard');
-      }
+    }
+
+    navigateOkExterno() {
+      this.loginService.getUsrExt(localStorage.getItem('user')).subscribe(
+          res => {
+              localStorage.setItem('id', res['_id']);
+          }
+      );
+      localStorage.setItem('isLoggedinExternal', 'true');
+      this.router.navigateByUrl('/usuario-view');
+  }
 
     navigateErr() {
     // localStorage.setItem('isLoggedin', 'false');
