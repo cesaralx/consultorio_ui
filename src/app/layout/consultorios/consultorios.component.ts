@@ -50,7 +50,7 @@ export class ConsultoriosComponent implements OnInit {
         showCancelButton: true
        }).then( resp => {
            if ( resp.value ) {
-             this.consultoriosServices.borrarConsultorio(consultorio._id).subscribe( ( resp: any) => {
+             this.consultoriosServices.borrarConsultorio(consultorio._id).subscribe( (resp: any) => {
               console.log(resp);
               this.consultorios.splice(i, 1);
              });
