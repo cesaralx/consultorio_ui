@@ -16,11 +16,15 @@ export class LoginService {
   }
 
   getUsr(username: string) {
-
     const params = new HttpParams()
     .set('user', username);
-
     return this.http.get('http://localhost:3000/users/byUsr', {params});
+  }
+
+  getUsrExt(username: string) {
+    const params = new HttpParams()
+    .set('user', username);
+    return this.http.get('http://localhost:3000/paciente/byUsr', {params});
   }
 
 }

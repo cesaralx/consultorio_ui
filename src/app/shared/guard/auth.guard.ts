@@ -15,3 +15,16 @@ export class AuthGuard implements CanActivate {
         return false;
     }
 }
+
+export class AuthGuardExternal implements CanActivate {
+    constructor(private router: Router) {}
+
+    canActivate() {
+        if (localStorage.getItem('isLoggedinExternal')) {
+            return true;
+        }
+
+        this.router.navigate(['/login']);
+        return false;
+    }
+}
