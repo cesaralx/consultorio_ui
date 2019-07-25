@@ -1,5 +1,5 @@
 export class CitaModel {
-
+    _id: string;
     id_paciente: string;
     id_consultorio: string;
     id_usuario: string;
