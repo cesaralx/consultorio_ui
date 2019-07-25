@@ -13,6 +13,8 @@ import { FlatpickrModule } from 'angularx-flatpickr';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { FullCalendarModule } from '@fullcalendar/angular'; // for FullCalendar!
+
 
 
 
@@ -25,11 +27,13 @@ import { TranslateModule } from '@ngx-translate/core';
     AgendaRoutingModule,
     NgbModalModule,
     FormsModule,
+    FullCalendarModule,
     FlatpickrModule.forRoot(),
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory
     })
-  ]
+  ],
+  bootstrap: [AgendaComponent]
 })
 export class AgendaModule { }
