@@ -1,6 +1,8 @@
 
 <div class="container my-5">
-  <full-calendar
+<h1 class="text-center">Agenda</h1>
+<hr>
+  <full-calendar id='calendar'
         [header]="{
         left: 'prev,next today',
         center: 'title',
@@ -8,7 +10,7 @@
       }"
         [plugins]="calendarPlugins"
         [events]="calendarEvents"
-        (dateClick)="handleDateClick($event)"
+        (dateClick)="handleDateClick($event, content)"
         (eventClick)="eventClick($event,content)"
         [buttonText]=" {
                     today: 'Hoy',
@@ -18,14 +20,16 @@
                     list: 'Lista'
                 }"
         [selectable]="true"
-        >
+        themeSystem= 'bootstrap'
+        timeZone= 'local'
+        deepChangeDetection="true">
   </full-calendar>
 </div>
 
 <ng-template #content let-c="close" let-d="dismiss">
     <form 
     #formulario ="ngForm">
-    <div class="modal-header text-center">
+    <div class="modal-header text-center primary">
         <h4 class="modal-title">Nueva cita</h4>
         <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
             <span aria-hidden="true">&times;</span>
@@ -33,51 +37,81 @@
     </div>
 
     <div class="modal-body">
-      <div class="form-group ">
-         <label>Nombre</label>
-          <input type="text"
-                 class="form-control"
-                 required
-                 name="nombre"
-
-                 placeholder="Nombre del consultorio">
+      <div class="form-group row">
+        <label class="col-2 col-form-label">Paciente</label>
+        <div class="col-md-12">
+            <select class="form-control"
+                    name="id_paciente"
+                    [(ngModel)]="cita.id_paciente">
+              <option value="">Seleccione un paciente</option>
+              <option  *ngFor="let p of pacientes"
+                       [value]="p._id">{{p.nombre}}</option>
+            </select>
         </div>
-
-
+      </div>
+      <div class="form-group row">
+        <label class="col-2 col-form-label">Consultorio</label>
+        <div class="col-md-12">
+            <select class="form-control"
+                    name="id_consultorio"
+                    [(ngModel)]="cita.id_consultorio">
+              <option value="" selected>Seleccione el consultorio</option>
+              <option  *ngFor="let consultorio of consultorios"
+                       [value]="consultorio._id">{{consultorio.nombre}}</option>
+            </select>
+        </div>
+      </div>
+      
+      <div class="form-group ">
+        <label>Fecha</label>
+         <input type="date"
+                class="form-control"
+                required
+                name="fecha"
+                [(ngModel)]="cita.fecha">
+       </div>
+      
         <div class="form-group ">
-            <label>Dirección</label>
+            <label>Costo</label>
              <input type="text"
                     class="form-control"
                     required
-                    name="direccion"
-
-                    placeholder="Dirección">
+                    name="costo"
+                    [(ngModel)]="cita.costo"
+                    placeholder="Costo">
            </div>
            <div class="form-group ">
-              <label>Teléfono</label>
-               <input type="text"
-                      class="form-control"
-                      required
-                      name="telefono"
-
-                      placeholder="Teléfono">
-             </div>
-
-    </div>
+            <label>Extra</label>
+             <textarea type="text"
+                    class="form-control"
+                    required
+                    [(ngModel)]="cita.extra"
+                    name="extra"></textarea>         
+           </div>
     <div class="modal-footer align-content-center">
+        <button 
+                *ngIf="!eliminar"
+                class="btn btn-danger"
+                (click)="eliminarCita(formulario)"
+                type="submit">
+                <i class="fa fa-trash"></i>
+                 Eliminar
+       </button>
         <button
+                *ngIf="eliminar"
                 type="button"
                 class="btn btn-secondary"
                 (click)="c('Close click')">
                 Cerrar
         </button>
-
         <button
                 class="btn btn-primary"
-                type="submit">
+                type="submit"
+                (click)="guardar(formulario)">
                 <i class="fa fa-save"></i>
-                 Guardar
+                 Aceptar
        </button>
     </div>
+  </div>
   </form>
 </ng-template>

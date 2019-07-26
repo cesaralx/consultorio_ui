@@ -35,4 +35,8 @@ export class AgendaService {
     return this.http.put(`${ this.url }?id=${cita._id}`, cita);
     }
 
+    getPacientes() {
+      return this.http.get(`http://localhost:3000/paciente/`);
+    }
+
 }
