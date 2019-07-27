@@ -2,14 +2,14 @@
 <div class="container my-5">
 <h1 class="text-center">Agenda</h1>
 <hr>
-  <full-calendar id='calendar'
+  <full-calendar 
+        
         [header]="{
         left: 'prev,next today',
         center: 'title',
         right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
-      }"
+        }"
         [plugins]="calendarPlugins"
-        [events]="calendarEvents"
         (dateClick)="handleDateClick($event, content)"
         (eventClick)="eventClick($event,content)"
         [buttonText]=" {
@@ -17,12 +17,14 @@
                     day: 'Día',
                     month: 'Mes',
                     week: 'Semana',
-                    list: 'Lista'
+                    list: 'Agenda'
                 }"
-        [selectable]="true"
         themeSystem= 'bootstrap'
-        timeZone= 'local'
-        deepChangeDetection="true">
+        timeZone= 'UTC'
+        deepChangeDetection="true"
+        locale='es'
+        [events]="calendarEvents"
+        >
   </full-calendar>
 </div>
 
@@ -30,7 +32,7 @@
     <form 
     #formulario ="ngForm">
     <div class="modal-header text-center primary">
-        <h4 class="modal-title">Nueva cita</h4>
+        <h4 class="modal-title">{{title}} cita</h4>
         <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -42,7 +44,8 @@
         <div class="col-md-12">
             <select class="form-control"
                     name="id_paciente"
-                    [(ngModel)]="cita.id_paciente">
+                    [(ngModel)]="cita.id_paciente"
+                    required>
               <option value="">Seleccione un paciente</option>
               <option  *ngFor="let p of pacientes"
                        [value]="p._id">{{p.nombre}}</option>
@@ -54,22 +57,36 @@
         <div class="col-md-12">
             <select class="form-control"
                     name="id_consultorio"
-                    [(ngModel)]="cita.id_consultorio">
+                    [(ngModel)]="cita.id_consultorio"
+                    required>
               <option value="" selected>Seleccione el consultorio</option>
               <option  *ngFor="let consultorio of consultorios"
                        [value]="consultorio._id">{{consultorio.nombre}}</option>
             </select>
         </div>
       </div>
+      <div class="form-group row">
+        <label class="col-2 col-form-label">Estatus</label>
+        <div class="col-md-12">
+            <select class="form-control"
+                    name="status"
+                    [(ngModel)]="cita.status">
+              <option value="" selected>Seleccione el estatus</option>
+              <option  *ngFor="let est of estatus"
+                       [value]="est.status">{{est.status | uppercase}}</option>
+            </select>
+        </div>
+      </div>
       
       <div class="form-group ">
         <label>Fecha</label>
-         <input type="date"
+         <input type="datetime-local"
                 class="form-control"
                 required
                 name="fecha"
                 [(ngModel)]="cita.fecha">
        </div>
+       
       
         <div class="form-group ">
             <label>Costo</label>
@@ -105,6 +122,7 @@
                 Cerrar
         </button>
         <button
+                [disabled]="!formulario.valid"
                 class="btn btn-primary"
                 type="submit"
                 (click)="guardar(formulario)">
