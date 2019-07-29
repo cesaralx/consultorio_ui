@@ -2,11 +2,11 @@ export class ExpedientesModel {
     _id: string = null;
     paciente_id: string;
     motivo_consulta: {type: String, required: true};
-    Ante_familiares: {
-      hipertension: String,
-      cancer: String,
-      diabetes: String,
-      otros: String,
+    Ante_familiares: {} = {
+      hipertension: null,
+      cancer: null,
+      diabetes: null,
+      otros: null,
     };
     Ante_no_patologicos: {} = {
       vacunas_res: null,

@@ -23,7 +23,7 @@ import { Observable } from 'rxjs';
 export class ExpedientesComponent implements OnInit {
 
   cargando = false;
-  expediente = new ExpedientesModel();
+  expediente = new ExpedientesModel;
   conlsults: ConsulModel[] = [];
   pacientes: PasModel[] = [];
 
@@ -53,7 +53,7 @@ export class ExpedientesComponent implements OnInit {
      this.expediente.usuario_mod = localStorage.getItem('id');
     // peticion = this.expedeintesServices.actualizaexpediente(this.expediente);
    }
-       console.log(this.expediente);
+      //  console.log(this.expediente);
        peticion.subscribe( resp => {
          this.ngOnInit();
          Swal.fire({
