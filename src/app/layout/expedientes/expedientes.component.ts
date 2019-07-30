@@ -56,6 +56,7 @@ export class ExpedientesComponent implements OnInit {
       //  console.log(this.expediente);
        peticion.subscribe( resp => {
          this.ngOnInit();
+         form.reset();
          Swal.fire({
            title: this.expediente.paciente_id,
            text: 'Se guardo correctamente',
