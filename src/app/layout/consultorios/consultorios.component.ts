@@ -3,6 +3,7 @@ import { ConsultoriosService } from './consultorios.service';
 import { ConsultorioModel, UsModel } from './consultorio.model';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
+import { LayoutService } from '../layout.service';
 
 // sweetalert2
 import Swal from 'sweetalert2';
@@ -22,6 +23,8 @@ export class ConsultoriosComponent implements OnInit {
   consultorio = new ConsultorioModel();
   consultorios: ConsultorioModel[] = [];
   users: UsModel[] = [];
+
+  private g = new LayoutService();
 
   constructor( private consultoriosServices: ConsultoriosService,
                 private modal: NgbModal) { }
@@ -50,9 +53,13 @@ export class ConsultoriosComponent implements OnInit {
         showCancelButton: true
        }).then( resp => {
            if ( resp.value ) {
-             this.consultoriosServices.borrarConsultorio(consultorio._id).subscribe( (resp: any) => {
-              console.log(resp);
+             this.consultoriosServices.borrarConsultorio(consultorio._id).subscribe( (response: any) => {
+              console.log(response);
               this.consultorios.splice(i, 1);
+             },
+             (error) => {
+             console.log(error.message);
+             if (error.status === 403){ this.g.onLoggedout(); }
              });
            }
        });
@@ -83,6 +90,10 @@ export class ConsultoriosComponent implements OnInit {
               text: 'Se actualizo correctamente',
               type: 'success'
             });
+          },
+          (error) => {
+          console.log(error.message);
+          if (error.status === 403){ this.g.onLoggedout(); }
           });
 
         }
@@ -93,6 +104,10 @@ export class ConsultoriosComponent implements OnInit {
       // console.log('Respuesta de consulta consultorio: ', resp);
       this.consultorio = resp;
 
+    },
+    (error) => {
+    console.log(error.message);
+    if (error.status === 403){ this.g.onLoggedout(); }
     });
     this.open(content);
    }
@@ -104,19 +119,27 @@ export class ConsultoriosComponent implements OnInit {
 
    consultarConsultorios() {
     this.consultoriosServices.getConsultorios()
-              .subscribe( (resp: any) => {
-                  this.consultorios = resp;
-                  // console.log('consultorios: ', resp);
-                  this.cargando = false;
-              });
+      .subscribe( (resp: any) => {
+        this.consultorios = resp;
+        // console.log('consultorios: ', resp);
+        this.cargando = false;
+      },
+      (error) => {
+      console.log(error.message);
+      if (error.status === 403){ this.g.onLoggedout(); }
+      });
    }
 
    getUsuarios() {
-       this.consultoriosServices.getUsuarios()
-             .subscribe( (resp: any) => {
-                console.log(resp);
-                this.users = resp;
-             });
+      this.consultoriosServices.getUsuarios()
+        .subscribe( (resp: any) => {
+          console.log(resp);
+          this.users = resp;
+        },
+        (error) => {
+        console.log(error.message);
+        if (error.status === 403){ this.g.onLoggedout(); }
+        });
    }
 
 

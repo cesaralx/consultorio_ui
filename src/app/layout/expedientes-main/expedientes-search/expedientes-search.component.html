@@ -1,0 +1,62 @@
+<h1 class="text-center">expedientes</h1>
+<hr>
+<a [routerLink]="['/expedientes']"class="btn btn-outline-danger pull-left">Cerrar</a>
+<br>
+
+
+<table *ngIf="!cargando && expedientes.length > 0"
+    class="table table-bordered mt-3 animated fadeIn faster">
+    <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">_id</th>
+      <th scope="col">Paciente</th>
+      <th scope="col">Motivo consulta</th>
+      <th scope="col">email</th>
+      <th scope="col">consultorio alta</th>
+      <th scope="col">Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr  *ngFor="let c of expedientes; let i=index ">
+        <td>{{ i+1 }}</td>
+        <td>{{ c._id }}</td>
+        <td>{{ c.paciente_id }}</td>
+        <td>{{ c.motivo_consulta }}</td>
+        <td>{{ c.email }}</td>
+        <td>{{ c.consultorio_alta }}</td> 
+        <td>
+            <button (click)="actualizar(c, content)"
+                    class="btn btn-info mr-1">
+                    <i class="fas fa-pen"></i>
+              </button>
+              <button 
+                   (click)="borrar(c , i)"
+                   class="btn btn-danger">
+                <i class="fa fa-trash"></i>
+              </button>
+        </td>
+    </tr>
+  </tbody>
+</table>
+
+<div *ngIf="cargando" 
+class="alert alert-info text-center mt-3 animated fadeIn faster">
+<h4>cargando</h4>
+<p>
+   <i class="fas fa-sync-alt fa-spin fa-2x"></i>
+</p>
+<p class="mb-0">
+   Espere por favor
+</p>
+</div>
+
+<div *ngIf="!cargando && expedientes.length === 0"
+ class="alert alert-warning text-center mt-3 animated fadeIn faster">
+   <h4>No hay registros</h4>
+   <p>
+       <i class="fas fa-exclamation fa-2x"></i>
+   </p>
+ 
+</div>
+

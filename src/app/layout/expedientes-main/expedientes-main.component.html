@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="card-deck mb-3 text-center">
+
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">Nuevo</h4>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Cuando necesites generar un nuevo expediente</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                    card's content.</p>
+                <a [routerLink]="['/expedientes/nuevo']"class="btn btn-primary">Generar nuevo</a>
+            </div>
+        </div>
+
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">Busqueda...</h4>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Necesitas buscar un expediente</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                    card's content.</p>
+                    <a [routerLink]="['/expedientes/buscar']"class="btn btn-primary">Buscar</a>
+            </div>
+        </div>
+
+    </div> 
+</div>
+<router-outlet></router-outlet>
