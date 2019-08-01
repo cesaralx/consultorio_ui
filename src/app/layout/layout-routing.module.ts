@@ -37,7 +37,7 @@ const routes: Routes = [
             { path: 'consultorio', loadChildren: () => import('./consultorios/consultorios.module').then(m => m.ConsultoriosModule),
                 canActivate: [AuthGuard] },
             { path: 'visita-medica', loadChildren: () => import('./visita-medica/visita-medica.module').then(m => m.VisitaMedicaModule),
-                canActivate: [AuthGuard] } }
+                canActivate: [AuthGuard] }
 
 
         ]
