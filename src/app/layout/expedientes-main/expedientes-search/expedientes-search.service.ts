@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
-import { ExpedientesModel } from './expedientes.model';
+import { ExpedientesModel } from '../expedientes/expedientes.model';
 
 @Injectable({
     providedIn: 'root'
   })
-  export class ExpedientesService {
+  export class ExpedientesSearchService {
     private url = 'http://localhost:3000/expedientes';
 
     private token = localStorage.getItem('token');
@@ -44,8 +44,12 @@ getPacientes() {
   return this.http.get( url, { headers});
 }
 
-    getexpedientes() {
-      return this.http.get(`${this.url}`);
+    getExpedientes() {
+      const token = localStorage.getItem('token');
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      });
+      return this.http.get(`${this.url}`, { headers });
     }
 
     getExpediente( id: string ) {

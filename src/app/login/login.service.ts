@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 // import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class LoginService {
+
+
 
   constructor(private http: HttpClient) {
   }
@@ -18,13 +20,21 @@ export class LoginService {
   getUsr(username: string) {
     const params = new HttpParams()
     .set('user', username);
-    return this.http.get('http://localhost:3000/users/byUsr', {params});
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get('http://localhost:3000/users/byUsr', {headers: headers, params: params});
   }
 
   getUsrExt(username: string) {
     const params = new HttpParams()
     .set('user', username);
-    return this.http.get('http://localhost:3000/paciente/byUsr', {params});
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get('http://localhost:3000/paciente/byUsr', {headers: headers, params: params});
   }
 
 }

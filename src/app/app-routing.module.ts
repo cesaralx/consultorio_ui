@@ -6,7 +6,7 @@ import { AuthGuardExternal } from './shared';
 
 const routes: Routes = [
     { path: '', loadChildren: () => import('./layout/layout.module').then(m => m.LayoutModule), canActivate: [AuthGuard] },
-    { path: 'usuario-view', loadChildren: () => import('./usr-view/usr-view.module').then(m => m.UsrViewModule), 
+    { path: 'usuario-view', loadChildren: () => import('./usr-view/usr-view.module').then(m => m.UsrViewModule),
     canActivate: [AuthGuardExternal] },
     { path: 'login', loadChildren: () => import('./login/login.module').then(m => m.LoginModule) },
     { path: 'signup', loadChildren: () => import('./signup/signup.module').then(m => m.SignupModule) },
