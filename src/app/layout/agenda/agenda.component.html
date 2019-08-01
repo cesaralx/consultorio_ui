@@ -9,6 +9,12 @@
         center: 'title',
         right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
         }"
+        [businessHours]=" {
+          daysOfWeek: [ 1, 2, 3, 4,5,6],
+          startTime: '09:00',
+          endTime: '19:00'
+        }"
+        
         [plugins]="calendarPlugins"
         (dateClick)="handleDateClick($event, content)"
         (eventClick)="eventClick($event,content)"
@@ -20,7 +26,7 @@
                     list: 'Agenda'
                 }"
         themeSystem= 'bootstrap'
-        timeZone= 'UTC'
+        timeZone= 'local'
         deepChangeDetection="true"
         locale='es'
         [events]="calendarEvents"
@@ -84,7 +90,7 @@
                 class="form-control"
                 required
                 name="fecha"
-                [(ngModel)]="cita.fecha">
+                [(ngModel)]= "cita.fecha">
        </div>
        
       
@@ -93,6 +99,7 @@
              <input type="text"
                     class="form-control"
                     required
+                    pattern=""
                     name="costo"
                     [(ngModel)]="cita.costo"
                     placeholder="Costo">
@@ -101,7 +108,6 @@
             <label>Extra</label>
              <textarea type="text"
                     class="form-control"
-                    required
                     [(ngModel)]="cita.extra"
                     name="extra"></textarea>         
            </div>

@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 // Full calendar
-import { EventInput } from '@fullcalendar/core';
+import { EventInput, Calendar } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction'; // for selectable
@@ -20,6 +20,7 @@ import { CitaModel, PacientModel } from './cita.model';
 import { AgendaService } from './agenda.service';
 import { ConsultoriosService } from '../consultorios/consultorios.service';
 import { TranslateService } from '@ngx-translate/core';
+import { getLocaleTimeFormat } from '@angular/common';
 
 
 
@@ -69,7 +70,7 @@ export class AgendaComponent implements OnInit {
     this.eliminar = true;
     this.title = 'Nueva';
     this.cita = new CitaModel();
-    this.cita.fecha = arg.dateStr;
+    this.cita.fecha = arg;
     this.args = arg;
     // console.log('cita:', this.cita);
     // console.log('args', arg);
@@ -99,6 +100,7 @@ eventClick(arg, content) {
   this.agendaService.getPacientes()
         .subscribe( (resp: any) => {
             this.pacientes = resp;
+            console.log('pacientes', this.pacientes);
         });
 }
 getConsultorios() {
@@ -117,11 +119,14 @@ getConsultorios() {
       if (this.citas === null) { return [] }
       this.citas.forEach( cita => {
         const resultado = this.estatus.find(busca => busca.status === cita.status);
+        const obj = this.pacientes.find(res => res._id === cita.id_paciente);
           this.calEvents.push({
           id: cita._id,
           start: cita.fecha,
-          title: cita.extra,
-          backgroundColor: resultado.color
+          title: obj.nombre,
+          backgroundColor: resultado.color,
+          slotDuration: '00:30:00',
+          defaultTimedEventDuration: '00:30:00'
         });
       });
       this.calendarEvents = this.calEvents;

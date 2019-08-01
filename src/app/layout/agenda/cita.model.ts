@@ -1,3 +1,5 @@
+import { formatDate, DateFormatter } from '@fullcalendar/core';
+
 export class CitaModel {
     _id: string;
     id_paciente: string = '';
