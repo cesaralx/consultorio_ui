@@ -16,7 +16,8 @@ import { Observable } from 'rxjs';
   styleUrls: ['./consultorios.component.scss']
 })
 export class ConsultoriosComponent implements OnInit {
-
+  page = 1;
+  pageSize = 4;
   closeResult: string;
   cargando = false;
   consultorio = new ConsultorioModel();
