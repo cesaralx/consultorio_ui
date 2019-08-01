@@ -35,7 +35,10 @@ const routes: Routes = [
             { path: 'agenda', loadChildren: () => import('./agenda/agenda.module').then(m => m.AgendaModule),
                 canActivate: [AuthGuard] },
             { path: 'consultorio', loadChildren: () => import('./consultorios/consultorios.module').then(m => m.ConsultoriosModule),
-                canActivate: [AuthGuard] }
+                canActivate: [AuthGuard] },
+            { path: 'visita-medica', loadChildren: () => import('./visita-medica/visita-medica.module').then(m => m.VisitaMedicaModule),
+                canActivate: [AuthGuard] } }
+
 
         ]
     }
