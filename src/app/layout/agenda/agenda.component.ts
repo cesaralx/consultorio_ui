@@ -92,9 +92,12 @@ eventClick(arg, content) {
    this.agendaService.getCita(arg.event.id).subscribe( (resp: any) => {
    // console.log('Respuesta de agenda', resp);
     this.cita = resp ;
+  },
+  (error) => {
+  console.log(error.message);
+  if (error.status === 403){ this.g.onLoggedout(); }
   });
   this.open(content);
-
  }
  getPacientes() {
   this.agendaService.getPacientes()
