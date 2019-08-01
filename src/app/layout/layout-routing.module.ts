@@ -19,7 +19,9 @@ const routes: Routes = [
             { path: 'blank-page', loadChildren: () => import('./blank-page/blank-page.module').then(m => m.BlankPageModule) },
             { path: 'pacientes', loadChildren: () => import('./pacientes/pacientes.module').then(m => m.PacientesModule) },
             { path: 'agenda', loadChildren: () => import('./agenda/agenda.module').then(m => m.AgendaModule) },
-            { path: 'consultorio', loadChildren: () => import('./consultorios/consultorios.module').then(m => m.ConsultoriosModule) }
+            { path: 'consultorio', loadChildren: () => import('./consultorios/consultorios.module').then(m => m.ConsultoriosModule) },
+            // tslint:disable-next-line:max-line-length
+            { path: 'visita-medica', loadChildren: () => import('./visita-medica/visita-medica.module').then(m => m.VisitaMedicaModule) }
 
         ]
     }

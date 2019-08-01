@@ -16,7 +16,8 @@ import { Observable } from 'rxjs';
   styleUrls: ['./consultorios.component.scss']
 })
 export class ConsultoriosComponent implements OnInit {
-
+  page = 1;
+  pageSize = 4;
   closeResult: string;
   cargando = false;
   consultorio = new ConsultorioModel();
@@ -42,6 +43,7 @@ export class ConsultoriosComponent implements OnInit {
 }
 
     borrar( consultorio: ConsultorioModel, i: number) {
+      this.modal.dismissAll();
       Swal.fire({
         title: '¿Está seguro?',
         text: `Está seguro de que desea borrar a ${ consultorio.nombre}`,
@@ -106,7 +108,7 @@ export class ConsultoriosComponent implements OnInit {
     this.consultoriosServices.getConsultorios()
               .subscribe( (resp: any) => {
                   this.consultorios = resp;
-                  // console.log('consultorios: ', resp);
+                   console.log('consultorios: ', resp);
                   this.cargando = false;
               });
    }
