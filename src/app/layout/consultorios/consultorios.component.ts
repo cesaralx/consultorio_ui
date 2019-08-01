@@ -3,7 +3,7 @@ import { ConsultoriosService } from './consultorios.service';
 import { ConsultorioModel, UsModel } from './consultorio.model';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
-import { LayoutService } from '../layout.service';
+import { LayoutService, lenguaje } from '../layout.service';
 
 // sweetalert2
 import Swal from 'sweetalert2';
@@ -17,8 +17,6 @@ import { Observable } from 'rxjs';
   styleUrls: ['./consultorios.component.scss']
 })
 export class ConsultoriosComponent implements OnInit {
-  page = 1;
-  pageSize = 4;
   closeResult: string;
   cargando = false;
   consultorio = new ConsultorioModel();
@@ -34,7 +32,8 @@ export class ConsultoriosComponent implements OnInit {
       this.cargando = true;
       this.consultarConsultorios();
       this.getUsuarios();
-  }
+   
+    }
 
   open(content) {
     // console.log(this.consultorio);

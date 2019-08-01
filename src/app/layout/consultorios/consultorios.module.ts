@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
+import { DataTablesModule } from 'angular-datatables';
 
 
 // Componentes
@@ -21,7 +22,8 @@ import { ConsultoriosRoutingModule } from './consultorios-routing.module';
     NgbModalModule,
     TranslateModule,
     ConsultoriosRoutingModule,
-    FormsModule
+    FormsModule,
+    DataTablesModule
   ]
 })
 export class ConsultoriosModule { }
