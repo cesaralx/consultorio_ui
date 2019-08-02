@@ -79,15 +79,75 @@ class="alert alert-info text-center mt-3 animated fadeIn faster">
     </div>
     
     <div class="modal-body" >
-            <aw-wizard navBarLayout="large-filled">
+            <aw-wizard navBarLayout="large-filled" class="mb-3">
                     <aw-wizard-step [navigationSymbol]="{ symbol: '1' }" stepTitle="Información de la visita">
-                      
-                      <button type="button" class="btn btn-dark" awNextStep>Siguiente <i class="fas fa-arrow-circle-right"></i></button>
+                            <div class="form-row" >
+                                    <div class="form-group col-md-6">
+                                      <label for="paciente">Paciente</label>
+                                      <input type="text" 
+                                             class="form-control" 
+                                             id="paciente"
+                                             name="nombrePaciente"
+                                             required
+                                             [(ngModel)]="visita.nombrePaciente">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                      <label for="inputPassword4">Consultorio</label>
+                                      <input type="text" 
+                                             class="form-control" 
+                                             id="paciente"
+                                             name="nombreConsultorio"
+                                             required
+                                             [(ngModel)]="visita.nombreConsultorio">
+                                    </div>
+                                  </div>   
+
+                                  <div class="form-row" >
+                                        <div class="form-group col-md-6">
+                                          <label for="paciente">Empleado</label>
+                                          <input type="text" 
+                                                 class="form-control" 
+                                                 id="Usuario"
+                                                 name="nombreUsuario"
+                                                 required
+                                                 [(ngModel)]="visita.nombreUsuario">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                          <label for="inputPassword4">Consultorio</label>
+                                          <input type="datetime-local"
+                                          class="form-control"
+                                          required
+                                          name="fecha"
+                                          [(ngModel)]= "visita.fecha">
+                                        </div>
+                                 </div>
+
+                                 <div class="form-group ">
+                                        <label>Costo</label>
+                                         <input type="text"
+                                                class="form-control"
+                                                required
+                                                pattern=""
+                                                name="motivo"
+                                                [(ngModel)]="visita.motivo"
+                                                placeholder="Motivo de la visita">
+                                       </div>
+                                 
+                                 <div class="form-group ">
+                                        <label>Receta</label>
+                                         <textarea type="text"
+                                                class="form-control"
+                                                [(ngModel)]="visita.receta"
+                                                name="extra"></textarea>         
+                                </div>
+                    <div class="row d-flex justify-content-end m-1">
+                            <button type="button" class="btn btn-dark" awNextStep>Siguiente <i class="fas fa-arrow-circle-right"></i></button>
+                    </div>  
+                     
   
                     </aw-wizard-step>
                     <aw-wizard-step [navigationSymbol]="{ symbol: '2' }" stepTitle="Anexos">
-                      Content of Step 2
-                      
+ 
                       <button type="button" class="btn btn-dark" awPreviousStep><i class="fas fa-arrow-circle-left"></i> Regresar</button>
                     </aw-wizard-step>
                    

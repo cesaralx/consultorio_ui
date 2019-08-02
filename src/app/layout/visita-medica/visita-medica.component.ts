@@ -29,6 +29,7 @@ export class VisitaMedicaComponent implements OnInit {
   visita = new VisitaModel();
   visitas: VisitaModel[] = [];
   citas: CitaModel[] = [];
+  cita: CitaModel = new CitaModel();
   consultorios: ConsultorioModel [] = [];
   pacientes: PacientModel [] = [];
 
@@ -57,6 +58,12 @@ export class VisitaMedicaComponent implements OnInit {
 }
 
   alta( content) {
+    this.visita = new VisitaModel();
+    this.open(content);
+  }
+
+  citaVisitaMedica(c: CitaModel ,content) {
+    this.cita= c;
     this.visita = new VisitaModel();
     this.open(content);
   }
