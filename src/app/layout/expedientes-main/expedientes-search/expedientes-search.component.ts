@@ -10,12 +10,22 @@ import Swal from 'sweetalert2';
 import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs';
 
+// DataTable
+import { Subject } from 'rxjs';
+import { OnDestroy } from '@angular/core';
+
 @Component({
   selector: 'app-expedientes-search',
   templateUrl: './expedientes-search.component.html',
   styleUrls: ['./expedientes-search.component.scss']
 })
-export class ExpedientesSearchComponent implements OnInit {
+export class ExpedientesSearchComponent implements OnInit, OnDestroy {
+
+  // DataTable
+  dtOptions: DataTables.Settings = {};
+  // We use this trigger because fetching the list of persons can be quite long,
+  // thus we ensure the data is fetched before rendering
+  dtTrigger: Subject<any> = new Subject();
 
   closeResult: string;
   cargando = false;
@@ -31,6 +41,16 @@ export class ExpedientesSearchComponent implements OnInit {
   ngOnInit() {
     this.cargando = true;
     this.consultarExpedeintes();
+
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 10
+    };
+  }
+
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
   }
 
   borrar( expediente: ExpedientesModel, i: number) {
@@ -42,13 +62,15 @@ export class ExpedientesSearchComponent implements OnInit {
       showCancelButton: true
      }).then( resp => {
          if ( resp.value ) {
-           this.expedientesSearchService.borrarExpediente(expediente._id).subscribe( (resp: any) => {
-            console.log(resp);
-            this.pacientes.splice(i, 1);
+           this.expedientesSearchService.borrarExpediente(expediente._id).subscribe( (response: any) => {
+            console.log(response);
+            this.ngOnDestroy();
+            this.ngOnInit();
+            this.cargando = false;
            },
            (error) => {
            console.log(error.message);
-           if (error.status === 403){ this.lServices.onLoggedout(); }
+           if (error.status === 403) { this.lServices.onLoggedout(); }
            });
          }
      });
@@ -59,11 +81,12 @@ export class ExpedientesSearchComponent implements OnInit {
       .subscribe( (resp: any) => {
         this.expedientes = resp;
         // console.log('consultorios: ', resp);
+        this.dtTrigger.next();
         this.cargando = false;
       },
       (error) => {
       console.log(error.message);
-      if (error.status === 403){ this.lServices.onLoggedout(); }
+      if (error.status === 403) { this.lServices.onLoggedout(); }
       });
    }
 
@@ -76,7 +99,7 @@ export class ExpedientesSearchComponent implements OnInit {
     },
     (error) => {
     console.log(error.message);
-    if (error.status === 403){ this.lServices.onLoggedout(); }
+    if (error.status === 403) { this.lServices.onLoggedout(); }
     });
 
    }

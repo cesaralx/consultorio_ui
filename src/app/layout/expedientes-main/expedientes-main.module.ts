@@ -7,6 +7,8 @@ import { FormsModule } from '@angular/forms';
 import { ExpedientesMainRoutingModule } from './expedientes-main-routing.module';
 import { ExpedientesMainComponent } from './expedientes-main.component';
 
+import { DataTablesModule } from 'angular-datatables';
+
 @NgModule({
   declarations: [ExpedientesMainComponent],
   exports: [ExpedientesMainComponent],
@@ -15,7 +17,8 @@ import { ExpedientesMainComponent } from './expedientes-main.component';
     ExpedientesMainRoutingModule,
     TranslateModule,
     NgbModalModule,
-    FormsModule
+    FormsModule,
+    DataTablesModule
   ]
 })
 export class ExpedientesMainModule { }

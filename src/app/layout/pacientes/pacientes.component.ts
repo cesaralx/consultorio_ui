@@ -47,7 +47,7 @@ export class PacientesComponent implements OnInit, OnDestroy {
 
     this.dtOptions = {
       pagingType: 'full_numbers',
-      pageLength: 2
+      pageLength: 10
     };
   }
 
@@ -80,7 +80,7 @@ export class PacientesComponent implements OnInit, OnDestroy {
       });
    }
 
-   borrar( usuario: PacienteModel) {
+   borrar( usuario: PacienteModel, i: number) {
     this.modal.dismissAll();
     Swal.fire({
       title: '¿Está seguro?',
@@ -92,8 +92,8 @@ export class PacientesComponent implements OnInit, OnDestroy {
          if ( resp.value ) {
            this.pacientesService.borrarPacientes(usuario._id).subscribe( (response: any) => {
             console.log(response);
-            this.consultaUsuarios();
-            // this.usuarios.splice(i, 1);
+            // this.consultaUsuarios();
+            this.pacientes.splice(i, 1);
            },
            (error) => {
            console.log(error.message);
@@ -140,7 +140,8 @@ export class PacientesComponent implements OnInit, OnDestroy {
     }
         // console.log(this.consultorio);
         peticion.subscribe( resp => {
-          this.consultaUsuarios();
+          this.ngOnDestroy();
+          this.ngOnInit();
           Swal.fire({
             title: this.paciente.nombre,
             text: 'Se actualizo correctamente',

@@ -83,6 +83,30 @@
                      placeholder="Edad">
               </div>
             </div>
+
+            <div class="form-group row">
+                <label class="col-2 col-form-label">FUM</label>
+                <div class="col-md-8">
+                <input type="text"
+                       class="form-control"
+                       required
+                       name="fum"
+                       [(ngModel)]="paciente.fum"
+                       placeholder="FUM">
+                </div>
+              </div>
+
+              <div class="form-group row">
+                  <label class="col-2 col-form-label">FFP</label>
+                  <div class="col-md-8">
+                  <input type="text"
+                         class="form-control"
+                         required
+                         name="ffp"
+                         [(ngModel)]="paciente.ffp"
+                         placeholder="FFP">
+                  </div>
+                </div>
             
             <div class="form-group ">
                 <label>Estado civil</label> 
@@ -104,13 +128,12 @@
              </div>
              <div class="form-group ">
                 <label>Origen</label> 
-                <select class="form-control"
-                name="nivel"
-                [(ngModel)]="paciente.origen">
-                <option value="" selected>Seleccione un nivel</option>
-                <option value="1">Medico</option>
-                <option value="2">Administrativo</option>
-                </select>
+                <input type="text"
+                        class="form-control"
+                        required
+                        name="origen"
+                        [(ngModel)]="paciente.origen"
+                        placeholder="origen">
              </div>
                <div class="form-group ">
                   <label>Teléfono</label> 
@@ -130,6 +153,15 @@
                             [(ngModel)]="paciente.email"
                             placeholder="Email">
                 </div>  
+                <div class="form-group ">
+                    <label>Refiere</label> 
+                     <input type="text"
+                            class="form-control"
+                            required
+                            name="refiere"
+                            [(ngModel)]="paciente.refiere"
+                            placeholder="Refiere">
+                </div> 
                 <div class="form-group">
                   <label>Municipio</label> 
                    <input type="text"
@@ -138,6 +170,27 @@
                           [(ngModel)]="paciente.municipio"
                           placeholder="municipio">
               </div>  
+              <!-- conyugue -->
+              <div class="form-group row">
+                  <label class="col-2 col-form-label">Nombre</label>
+                  <div class="col-md-8">
+                  <input type="text"
+                         class="form-control"
+                         name="cnombre"
+                         [(ngModel)]="paciente.conyugue.nombre"
+                         placeholder="Nombre Conyugue">
+                  </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-2 col-form-label">Ocupacion</label>
+                    <div class="col-md-8">
+                    <input type="text"
+                           class="form-control"
+                           name="ocupacion"
+                           [(ngModel)]="paciente.conyugue.ocupacion"
+                           placeholder="Ocupacion Conyugue">
+                    </div>
+                  </div>
               <div class="form-group" >
                 <label>Imagen</label> 
                                   <!-- Standar Form -->

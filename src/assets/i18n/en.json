@@ -33,11 +33,13 @@
     "Collapse Sidebar" : "Collapse Sidebar",
     "Full Name": "Full Name",
     "Email": "Email",
-    "Password": "Password",
+    "Password": "Contrasena",
+    "User": "Usuario",
     "Repeat Password": "Repeat Password",
     "Register": "Register",
     "Log in": "Log in",
     "Schedule": "Schedule",
     "Month": "Month",
-    "Doctors office": "Doctors office"
+    "Doctors office": "Doctors office",
+    "Recovery Account": "Recuperar cuenta"
 }

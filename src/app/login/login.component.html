@@ -15,8 +15,11 @@
                 </div>
                 <a class="btn rounded-btn"  (click)="onLoggedin(loginForm)">{{ 'Log in' | translate }}</a>
                 <!-- <a class="btn rounded-btn" [routerLink]="['/dashboard']" (click)="onLoggedin(loginForm)">{{ 'Log in' | translate }}</a> -->
+                <!-- &nbsp;
+                <a class="btn rounded-btn" [routerLink]="['/signup']">{{ 'Registrar' | translate }}</a> -->
+                <hr>
                 &nbsp;
-                <a class="btn rounded-btn" [routerLink]="['/signup']">{{ 'Registrar' | translate }}</a>
+                <a class="btn rounded-btn btn-sm" [routerLink]="['/recovery']">{{ 'Recovery Account' | translate }}</a>
             </form>
         </div>
     </div>

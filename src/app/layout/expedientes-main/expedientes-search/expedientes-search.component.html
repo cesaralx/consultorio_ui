@@ -1,10 +1,46 @@
-<h1 class="text-center">expedientes</h1>
-<hr>
+<h1 class="text-center">Consulta expedientes</h1>
+<!-- <hr> -->
 <a [routerLink]="['/expedientes']"class="btn btn-outline-danger pull-left">Cerrar</a>
 <br>
+<hr>
 
+<ng-container>
+<table datatable 
+  [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover ">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Nombre</th>
+        <th>Motivo consulta</th>
+        <th>Email </th>
+        <th>Fecha de alta </th>
+        <th>Acciones </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let exp of expedientes; let i=index">
+        <td>{{ i+1}}</td>
+        <td>{{ exp.paciente_id }}</td>
+        <td>{{ exp.motivo_consulta }}</td>
+        <td>{{ exp.email }}</td>
+        <td>{{ exp.fecha_alta }}</td>
+        <td>
+            <button (click)="actualizar(exp, content)"
+                    class="btn btn-info mr-1">
+                    <i class="fas fa-pen"></i>
+              </button>
+              <button 
+                   (click)="borrar(exp , i)"
+                   class="btn btn-danger">
+                <i class="fa fa-trash"></i>
+              </button>
+        </td>
+      </tr>
+    </tbody>
+    </table>
+  </ng-container>
 
-<table *ngIf="!cargando && expedientes.length > 0"
+<!-- <table *ngIf="!cargando && expedientes.length > 0"
     class="table table-bordered mt-3 animated fadeIn faster">
     <thead class="thead-dark">
     <tr>
@@ -38,7 +74,7 @@
         </td>
     </tr>
   </tbody>
-</table>
+</table> -->
 
 <div *ngIf="cargando" 
 class="alert alert-info text-center mt-3 animated fadeIn faster">

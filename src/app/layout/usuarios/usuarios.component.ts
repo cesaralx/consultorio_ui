@@ -39,12 +39,13 @@ export class UsuariosComponent implements OnDestroy, OnInit {
     private modal: NgbModal) { }
 
   ngOnInit() {
+
     this.cargando = true;
     this.consultaUsuarios();
 
     this.dtOptions = {
       pagingType: 'full_numbers',
-      pageLength: 2
+      pageLength: 10
     };
 
   }
@@ -78,7 +79,7 @@ export class UsuariosComponent implements OnDestroy, OnInit {
       });
    }
 
-   borrar( usuario: UsuarioModel) {
+   borrar( usuario: UsuarioModel, i: number) {
     this.modal.dismissAll();
     Swal.fire({
       title: '¿Está seguro?',
@@ -90,8 +91,8 @@ export class UsuariosComponent implements OnDestroy, OnInit {
          if ( resp.value ) {
            this.usuariosService.borrarUsuarios(usuario._id).subscribe( (response: any) => {
             console.log(response);
-            this.consultaUsuarios();
-            // this.usuarios.splice(i, 1);
+            // this.consultaUsuarios();
+            this.usuarios.splice(i, 1);
            },
            (error) => {
            console.log(error.message);
@@ -138,7 +139,8 @@ export class UsuariosComponent implements OnDestroy, OnInit {
     }
         // console.log(this.consultorio);
         peticion.subscribe( resp => {
-          this.consultaUsuarios();
+          this.ngOnDestroy();
+          this.ngOnInit();
           Swal.fire({
             title: this.usuario.nombre,
             text: 'Se actualizo correctamente',
