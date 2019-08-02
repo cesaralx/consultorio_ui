@@ -4,6 +4,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { DataTablesModule } from 'angular-datatables';
+import { ArchwizardModule } from 'angular-archwizard';
 
 
 // Componentes
@@ -20,7 +21,8 @@ import { VisitaMedicaRoutingModule } from './visita-medica-routing.module';
     TranslateModule,
     VisitaMedicaRoutingModule,
     FormsModule,
-    DataTablesModule
+    DataTablesModule,
+    ArchwizardModule
   ]
 })
 export class VisitaMedicaModule { }

@@ -22,6 +22,7 @@ export class ConsultoriosComponent implements OnInit {
   consultorio = new ConsultorioModel();
   consultorios: ConsultorioModel[] = [];
   users: UsModel[] = [];
+  dtOptions: DataTables.Settings = {};
 
   private g = new LayoutService();
 
@@ -32,7 +33,7 @@ export class ConsultoriosComponent implements OnInit {
       this.cargando = true;
       this.consultarConsultorios();
       this.getUsuarios();
-   
+
     }
 
   open(content) {
@@ -94,7 +95,7 @@ export class ConsultoriosComponent implements OnInit {
           },
           (error) => {
           console.log(error.message);
-          if (error.status === 403){ this.g.onLoggedout(); }
+          if (error.status === 403) { this.g.onLoggedout(); }
           });
 
         }
