@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { ngfModule} from 'angular-file';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
@@ -22,7 +23,8 @@ import { VisitaMedicaRoutingModule } from './visita-medica-routing.module';
     VisitaMedicaRoutingModule,
     FormsModule,
     DataTablesModule,
-    ArchwizardModule
+    ArchwizardModule,
+    ngfModule
   ]
 })
 export class VisitaMedicaModule { }

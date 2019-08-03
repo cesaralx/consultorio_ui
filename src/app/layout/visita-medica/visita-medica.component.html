@@ -1,3 +1,4 @@
+
 <h1 class="text-center">Visitas medicas</h1>
 <hr>
 <div class="row m-4">
@@ -39,7 +40,7 @@
         <td>
                 <!-- (click)="actualizar(c, content)" -->
             <button class="btn btn-info mr-1"
-                    (click)="alta(content)"
+                    (click)="citaVisitaMedica(c, content)"
                     >
                 Convertir a visita medica   
                 <i class="fas fa-thumbs-up"></i>
@@ -82,26 +83,32 @@ class="alert alert-info text-center mt-3 animated fadeIn faster">
             <aw-wizard navBarLayout="large-filled" class="mb-3">
                     <aw-wizard-step [navigationSymbol]="{ symbol: '1' }" stepTitle="Información de la visita">
                             <div class="form-row" >
-                                    <div class="form-group col-md-6">
-                                      <label for="paciente">Paciente</label>
-                                      <input type="text" 
-                                             class="form-control" 
-                                             id="paciente"
-                                             name="nombrePaciente"
-                                             required
-                                             [(ngModel)]="visita.nombrePaciente">
+                                <div class="form-group col-md-6">
+                                    <label for="inputPassword4">Paciente</label>
+                                  <select class="form-control"
+                                          name="id_paciente"
+                                          [(ngModel)]="visita.id_paciente"
+                                          required
+                                          [disabled]="editable">
+                                       <option value="">Seleccione un paciente</option>
+                                       <option  *ngFor="let p of pacientes"
+                                       [value]="p._id">{{p.nombre}}</option>
+                                     </select>
                                     </div>
-                                    <div class="form-group col-md-6">
-                                      <label for="inputPassword4">Consultorio</label>
-                                      <input type="text" 
-                                             class="form-control" 
-                                             id="paciente"
-                                             name="nombreConsultorio"
-                                             required
-                                             [(ngModel)]="visita.nombreConsultorio">
-                                    </div>
-                                  </div>   
 
+                                <div class="form-group col-md-6">
+                                      <label for="inputPassword4">Consultorio</label>
+                                      <select class="form-control"
+                                          name="id_consultorio"
+                                          [(ngModel)]="visita.id_consultorio"
+                                          required
+                                          [disabled]="editable">
+                                <option value="" selected>Seleccione el consultorio</option>
+                                <option  *ngFor="let consultorio of consultorios"
+                                         [value]="consultorio._id">{{consultorio.nombre}}</option>
+                              </select>
+                           </div>   
+                          </div>
                                   <div class="form-row" >
                                         <div class="form-group col-md-6">
                                           <label for="paciente">Empleado</label>
@@ -113,17 +120,18 @@ class="alert alert-info text-center mt-3 animated fadeIn faster">
                                                  [(ngModel)]="visita.nombreUsuario">
                                         </div>
                                         <div class="form-group col-md-6">
-                                          <label for="inputPassword4">Consultorio</label>
-                                          <input type="datetime-local"
-                                          class="form-control"
-                                          required
-                                          name="fecha"
-                                          [(ngModel)]= "visita.fecha">
+                                          <label for="inputPassword4">Fecha</label>
+                                          <input type="text"
+                                             class="form-control"
+                                              required
+                                              name="fecha"
+                                              [disabled]="editable"
+                                              [(ngModel)]= "visita.fecha">
                                         </div>
                                  </div>
 
                                  <div class="form-group ">
-                                        <label>Costo</label>
+                                        <label>Motivo de visita</label>
                                          <input type="text"
                                                 class="form-control"
                                                 required
@@ -143,12 +151,174 @@ class="alert alert-info text-center mt-3 animated fadeIn faster">
                     <div class="row d-flex justify-content-end m-1">
                             <button type="button" class="btn btn-dark" awNextStep>Siguiente <i class="fas fa-arrow-circle-right"></i></button>
                     </div>  
-                     
+                    
   
                     </aw-wizard-step>
-                    <aw-wizard-step [navigationSymbol]="{ symbol: '2' }" stepTitle="Anexos">
- 
-                      <button type="button" class="btn btn-dark" awPreviousStep><i class="fas fa-arrow-circle-left"></i> Regresar</button>
+                    <aw-wizard-step class="m-3" [navigationSymbol]="{ symbol: '2' }" stepTitle="Anexos">
+                      <ngfFormData
+                        [files]      = "files"
+                        postName     = "file"
+                        [(FormData)] = "sendableFormData"
+                      ></ngfFormData>
+                      
+                      <ngfUploadStatus
+                        [(percent)] = "progress"
+                        [httpEvent] = "httpEvent"
+                      ></ngfUploadStatus>
+                        <div
+                          ngfDrop
+                          selectable="1"
+                          type      = "file"
+                          [(files)] = "files"
+                          [accept]  = "accept"
+                          [maxSize]  = "maxSize"
+                          [(lastInvalids)] = "lastInvalids"
+                          (filesChange) = "lastFileAt=getDate()"
+                          [(dragFiles)]    = "dragFiles"
+                          class= "well my-drop-zone text-center bg-light"
+                          >
+                          <i class="fas fa-cloud-upload-alt m-3"></i>Selecciona los archivos
+                          </div>
+                         
+
+
+                     
+                      <div *ngIf="dragFiles">
+                        <h3 style="margin:0">Drag Files</h3>
+                        <p *ngIf="!dragFiles.length" style="color:red;">
+                          This browser does NOT release metadata for files being dragged. All files will be considered valid drags until dropped.
+                        </p>
+                        <pre>{{ dragFiles | json }}</pre>
+                      </div>
+                       
+                      <div class="bg-warning" *ngIf="lastInvalids?.length" style="margin-bottom: 40px">
+                        <h3 style="color:red;">Last {{ lastInvalids.length }} Invalid Selected Files</h3>
+                       
+                        <table class="table table-bordered table-responsive w-100">
+                          <thead>
+                            <tr>
+                              <th>Name</th>
+                              <th>Error</th>
+                              <th>Type</th>
+                              <th>Size</th>
+                              <th>Actions</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let item of lastInvalids;let i=index">
+                              <td>
+                                <div *ngIf="['image/gif','image/png','image/jpeg'].indexOf(item.file.type)>=0">
+                                  <div class="previewIcon" [ngfBackground]="item.File"></div>
+                                </div>
+                                <strong>{{ item.file.name }}</strong>
+                              </td>
+                              <td nowrap>
+                                {{ item.type }}
+                              </td>
+                              <td nowrap>
+                                {{ item.file.type }}
+                              </td>
+                              <td nowrap>
+                                {{ item.file.size/1024/1024 | number:'.2' }} MB
+                              </td>
+                              <td nowrap>
+                                <button type="button"
+                                  class="btn btn-danger btn-xs"
+                                  (click)="lastInvalids.splice(i,1)"
+                                >
+                                  <span class="glyphicon glyphicon-trash"></span>
+                                </button>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                       
+                      <div  style="margin-bottom: 40px">
+                          <h3>{{ files.length }} Archivos seleccionados</h3>
+                        <div class="row dt-responsive">
+                            <table class="table table-bordered table-responsive w-100">
+                                <thead>
+                                  <tr>
+                                    <th>Nombre</th>
+                                    <th>Tipo de archivo</th>
+                                    <th>Tamaño</th>
+                                    <th>Accion</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr *ngFor="let item of files;let i=index">
+                                    <td>
+                                      <div *ngIf="['image/gif','image/png','image/jpeg'].indexOf(item.type)>=0">
+                                        <div class="previewIcon" [ngfBackground]="item"></div>
+                                      </div>
+                                      <strong>{{ item.name }}</strong>
+                                    </td>
+                                    <td nowrap>
+                                      {{ item.type }}
+                                    </td>
+                                    <td nowrap>
+                                      {{ item.size/1024/1024 | number:'.2' }} MB
+                                    </td>
+                                    <td nowrap>
+                                      <button type="button"
+                                        class="btn btn-danger btn-xs"
+                                        (click)="files.splice(i,1)"
+                                      >
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                      </button>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                        </div>
+                          <div>
+                            Progreso de la subida:
+                            <div class="progress">
+                              <div class="progress-bar"
+                                role="progressbar"
+                                [ngStyle]="{ 'width': progress + '%' }"
+                              ></div>
+                            </div>
+                          </div>
+                       
+                          <ng-container *ngIf="lastFileAt">
+                            <p>
+                              <strong>Ultimo archivo(s) seleccionado:</strong> {{ lastFileAt | date : 'longTime' }}
+                            </p>
+                          </ng-container>
+                       
+                          <ng-container *ngIf="progress==100">
+                            <i class="glyphicon glyphicon-ok"></i>
+                            &nbsp;Subida completada
+                          </ng-container>
+                      <!-- row de botones -->
+                       <div class="row container mt-2 d-flex justify-content-end">                      
+                            <button type="button"
+                            class="btn btn-success btn-s"
+                            (click)="uploadFiles()"
+                            [disabled]="!files.length">
+                            <i class="fas fa-upload"></i> Subir todos
+                              </button>
+                            <button type="button"
+                            class="btn btn-warning btn-s"
+                            (click)="cancel()"
+                            [disabled]="!httpEmitter">
+                            <i class="fas fa-ban"></i> Cancelar todos
+                      </button>
+                      <button type="button"
+                        class="btn btn-danger btn-s"
+                        (click)="files.length=0"
+                        [disabled]="!files.length">
+                        <i class="fas fa-trash"></i> Remover archivos
+                      </button>
+                       </div>
+                      </div>
+                      <button type="button" 
+                      class="btn btn-dark" 
+                      awPreviousStep>
+                      <i class="fas fa-arrow-circle-left"></i> 
+                      Regresar</button>
                     </aw-wizard-step>
                    
             </aw-wizard>
