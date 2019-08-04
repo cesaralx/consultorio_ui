@@ -6,7 +6,7 @@
         </a>
         <a [routerLink]="['/charts']" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-bar-chart-o"></i>&nbsp;
-            <span>{{ 'Charts' | translate }}</span>
+            <span>{{ 'Reports' | translate }}</span>
         </a>
         <a [routerLink]="['/pacientes']" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-desktop"></i>&nbsp;
@@ -42,29 +42,24 @@
         </a>
         <div class="nested-menu">
             <a class="list-group-item" (click)="addExpandClass('pages')">
-                <i class="fa fa-plus"></i>&nbsp;
-                <span>{{ 'Other' | translate }}</span>
+                <i class="fa fa-fw fa-edit"></i>&nbsp;
+                <span>{{ 'Case file 2' | translate }}</span>
             </a>
             <li class="nested" [class.expand]="showMenu === 'pages'">
                 <ul class="submenu">
                     <li>
-                        <a href="javascript:void(0)">
-                            <i class="fa fa-monument"></i>&nbsp;
-                            <span>{{ 'Submenu' | translate }}</span>
+                        <a [routerLink]="['/expedientes/nuevo']" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-pencil-square"></i>&nbsp;
+                            <span>{{ 'Add New' | translate }}</span>
                         </a>
                     </li>
                     <li>
-                        <a href="javascript:void(0)">
-                            <i class="fa fa-monument"></i>&nbsp;
-                            <span>{{ 'Submenu' | translate }}</span>
+                        <a [routerLink]="['/expedientes/buscar']" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-search"></i>&nbsp;
+                            <span>{{ 'Search' | translate }}</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="javascript:void(0)">
-                            <i class="fa fa-monument"></i>&nbsp;
-                            <span>{{ 'Submenu' | translate }}</span>
-                        </a>
-                    </li>
+
                 </ul>
             </li>
         </div>

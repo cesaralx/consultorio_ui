@@ -10,6 +10,7 @@ import { ExpedientesSearchComponent } from './expedientes-search.component';
 import { ExpedientesSearchRoutingModule } from './expedientes-search-routing.module';
 
 import { DataTablesModule } from 'angular-datatables';
+import { ArchwizardModule } from 'angular-archwizard';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { DataTablesModule } from 'angular-datatables';
     FormsModule,
     NgbModalModule,
     TranslateModule,
-    DataTablesModule
+    DataTablesModule,
+    ArchwizardModule
   ]
 })
 export class ExpedientesSearchModule { }

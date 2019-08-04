@@ -15,10 +15,6 @@ export class PacienteModel {
       nombre: null,
       ocupacion: null
     };
-    login: {} = {
-      usuario: null,
-      password: null
-      };
     refiere: string;
     status: {type: string, enum: ['enabled', 'disabled'], default: 'enabled'};
     image: any;

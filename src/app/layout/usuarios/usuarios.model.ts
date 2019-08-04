@@ -1,3 +1,4 @@
+import {Buffer} from 'buffer';
 
 export class UsuarioModel {
     _id: string = null;
