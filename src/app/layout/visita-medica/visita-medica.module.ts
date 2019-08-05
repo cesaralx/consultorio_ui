@@ -2,15 +2,18 @@ import { NgModule } from '@angular/core';
 import { ngfModule} from 'angular-file';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
-import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { DataTablesModule } from 'angular-datatables';
 import { ArchwizardModule } from 'angular-archwizard';
 
 
+
+
 // Componentes
 import { VisitaMedicaComponent } from './visita-medica.component';
 import { VisitaMedicaRoutingModule } from './visita-medica-routing.module';
+
 
 
 @NgModule({
@@ -24,7 +27,8 @@ import { VisitaMedicaRoutingModule } from './visita-medica-routing.module';
     FormsModule,
     DataTablesModule,
     ArchwizardModule,
-    ngfModule
+    ngfModule,
+    NgbModule
   ]
 })
 export class VisitaMedicaModule { }

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ngf } from 'angular-file';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   HttpClient, HttpRequest,
   HttpResponse, HttpEvent
@@ -102,7 +101,7 @@ export class VisitaMedicaComponent implements OnInit {
      this.visita.fecha = this.cita.fecha;
     this.open(content);
   }
-
+// Funciones para traerese registros de consultas y pacientes 
   getConsultorios() {
     this.consultoriosService.getConsultorios()
           .subscribe( (resp: any) => {
@@ -155,6 +154,7 @@ export class VisitaMedicaComponent implements OnInit {
         });
 }
 
+// funciones de visitas 
   consultarVisitas() {
     this.visitaService.getVisitasMedicas()
     .subscribe( (resp: any) => {
@@ -167,6 +167,36 @@ export class VisitaMedicaComponent implements OnInit {
     if (error.status === 403) { this.g.onLoggedout(); }
     });
  }
+ guardar( form: NgForm ) {
+  this.modal.dismissAll();
+  Swal.fire({
+    title: 'Espere',
+    text: 'Guardando información',
+    type: 'info',
+    allowOutsideClick: false
+  });
+  Swal.showLoading();
+  let peticion: Observable <any>;
+  if(this.files.length > 1) {
+    console.log(this.files);
+    this.visita.anexos = this.files;
+  }
+  peticion = this.visitaService.altaVisita(this.visita);
+      // console.log(this.consultorio);
+      peticion.subscribe( resp => {
+        
+        console.log('respuesta del request ', resp);
+        Swal.fire({
+          title: 'Actualizo',
+          text: 'Se actualizo correctamente',
+          type: 'success'
+        });
+      },
+      (error) => {
+      console.log(error.message);
+      if (error.status === 403) { this.g.onLoggedout(); }
+      });
+}
 
  // Drop file funciones del plugin 
 
@@ -202,8 +232,5 @@ uploadFiles(): Subscription {
 getDate() {
   return new Date();
 }
-
-
-
 
 }

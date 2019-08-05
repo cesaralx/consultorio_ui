@@ -1,0 +1,63 @@
+<div class="row">
+    <div class="col-4">
+        <a [routerLink]="['/visita-medica']" class="btn btn-outline-primary ">Regresar </a>
+    </div>
+    <div class="col-auto">
+        <h1 class="text-center">Historial de visitas medicas</h1>
+    </div> 
+  </div>
+  <hr>
+
+  <table datatable *ngIf="!cargando && consultorios.length > 0"
+      class="table table-bordered  table-hover mt-3 animated fadeIn faster">
+      <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Paciente</th>
+        <th scope="col">Consultorio</th>
+        <th scope="col">fecha</th>
+        <th scope="col">motivo</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr  *ngFor="let c of consultorios; let i=index ">
+          <td>{{ i+1 }}</td>
+          <td>{{ c.nombre }}</td>
+          <td>{{ c.direccion }}</td>
+          <td>{{ c.telefono }}</td>
+          <td>{{ c.horario}}</td> 
+          <td>
+              <button (click)="actualizar(c, content)"
+                      class="btn btn-info mr-1">
+                      <i class="fas fa-pen"></i>
+                </button>
+                <button 
+                     (click)="borrar(c , i)"
+                     class="btn btn-danger">
+                  <i class="fa fa-trash"></i>
+                </button>
+          </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <div *ngIf="cargando" 
+  class="alert alert-info text-center mt-3 animated fadeIn faster">
+  <h4>cargando</h4>
+  <p>
+     <i class="fas fa-sync-alt fa-spin fa-2x"></i>
+  </p>
+  <p class="mb-0">
+     Espere por favor
+  </p>
+  </div>
+  
+  <div *ngIf="!cargando && consultorios.length === 0"
+   class="alert alert-warning text-center mt-3 animated fadeIn faster">
+     <h4>No hay registros</h4>
+     <p>
+         <i class="fas fa-exclamation fa-2x"></i>
+     </p>
+   
+  </div>

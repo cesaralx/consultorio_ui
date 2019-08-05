@@ -25,7 +25,7 @@ export class VisitaMedicaService {
   return this.http.get(`${this.url}/byId`, {headers: this.headers, params: params});
   }
 
-  altaConsultorio( visita: VisitaModel) {
+  altaVisita( visita: VisitaModel) {
     return this.http.post(`${this.url}`, visita, {headers: this.headers});
   }
 
