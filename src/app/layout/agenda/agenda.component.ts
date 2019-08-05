@@ -20,6 +20,7 @@ import { CitaModel, PacientModel } from './cita.model';
 import { AgendaService } from './agenda.service';
 import { ConsultoriosService } from '../consultorios/consultorios.service';
 import { TranslateService } from '@ngx-translate/core';
+import { LayoutService, lenguaje } from '../layout.service';
 import { getLocaleTimeFormat } from '@angular/common';
 
 
@@ -52,6 +53,8 @@ export class AgendaComponent implements OnInit {
               {color: '#B533FF', status: 'reagendada'},
               {color: '#FF5733', status: 'cancelada'},
             ];
+
+  private g = new LayoutService();
 
   constructor(private translate: TranslateService,
               private modal: NgbModal,
@@ -92,22 +95,34 @@ eventClick(arg, content) {
    this.agendaService.getCita(arg.event.id).subscribe( (resp: any) => {
    // console.log('Respuesta de agenda', resp);
     this.cita = resp ;
+  },
+  (error) => {
+  console.log(error.message);
+  if (error.status === 403){ this.g.onLoggedout(); }
   });
   this.open(content);
-
  }
+
  getPacientes() {
   this.agendaService.getPacientes()
         .subscribe( (resp: any) => {
             this.pacientes = resp;
             console.log('pacientes', this.pacientes);
+        },
+        (error) => {
+        console.log(error.message);
+        if (error.status === 403) { this.g.onLoggedout(); }
         });
 }
 getConsultorios() {
   this.consultoriosService.getConsultorios()
-            .subscribe( (resp: any) => {
-                this.consultorios = resp;
-            });
+        .subscribe( (resp: any) => {
+        this.consultorios = resp;
+        },
+        (error) => {
+        console.log(error.message);
+        if (error.status === 403) { this.g.onLoggedout(); }
+        });
  }
 
  getCitas() {
@@ -130,6 +145,10 @@ getConsultorios() {
         });
       });
       this.calendarEvents = this.calEvents;
+  },
+  (error) => {
+  console.log(error.message);
+  if (error.status === 403) { this.g.onLoggedout(); }
   });
  }
 
@@ -158,6 +177,10 @@ getConsultorios() {
           text: 'Se actualizo correctamente',
           type: 'success'
         });
+      },
+      (error) => {
+      console.log(error.message);
+      if (error.status === 403) { this.g.onLoggedout(); }
       });
 }
 
@@ -175,6 +198,10 @@ getConsultorios() {
             const eventIndex = this.calendarEvents.findIndex( event => event.id === this.args.id);
             this.calendarEvents.splice(eventIndex, 1);
             this.calEvents = [...this.calEvents];
+           },
+           (error) => {
+           console.log(error.message);
+           if (error.status === 403) { this.g.onLoggedout(); }
            });
          }
      });

@@ -64,7 +64,8 @@
             <select class="form-control"
                     name="id_consultorio"
                     [(ngModel)]="cita.id_consultorio"
-                    required>
+                    required
+                    [disabled]="editable">
               <option value="" selected>Seleccione el consultorio</option>
               <option  *ngFor="let consultorio of consultorios"
                        [value]="consultorio._id">{{consultorio.nombre}}</option>

@@ -1,7 +1,7 @@
 <h1 class="text-center">Consultorios</h1>
 <hr>
-<div class="row">
-  <div class="col text-right">
+<div class="row m-4">
+  <div class="col d-flex justify-content-end">
       <button 
           (click)="alta(content)"
           class='btn btn-primary'>
@@ -12,8 +12,8 @@
     </div>
 </div>
 
-<table *ngIf="!cargando && consultorios.length > 0"
-    class="table table-bordered mt-3 animated fadeIn faster">
+<table datatable *ngIf="!cargando && consultorios.length > 0"
+    class="table table-bordered  table-hover mt-3 animated fadeIn faster">
     <thead class="thead-dark">
     <tr>
       <th scope="col">#</th>
@@ -45,13 +45,6 @@
     </tr>
   </tbody>
 </table>
-<div>
-  <select class="custom-select" style="width: auto" [(ngModel)]="pageSize">
-    <option [ngValue]="2">2 items per page</option>
-    <option [ngValue]="4">4 items per page</option>
-    <option [ngValue]="6">6 items per page</option>
-  </select>
-</div>
 
 <div *ngIf="cargando" 
 class="alert alert-info text-center mt-3 animated fadeIn faster">
