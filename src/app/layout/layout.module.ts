@@ -11,7 +11,6 @@ import { HeaderComponent } from './components/header/header.component';
 
 import { DataTablesModule } from 'angular-datatables';
 
-
 @NgModule({
     imports: [
         CommonModule,
