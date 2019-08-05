@@ -22,7 +22,7 @@
     </div>
 </div>
 
-<table datatable *ngIf="cargando && citas.length > 0"
+<table datatable *ngIf="!cargando && citas.length > 0"
     class="table table-bordered display compact table-hover w-100 mt-3 animated fadeIn faster">
     <thead class="thead-dark">
     <tr class="text-center">
@@ -56,7 +56,7 @@
   </tbody>
 </table>
 
-<div *ngIf="!cargando" 
+<div *ngIf="cargando" 
 class="alert alert-info text-center mt-3 animated fadeIn faster">
 <h4>cargando</h4>
 <p>
@@ -67,7 +67,7 @@ class="alert alert-info text-center mt-3 animated fadeIn faster">
 </p>
 </div>
 
-<div *ngIf="!cargando &&  citas.length === 0"
+<div *ngIf="cargando &&  citas.length === 0"
  class="alert alert-warning text-center mt-3 animated fadeIn faster">
    <h4>No hay registros</h4>
    <p>

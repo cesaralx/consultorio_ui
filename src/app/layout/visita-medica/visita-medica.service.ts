@@ -29,13 +29,13 @@ export class VisitaMedicaService {
     return this.http.post(`${this.url}`, visita, {headers: this.headers});
   }
 
-  borrarConsultorio( id: string ) {
+  borrarVisita( id: string ) {
     const params = new HttpParams()
     .set('id', id);
     return this.http.delete(`${this.url}`, {headers: this.headers, params: params});
   }
 
-  actualizaConsultorio(visita: VisitaModel) {
+  actualizaVisita(visita: VisitaModel) {
     return this.http.put(`${ this.url }?id=${visita._id}`, visita, {headers: this.headers});
   }
 }

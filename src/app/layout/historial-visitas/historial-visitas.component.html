@@ -8,7 +8,7 @@
   </div>
   <hr>
 
-  <table datatable *ngIf="!cargando && consultorios.length > 0"
+  <table datatable *ngIf="!cargando && visitas.length > 0"
       class="table table-bordered  table-hover mt-3 animated fadeIn faster">
       <thead class="thead-dark">
       <tr>
@@ -21,19 +21,19 @@
       </tr>
     </thead>
     <tbody>
-      <tr  *ngFor="let c of consultorios; let i=index ">
+      <tr  *ngFor="let v of visitas; let i=index ">
           <td>{{ i+1 }}</td>
-          <td>{{ c.nombre }}</td>
-          <td>{{ c.direccion }}</td>
-          <td>{{ c.telefono }}</td>
-          <td>{{ c.horario}}</td> 
+          <td>{{ v.nombrePaciente }}</td>
+          <td>{{ v.nombreConsultorio }}</td>
+          <td>{{ v.fecha }}</td>
+          <td>{{ v.motivo}}</td> 
           <td>
               <button (click)="actualizar(c, content)"
                       class="btn btn-info mr-1">
                       <i class="fas fa-pen"></i>
                 </button>
                 <button 
-                     (click)="borrar(c , i)"
+                     (click)="borrar(v , i)"
                      class="btn btn-danger">
                   <i class="fa fa-trash"></i>
                 </button>
@@ -53,7 +53,7 @@
   </p>
   </div>
   
-  <div *ngIf="!cargando && consultorios.length === 0"
+  <div *ngIf="!cargando && visitas.length === 0"
    class="alert alert-warning text-center mt-3 animated fadeIn faster">
      <h4>No hay registros</h4>
      <p>

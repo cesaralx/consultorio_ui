@@ -27,11 +27,10 @@ import { Observable } from 'rxjs';
 })
 export class HistorialVisitasComponent implements OnInit {
   private g = new LayoutService();
+  cargando = false;
   closeResult: string;
   visita = new VisitaModel();
   visitas: VisitaModel[] = [];
-  citas: CitaModel[] = [];
-  cita: CitaModel = new CitaModel();
   consultorios: ConsultorioModel [] = [];
   pacientes: PacientModel [] = [];
 
@@ -42,7 +41,10 @@ export class HistorialVisitasComponent implements OnInit {
                public httpClient: HttpClient) { }
 
   ngOnInit() {
+    this.cargando = true;
     this.getPacientes();
+    this.getConsultorios();
+    this.getVisitas();
   }
 
   // Funciones del modal
@@ -82,32 +84,97 @@ export class HistorialVisitasComponent implements OnInit {
           });
    }
 
-   getCitas() {
-    this.agendaService.getCitas()
-        .subscribe( (resp: any) => {
-        this.citas = resp;
-        if (this.citas === null) { return [] }
-        console.log('Citas medicas:', this.citas);
-         this.citas.forEach( cita => {
-           const obj = this.pacientes.find(res => res._id === cita.id_paciente);
-           if (obj != null) {
-            cita.nombrePaciente = obj.nombre;
-           } else {
-             cita.nombrePaciente = 'Nombre no valido';
-           }
-           const resultado = this.consultorios.find(busca => busca._id === cita.id_consultorio);
-           if (resultado != null) {
-            cita.nombreConsultorio = resultado.nombre;
-           } else {
-             cita.nombreConsultorio = 'Consulta no valido';
-           }
+   // funciones de visitas 
+  getVisitas() {
+    this.visitaService.getVisitasMedicas()
+    .subscribe( (resp: any) => {
+      this.visitas = resp;
+      this.cargando = false;
+      this.visitas.forEach( visita => {
+        const obj = this.pacientes.find(res => res._id === visita.id_paciente);
+        if (obj != null) {
+         visita.nombrePaciente = obj.nombre;
+        } else {
+          visita.nombrePaciente = 'Nombre no valido';
+        }
+        const resultado = this.consultorios.find(busca => busca._id === visita.id_consultorio);
+        if (resultado != null) {
+         visita.nombreConsultorio = resultado.nombre;
+        } else {
+          visita.nombreConsultorio = 'Consulta no valido';
+        }
 
-         });
+      });
     },
     (error) => {
     console.log(error.message);
     if (error.status === 403) { this.g.onLoggedout(); }
     });
-   }
+ }
 
+ borrar( visita: VisitaModel, i: number) {
+  this.modal.dismissAll();
+  Swal.fire({
+    title: '¿Está seguro?',
+    text: `Está seguro de que desea borrar la visita medica de ${ visita.nombrePaciente}`,
+    type: 'question',
+    showConfirmButton: true,
+    showCancelButton: true
+   }).then( resp => {
+       if ( resp.value ) {
+         this.visitaService.borrarVisita(visita._id).subscribe( (response: any) => {
+          console.log(response);
+          this.visitas.splice(i, 1);
+         },
+         (error) => {
+         console.log(error.message);
+         if (error.status === 403){ this.g.onLoggedout(); }
+         });
+       }
+   });
+}
+
+actualizar(visita: VisitaModel, content) {
+  // this.consultorio = cons;
+  this.visitaService.getVisitaMedica(visita._id).subscribe( (resp: any) => {
+    // console.log('Respuesta de consulta consultorio: ', resp);
+    this.visita = resp;
+
+  },
+  (error) => {
+  console.log(error.message);
+  if (error.status === 403){ this.g.onLoggedout(); }
+  });
+  this.open(content);
+ }
+
+ guardar( form: NgForm) {
+  this.modal.dismissAll();
+ Swal.fire({
+   title: 'Espere',
+   text: 'Guardando información',
+   type: 'info',
+   allowOutsideClick: false
+ });
+ Swal.showLoading();
+ let peticion: Observable <any>;
+ 
+   console.log('actualizar');
+  peticion = this.visitaService.actualizaVisita(this.visita);
+ 
+     // console.log(this.consultorio);
+     peticion.subscribe( resp => {
+       this.ngOnInit();
+       Swal.fire({
+         title: 'Actualización correcta',
+         text: 'Se actualizo correctamente',
+         type: 'success'
+       });
+     },
+     (error) => {
+     console.log(error.message);
+     if (error.status === 403) { this.g.onLoggedout(); }
+     });
+
+   }
 }

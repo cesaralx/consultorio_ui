@@ -118,7 +118,7 @@ export class VisitaMedicaComponent implements OnInit {
         .subscribe( (resp: any) => {
         this.citas = resp;
         if (this.citas === null) { return [] }
-        this.cargando = true;
+        this.cargando = false;
         console.log('Citas medicas:', this.citas);
          this.citas.forEach( cita => {
            const obj = this.pacientes.find(res => res._id === cita.id_paciente);
