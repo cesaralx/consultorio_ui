@@ -9,6 +9,10 @@ import { PageHeaderModule } from './../../../shared';
 import { ExpedientesSearchComponent } from './expedientes-search.component';
 import { ExpedientesSearchRoutingModule } from './expedientes-search-routing.module';
 
+import { DataTablesModule } from 'angular-datatables';
+import { ArchwizardModule } from 'angular-archwizard';
+
+
 @NgModule({
   declarations: [ExpedientesSearchComponent],
   exports: [ExpedientesSearchComponent],
@@ -18,7 +22,9 @@ import { ExpedientesSearchRoutingModule } from './expedientes-search-routing.mod
     PageHeaderModule,
     FormsModule,
     NgbModalModule,
-    TranslateModule
+    TranslateModule,
+    DataTablesModule,
+    ArchwizardModule
   ]
 })
 export class ExpedientesSearchModule { }

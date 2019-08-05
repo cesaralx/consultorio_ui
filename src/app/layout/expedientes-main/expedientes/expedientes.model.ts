@@ -58,6 +58,7 @@ export class ExpedientesModel {
     status: {type: String, enum: ['enabled', 'disabled'], default: 'enabled'};
     usuario_alta: string;
     usuario_mod: string;
+    fecha_alta: Date;
 
 }
 

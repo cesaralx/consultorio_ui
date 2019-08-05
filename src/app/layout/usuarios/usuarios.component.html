@@ -1,0 +1,182 @@
+<ng-container>
+
+  <div class="row">
+    <div class="col text-right">
+        <button 
+            (click)="alta(content)"
+            class='btn btn-primary'>
+            <i class="fa fa-plus"></i>
+            Agregar
+        </button>
+  
+      </div>
+  </div>
+  <br>
+  <hr>
+
+  <!-- Data table -->
+  <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Nombre</th>
+        <th>Cargo</th>
+        <th>Telefono </th>
+        <th>Email </th>
+        <th>Fecha de alta </th>
+        <th>Acciones </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let usuario of usuarios; let i=index">
+        <td>{{ i+1}}</td>
+        <td>{{ usuario.nombre }}</td>
+        <td>{{ usuario.cargo }}</td>
+        <td>{{ usuario.telefono }}</td>
+        <td>{{ usuario.email }}</td>
+        <td>{{ usuario.fecha_alta }}</td>
+        <td>
+            <button (click)="actualizar(usuario, content)"
+                    class="btn btn-info mr-1">
+                    <i class="fas fa-pen"></i>
+              </button>
+              <button 
+                   (click)="borrar(usuario , i)"
+                   class="btn btn-danger">
+                <i class="fa fa-trash"></i>
+              </button>
+        </td>
+      </tr>
+    </tbody>
+    </table>
+  </ng-container>
+
+  <!-- modal -->
+  <ng-template #content let-c="close" let-d="dismiss">
+      <form (ngSubmit)="guardar(formulario, content)"
+      #formulario ="ngForm">
+      <div class="modal-header text-center">
+          <h4 class="modal-title">Usuario</h4>
+          <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+              <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      
+      <div class="modal-body">
+        <div class="form-group ">
+           <label>Nombre</label> 
+            <input type="text"
+                   class="form-control"
+                   required
+                   name="nombre"
+                   [(ngModel)]="usuario.nombre"
+                   placeholder="Nombre del usuario">
+        </div>
+          <div class="form-group row">
+            <label class="col-2 col-form-label">Cargo</label>
+            <div class="col-md-8">
+            <input type="text"
+                   class="form-control"
+                   required
+                   name="cargo"
+                   [(ngModel)]="usuario.cargo"
+                   placeholder="Cargo">
+            </div>
+          </div>
+          
+          <div class="form-group ">
+              <label>Uusario</label> 
+               <input type="text"
+                      class="form-control"
+                      required
+                      name="usuario"
+                      [(ngModel)]="usuario.usuario"
+                      placeholder="usuario">
+           </div>
+           <div class="form-group ">
+              <label>Contrasena</label> 
+               <input type="password"
+                      class="form-control"
+                      required
+                      name="password"
+                      [(ngModel)]="usuario.password"
+                      placeholder="Contrasena">
+           </div>
+           <div class="form-group ">
+              <label>Nivel</label> 
+              <select class="form-control"
+              name="nivel"
+              [(ngModel)]="usuario.nivel">
+              <option selected>Seleccione un nivel</option>
+              <option value="1">Medico</option>
+              <option value="2">Administrativo</option>
+              </select>
+           </div>
+             <div class="form-group ">
+                <label>Teléfono</label> 
+                 <input type="number"
+                        class="form-control"
+                        required
+                        name="telefono"
+                        [(ngModel)]="usuario.telefono"
+                        placeholder="Teléfono">
+               </div>
+               <div class="form-group ">
+                  <label>Email</label> 
+                   <input type="email"
+                          class="form-control"
+                          required
+                          name="email"
+                          [(ngModel)]="usuario.email"
+                          placeholder="Email">
+              </div>  
+              <div class="form-group">
+                <label>Especialidad</label> 
+                 <input type="text"
+                        class="form-control"
+                        name="especialidad"
+                        [(ngModel)]="usuario.especialidad"
+                        placeholder="Especialidad">
+            </div>  
+            <div class="form-group" >
+              <label>Imagen</label> 
+                                <!-- Standar Form -->
+                                <h4>Select files from your computer</h4>
+                                <div class="form-inline">
+                                  <div class="form-group">
+                                    <input type="file" name="imagen" 
+                                    (change)="handleFileInput($event.target.files)">
+                                  </div>
+                                </div>
+                    
+                              <!-- Drop Zone -->
+                              <!-- <h4>Or drag and drop files below</h4>
+                              <div class="upload-drop-zone" name="imagen" [(ngModel)]="imgUrl">
+                                Just drag and drop files here
+                              </div> -->
+   
+          </div> 
+        
+        
+
+
+
+      </div>
+      <div class="modal-footer align-content-center " data-backdrop="static"> 
+          <button 
+                  type="button" 
+                  class="btn btn-secondary" 
+                  (click)="c('Close click')">
+                  Cerrar
+          </button>
+  
+          <button [disabled]="!formulario.valid"
+                  class="btn btn-primary"
+                  type="submit">
+                  <i class="fa fa-save"></i>
+                   Guardar
+         </button>
+      </div>
+    </form>
+  </ng-template>
+

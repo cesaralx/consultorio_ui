@@ -9,13 +9,15 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { HeaderComponent } from './components/header/header.component';
 
 
+import { DataTablesModule } from 'angular-datatables';
+
 @NgModule({
     imports: [
         CommonModule,
         LayoutRoutingModule,
         TranslateModule,
         NgbDropdownModule,
-
+        DataTablesModule
     ],
     declarations: [LayoutComponent, SidebarComponent, HeaderComponent ]
 })

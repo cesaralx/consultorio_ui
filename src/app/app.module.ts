@@ -13,6 +13,7 @@ import { AuthGuardExternal } from './shared';
 
 
 
+
 @NgModule({
     imports: [
         CommonModule,
@@ -20,7 +21,7 @@ import { AuthGuardExternal } from './shared';
         BrowserAnimationsModule,
         HttpClientModule,
         LanguageTranslationModule,
-        AppRoutingModule
+        AppRoutingModule,
     ],
     declarations: [AppComponent],
     providers: [AuthGuard, AuthGuardExternal],

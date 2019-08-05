@@ -16,8 +16,6 @@ const routes: Routes = [
                 canActivate: [AuthGuard] },
             { path: 'tables', loadChildren: () => import('./tables/tables.module').then(m => m.TablesModule),
                 canActivate: [AuthGuard] },
-            // { path: 'expedientes', loadChildren: () => import('./expedientes/expedientes.module').then(m => m.ExpedientesModule),
-            //     canActivate: [AuthGuard] },
             { path: 'expedientes', loadChildren: () => import('./expedientes-main/expedientes-main.module').then(m =>
                 m.ExpedientesMainModule), canActivate: [AuthGuard] },
             { path: 'forms', loadChildren: () => import('./form/form.module').then(m => m.FormModule),
@@ -38,8 +36,12 @@ const routes: Routes = [
                 canActivate: [AuthGuard] },
             { path: 'visita-medica', loadChildren: () => import('./visita-medica/visita-medica.module').then(m => m.VisitaMedicaModule),
                 canActivate: [AuthGuard] },
-            { path: 'historial-visitas', loadChildren: () => import('./historial-visitas/historial-visitas.module').then(m => 
-                m.HistorialVisitasModule), canActivate: [AuthGuard] }
+            { path: 'usuarios', loadChildren: () => import('./usuarios/usuarios.module').then(m => m.UsuariosModule),
+                canActivate: [AuthGuard] },
+                { path: 'historial-visitas', loadChildren: () => import('./historial-visitas/historial-visitas.module').then(m => 
+                m.HistorialVisitasModule), canActivate: [AuthGuard] },
+            { path: 'perfil', loadChildren: () => import('./perfil/perfil.module').then(m => m.PerfilModule),
+            canActivate: [AuthGuard] }
 
 
         ]

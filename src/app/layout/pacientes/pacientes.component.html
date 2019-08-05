@@ -1,3 +1,250 @@
-<p>
-  pacientes works!
-</p>
+<ng-container>
+
+    <div class="row">
+      <div class="col text-right">
+          <button 
+              (click)="alta(content)"
+              class='btn btn-primary'>
+              <i class="fa fa-plus"></i>
+              Agregar
+          </button>
+    
+        </div>
+    </div>
+    <br>
+    <hr>
+  
+    <!-- Data table -->
+    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Nombre</th>
+          <th>Edad</th>
+          <th>Telefono </th>
+          <th>Email </th>
+          <th>Fecha de alta </th>
+          <th>Acciones </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let paciente of pacientes; let i=index">
+          <td>{{ i+1}}</td>
+          <td>{{ paciente.nombre }}</td>
+          <td>{{ paciente.edad }}</td>
+          <td>{{ paciente.telefono }}</td>
+          <td>{{ paciente.email }}</td>
+          <td>{{ paciente.fecha_alta }}</td>
+          <td>
+              <button (click)="actualizar(paciente, content)"
+                      class="btn btn-info mr-1">
+                      <i class="fas fa-pen"></i>
+                </button>
+                <button 
+                     (click)="borrar(paciente , i)"
+                     class="btn btn-danger">
+                  <i class="fa fa-trash"></i>
+                </button>
+          </td>
+        </tr>
+      </tbody>
+      </table>
+    </ng-container>
+  
+    <!-- modal -->
+    <ng-template #content let-c="close" let-d="dismiss">
+        <form (ngSubmit)="guardar(formulario, content)"
+        #formulario ="ngForm">
+        <div class="modal-header text-center">
+            <h4 class="modal-title">Usuario</h4>
+            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        
+        <div class="modal-body">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Nombre</span>
+                </div>
+                <input type="text" 
+                class="form-control" 
+                name="nombre"
+                [(ngModel)]="paciente.nombre"
+                placeholder="Nombre del paciente" >
+            </div>
+
+              <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">Edad</span>
+                  </div>
+                  <input type="number" 
+                  class="form-control" 
+                  name="edad"
+                  [(ngModel)]="paciente.edad"
+                  placeholder="Edad" >
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">FUM</span>
+                    </div>
+                    <input type="text" 
+                    class="form-control" 
+                    name="fum"
+                    [(ngModel)]="paciente.fum"
+                    placeholder="FUM" >
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">FFP</span>
+                    </div>
+                    <input type="text" 
+                    class="form-control" 
+                    name="ffp"
+                    [(ngModel)]="paciente.ffp"
+                    placeholder="FFP" >
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="estado_civil">Estado civil</label>
+                    </div>
+                    <select class="custom-select" name="estado_civil" [(ngModel)]="paciente.estado_civil">
+                      <option selected>Selecciona uno...</option>
+                      <option value="Soltera">Soltera</option>
+                      <option value="Casada">Casada</option>
+                      <option value="Viuda">Viuda</option>
+                      <option value="Union libre">Union libre</option>
+                    </select>
+                  </div>
+          
+
+             <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Ocupacion</span>
+                </div>
+                <input type="text" 
+                class="form-control" 
+                name="ocupacion"
+                [(ngModel)]="paciente.ocupacion"
+                placeholder="ocupacion" >
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Teléfono</span>
+                </div>
+                <input type="text" 
+                class="form-control" 
+                name="telefono"
+                [(ngModel)]="paciente.telefono"
+                placeholder="Teléfono" >
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Email</span>
+                </div>
+                <input type="email" 
+                class="form-control" 
+                name="email"
+                [(ngModel)]="paciente.email"
+                placeholder="Email" >
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Refiere</span>
+                </div>
+                <input type="email" 
+                class="form-control" 
+                name="refiere"
+                [(ngModel)]="paciente.refiere"
+                placeholder="Refiere" >
+            </div>
+ 
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Municipio</span>
+                </div>
+                <input type="email" 
+                class="form-control" 
+                name="municipio"
+                [(ngModel)]="paciente.municipio"
+                placeholder="Municipio" >
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Origen</span>
+                </div>
+                <input type="email" 
+                class="form-control" 
+                name="origen"
+                [(ngModel)]="paciente.origen"
+                placeholder="Origen" >
+            </div>
+ 
+              <!-- conyugue -->
+              <label >Conyuge</label>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Nombre</span>
+                </div>
+                <input type="text" 
+                class="form-control" 
+                name="cnombre"
+                [(ngModel)]="paciente.conyugue.nombre"
+                placeholder="Nombre conyugue" >
+              </div>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Ocupacion</span>
+                </div>
+                <input type="text" 
+                class="form-control" 
+                name="ocupacion"
+                [(ngModel)]="paciente.conyugue.ocupacion"
+                placeholder="Ocupacion conyugue" >
+              </div>
+
+              <div class="form-group" >
+                                  <!-- Standar Form -->
+                                  <h3>Selecciona una imagen</h3>
+                                  <div class="form-inline">
+                                    <div class="form-group">
+                                      <input class="btn btn-outline-primary" type="file" name="imagen" 
+                                      (change)="handleFileInput($event.target.files)">
+                                    </div>
+                                  </div>
+                      
+                                <!-- Drop Zone -->
+                                <!-- <h4>Or drag and drop files below</h4>
+                                <div class="upload-drop-zone" name="imagen" [(ngModel)]="imgUrl">
+                                  Just drag and drop files here
+                                </div> -->
+     
+            </div> 
+          
+          
+  
+  
+  
+        </div>
+        <div class="modal-footer align-content-center">
+            <button 
+                    type="button" 
+                    class="btn btn-secondary" 
+                    (click)="c('Close click')">
+                    Cerrar
+            </button>
+    
+            <button [disabled]="!formulario.valid"
+                    class="btn btn-primary"
+                    type="submit">
+                    <i class="fa fa-save"></i>
+                     Guardar
+           </button>
+        </div>
+      </form>
+    </ng-template>

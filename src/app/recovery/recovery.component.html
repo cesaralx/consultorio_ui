@@ -1,0 +1,20 @@
+<div class="login-page" [@routerTransition]>
+    <div class="row justify-content-md-center">
+        <div class="col-md-4">
+            <img class="user-avatar" src="assets/images/logo.png" width="150px" />
+            <h1>SIDMC</h1>
+            <form role="form"  #recoveryForm>
+                <div class="form-content">
+                    <div class="form-group">
+                        <input type="email" class="form-control input-underline input-lg" id="email" name="email"
+                            placeholder="{{ 'Email' | translate }}">
+                    </div>
+                </div>
+                <a class="btn rounded-btn" (click)="sendEmail(recoveryForm)" >{{ 'Send' | translate }}</a>
+                &nbsp;
+                <a class="btn rounded-btn" [routerLink]="['/login']">{{ 'Log in' | translate }}</a>
+            </form>
+  
+        </div>
+    </div>
+</div>

@@ -1,6 +1,6 @@
 {
     "Dashboard": "Principal",
-    "Charts": "Caracteres",
+    "Reports": "Reportes",
     "Tables": "Tablas",
     "Forms": "Formularios",
     "Bootstrap Element": "Elementos Bootstrap",
@@ -22,7 +22,7 @@
     "Simplified Chinese": "Chino simplificado",
     "Search" : "Búsqueda",
     "Settings" : "Ajustes",
-    "Profile" : "Profile",
+    "Profile" : "Perfil",
     "Inbox" : "Bandeja de entrada",
     "Log Out" : "Cerrar Sesión",
     "Pending Task" : "Tarea pendiente",
@@ -38,6 +38,7 @@
     "Register": "Registrarse",
     "Log in": "Entrar",
     "Case file": "Expediente",
+    "Case file 2": "Expediente 2",
     "Other": "Otros",
     "Recipes": "Recetas",
     "Medical Visits": "Visitas Medicas",
@@ -58,8 +59,8 @@
     "Previous": "Anterior",
     "Today": "Hoy",
     "Next": "Siguiente",
-    "Doctors office": "Consultorios"
-
+    "Doctors office": "Consultorios",
+    "Users": "Usuarios"
 
 
 }

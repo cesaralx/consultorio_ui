@@ -61,7 +61,7 @@ export class ConsultoriosComponent implements OnInit {
              },
              (error) => {
              console.log(error.message);
-             if (error.status === 403){ this.g.onLoggedout(); }
+             if (error.status === 403) { this.g.onLoggedout(); }
              });
            }
        });
@@ -109,7 +109,7 @@ export class ConsultoriosComponent implements OnInit {
     },
     (error) => {
     console.log(error.message);
-    if (error.status === 403){ this.g.onLoggedout(); }
+    if (error.status === 403) { this.g.onLoggedout(); }
     });
     this.open(content);
    }
@@ -128,7 +128,7 @@ export class ConsultoriosComponent implements OnInit {
       },
       (error) => {
       console.log(error.message);
-      if (error.status === 403){ this.g.onLoggedout(); }
+      if (error.status === 403) { this.g.onLoggedout(); }
       });
    }
 
@@ -140,7 +140,7 @@ export class ConsultoriosComponent implements OnInit {
         },
         (error) => {
         console.log(error.message);
-        if (error.status === 403){ this.g.onLoggedout(); }
+        if (error.status === 403) { this.g.onLoggedout(); }
         });
    }
 
