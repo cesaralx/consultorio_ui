@@ -9,14 +9,16 @@
         center: 'title',
         right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
         }"
+        
         [businessHours]=" {
-          daysOfWeek: [ 1, 2, 3, 4,5,6],
+          daysOfWeek: [ 1, 2, 3, 4, 5, 6],
           startTime: '09:00',
           endTime: '19:00'
         }"
         
         [plugins]="calendarPlugins"
         (dateClick)="handleDateClick($event, content)"
+        (select)="handleDateSelect($event, content)"
         (eventClick)="eventClick($event,content)"
         [buttonText]=" {
                     today: 'Hoy',
@@ -26,7 +28,7 @@
                     list: 'Agenda'
                 }"
         themeSystem= 'bootstrap'
-        timeZone= 'local'
+        timeZone= 'UTC'
         deepChangeDetection="true"
         locale='es'
         [events]="calendarEvents"
@@ -65,7 +67,7 @@
                     name="id_consultorio"
                     [(ngModel)]="cita.id_consultorio"
                     required
-                    [disabled]="editable">
+                    >
               <option value="" selected>Seleccione el consultorio</option>
               <option  *ngFor="let consultorio of consultorios"
                        [value]="consultorio._id">{{consultorio.nombre}}</option>
@@ -93,6 +95,27 @@
                 name="fecha"
                 [(ngModel)]= "cita.fecha">
        </div>
+
+       <div class="form-group ">
+        <label>Hora inicio</label>
+         <input type="time"
+                class="form-control"
+                required
+                name="start"
+                [(ngModel)]= "cita.fecha">
+       </div>
+
+
+       <div class="form-group ">
+        <label>Hora fin</label>
+         <input type="datetime"
+                class="form-control"
+                
+                name="end"
+                [(ngModel)]= "cita.hour_end">
+       </div>
+
+
        
       
         <div class="form-group ">
@@ -140,3 +163,9 @@
   </div>
   </form>
 </ng-template>
+
+<script>
+  $(function () {
+    $('#datetimepicker1').datetimepicker();
+ });
+</script>
