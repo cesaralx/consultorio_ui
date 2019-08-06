@@ -16,7 +16,7 @@
           endTime: '19:00'
         }"
         
-        [plugins]="calendarPlugins"
+        [plugins]="calendarPlugins "
         (dateClick)="handleDateClick($event, content)"
         (select)="handleDateSelect($event, content)"
         (eventClick)="eventClick($event,content)"
@@ -28,9 +28,11 @@
                     list: 'Agenda'
                 }"
         themeSystem= 'bootstrap'
-        timeZone= 'UTC'
+        timeZone= 'local'
         deepChangeDetection="true"
         locale='es'
+        defaultView= 'timeGridWeek'
+
         [events]="calendarEvents"
         >
   </full-calendar>
@@ -95,26 +97,6 @@
                 name="fecha"
                 [(ngModel)]= "cita.fecha">
        </div>
-
-       <div class="form-group ">
-        <label>Hora inicio</label>
-         <input type="time"
-                class="form-control"
-                required
-                name="start"
-                [(ngModel)]= "cita.fecha">
-       </div>
-
-
-       <div class="form-group ">
-        <label>Hora fin</label>
-         <input type="datetime"
-                class="form-control"
-                
-                name="end"
-                [(ngModel)]= "cita.hour_end">
-       </div>
-
 
        
       

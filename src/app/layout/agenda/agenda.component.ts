@@ -22,15 +22,19 @@ import { ConsultoriosService } from '../consultorios/consultorios.service';
 import { TranslateService } from '@ngx-translate/core';
 import { LayoutService, lenguaje } from '../layout.service';
 import { getLocaleTimeFormat } from '@angular/common';
+import { routerTransition } from '../../router.animations';
 
 import * as moment from 'moment';
+
+
 
 
 
 @Component({
   selector: 'app-agenda',
   templateUrl: './agenda.component.html',
-  styleUrls: ['./agenda.component.scss']
+  styleUrls: ['./agenda.component.scss'],
+  animations: [routerTransition()]
 })
 export class AgendaComponent implements OnInit {
   // Variables utilizadas
@@ -48,7 +52,7 @@ export class AgendaComponent implements OnInit {
   calendarPlugins = [dayGridPlugin, timeGridPlugin, listPlugin, interactionPlugin, bootstrapPlugin]; // important!
   calendarEvents: EventInput;
   calEvents: EventInput[] = [];
-  locale = esLocale;
+  // locale = esLocale;
   estatus = [ {color: '#52FF33', status: 'confirmada'},
               {color: '#3346FF', status: 'nueva'},
               {color: '#B533FF', status: 'reagendada'},
@@ -71,14 +75,17 @@ export class AgendaComponent implements OnInit {
   }
 
   handleDateClick(arg, content) {
+    const g = moment(arg.dateStr).toDate();
+
     this.open(content);
     this.eliminar = true;
     this.title = 'Nueva';
     this.cita = new CitaModel();
-    this.cita.fecha = moment(arg.date).format('YYYY-MM-DD[T]HH:mm');
-    this.cita.hour_start = moment(arg.date).format('HH:mm');
+    this.cita.fecha = moment(arg.dateStr).format('YYYY-MM-DD[T]HH:mm');
+    this.cita.hour_start = moment(g).format('YYYY-MM-DD[T]HH:mm');
     this.args = arg;
-    console.log('args', arg.date.getHours());
+    console.log('args',  arg.dateStr );
+    console.log('hora minuto', moment(g).format('HH:mm'));
    }
 
    handleDateSelect(arg, content) {
@@ -93,7 +100,7 @@ export class AgendaComponent implements OnInit {
     this.cita.hour_end = moment(arg.end).format(' hh:mm');
     this.args = arg;
     console.log('select:', arg);
-    console.log('rango:', moment(arg.start).format('yyyy/MM/dd HH:mm') , arg.end); // date=date.format('MM/DD/YYYY');
+    console.log('rango:', moment(arg.start).utcOffset(0).format('yyyy/MM/dd HH:mm') , arg.end); // date=date.format('MM/DD/YYYY');
 
    }
 
@@ -113,6 +120,8 @@ eventClick(arg, content) {
    this.agendaService.getCita(arg.event.id).subscribe( (resp: any) => {
    // console.log('Respuesta de agenda', resp);
     this.cita = resp ;
+    this.cita.fecha = moment(this.cita.fecha).format('YYYY-MM-DD[T]HH:mm');
+
   },
   (error) => {
   console.log(error.message);
@@ -166,6 +175,8 @@ getConsultorios = ()  => new Promise( (resolve, reject) => {
  })
 
  muestraCitas = () => new Promise((resolve, reject) => {
+
+
   this.citas.forEach( cita => {
     const resultado = this.estatus.find(busca => busca.status === cita.status);
     const obj = this.pacientes.find(res => res._id === cita.id_paciente);
@@ -191,6 +202,7 @@ getConsultorios = ()  => new Promise( (resolve, reject) => {
   });
   Swal.showLoading();
   let peticion: Observable <any>;
+  // this.cita.fecha = moment(this.cita.fecha).toISOString();
   if (!this.cita._id) {
   peticion = this.agendaService.altaCita(this.cita);
   } else {
