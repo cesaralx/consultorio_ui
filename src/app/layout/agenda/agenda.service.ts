@@ -10,6 +10,7 @@ export class AgendaService {
   private url = 'http://localhost:3000/citas';
 
   private token = localStorage.getItem('token');
+  private id = localStorage.getItem('id');
   private headers = new HttpHeaders({
   'Authorization': `Bearer ${this.token}`
 });
@@ -27,6 +28,7 @@ export class AgendaService {
   }
 
   altaCita( cita: CitaModel) {
+    cita.id_usuario = this.id;
     return this.http.post(`${this.url}`, cita, {headers: this.headers});
   }
 
