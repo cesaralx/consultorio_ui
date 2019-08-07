@@ -20,6 +20,9 @@ import { ConsultoriosService } from '../consultorios/consultorios.service';
 // sweetalert2
 import Swal from 'sweetalert2';
 import { Observable } from 'rxjs';
+import {Buffer} from 'buffer';
+
+
 
 
 @Component({
@@ -37,8 +40,9 @@ export class VisitaMedicaComponent implements OnInit {
   consultorios: ConsultorioModel [] = [];
   pacientes: PacientModel [] = [];
   editable: boolean = false;
-   // drop file
-   accept = '*';
+
+  //  variables que se necesitan para drop file
+  accept = '*';
   files: File[] = [];
   progress: number;
   // url = 'https://evening-anchorage-3159.herokuapp.com/api/'
@@ -56,6 +60,8 @@ export class VisitaMedicaComponent implements OnInit {
   fileDropDisabled: any;
   maxSize: any;
   baseDropValid: any;
+//
+  docUrl: any[];
 
 
   private g = new LayoutService();
@@ -104,7 +110,7 @@ export class VisitaMedicaComponent implements OnInit {
 // Funciones para traerese registros de consultas y pacientes 
   getConsultorios() {
     this.consultoriosService.getConsultorios()
-          .subscribe( (resp: any) => {
+          .subscribe(  (resp: any) => {
           this.consultorios = resp;
           },
           (error) => {
@@ -115,7 +121,7 @@ export class VisitaMedicaComponent implements OnInit {
 
    getCitas() {
     this.agendaService.getCitas()
-        .subscribe( (resp: any) => {
+        .subscribe(  (resp: any) => {
         this.citas = resp;
         if (this.citas === null) { return [] }
         this.cargando = false;
@@ -144,9 +150,9 @@ export class VisitaMedicaComponent implements OnInit {
 
  getPacientes() {
   this.agendaService.getPacientes()
-        .subscribe( (resp: any) => {
+        .subscribe(  (resp: any) => {
             this.pacientes = resp;
-            console.log('pacientes', this.pacientes);
+           // console.log('pacientes', this.pacientes);
         },
         (error) => {
         console.log(error.message);
@@ -154,7 +160,7 @@ export class VisitaMedicaComponent implements OnInit {
         });
 }
 
-// funciones de visitas 
+// funciones de visitas
   consultarVisitas() {
     this.visitaService.getVisitasMedicas()
     .subscribe( (resp: any) => {
@@ -177,14 +183,14 @@ export class VisitaMedicaComponent implements OnInit {
   });
   Swal.showLoading();
   let peticion: Observable <any>;
-  if(this.files.length > 1) {
-    console.log(this.files);
-    this.visita.anexos = this.files;
+  if (this.files.length > 0) {
+
+    this.handleFileInput(this.files[0]);
+
   }
   peticion = this.visitaService.altaVisita(this.visita);
       // console.log(this.consultorio);
       peticion.subscribe( resp => {
-        
         console.log('respuesta del request ', resp);
         Swal.fire({
           title: 'Actualizo',
@@ -198,7 +204,7 @@ export class VisitaMedicaComponent implements OnInit {
       });
 }
 
- // Drop file funciones del plugin 
+ // Drop file funciones del plugin
 
  cancel() {
   this.progress = 0;
@@ -232,5 +238,50 @@ uploadFiles(): Subscription {
 getDate() {
   return new Date();
 }
+
+
+  async handleFileInput(file: File) {
+    //this.imgUrl = files.item(0);
+    // crea una URL
+   // const tmppath = URL.createObjectURL(this.imgUrl );
+    const tmppath2 =  file;
+    // console.log('imagen', this.imgUrl);
+    // console.log('url', tmppath);
+
+
+    const toBase64 = file => new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsArrayBuffer(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = error => reject(error);
+  });
+
+  // this.usuario.image = await toBase64(tmppath2);
+  const h = await toBase64(tmppath2);
+  console.log(h);
+  // this.usuario.image = h;
+  // this.usuario.image = btoa(h.toString());
+  //this.visita.doc = this.toBuffer(h);
+  this.visita.anexos.push(this.toBuffer(h));
+  // console.log('Buffer', this.usuario.image);
+
+  }
+
+toBuffer(ab) {
+  const buf = Buffer.alloc(ab.byteLength);
+  const view = new Uint8Array(ab);
+  for (let i = 0; i < buf.length; ++i) {
+      buf[i] = view[i];
+  }
+  return buf;
+}
+
+guardarArchivos(){
+  this.files.forEach(element => {
+    this.handleFileInput(element);
+  });
+
+}
+
 
 }

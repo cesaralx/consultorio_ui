@@ -12,7 +12,8 @@ export class VisitaModel {
     id_usuario: string;
     nombreUsuario: string= '';
     fecha: Date;
-    anexos: any[];
+    anexos: any[] = [];
+    doc: any;
     receta: {
         medicamento: string
     };

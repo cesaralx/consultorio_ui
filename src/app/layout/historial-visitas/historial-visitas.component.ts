@@ -63,7 +63,7 @@ export class HistorialVisitasComponent implements OnInit {
 
   getPacientes() {
     this.agendaService.getPacientes()
-          .subscribe( (resp: any) => {
+          .subscribe( async (resp: any) => {
               this.pacientes = resp;
               console.log('pacientes', this.pacientes);
           },
@@ -75,7 +75,7 @@ export class HistorialVisitasComponent implements OnInit {
 
   getConsultorios() {
     this.consultoriosService.getConsultorios()
-          .subscribe( (resp: any) => {
+          .subscribe( async  (resp: any) => {
           this.consultorios = resp;
           },
           (error) => {
@@ -87,7 +87,7 @@ export class HistorialVisitasComponent implements OnInit {
    // funciones de visitas 
   getVisitas() {
     this.visitaService.getVisitasMedicas()
-    .subscribe( (resp: any) => {
+    .subscribe( async  (resp: any) => {
       this.visitas = resp;
       this.cargando = false;
       this.visitas.forEach( visita => {
