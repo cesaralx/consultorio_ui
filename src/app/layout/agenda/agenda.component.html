@@ -1,13 +1,17 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'Agenda'" [icon]="'fa-desktop'"></app-page-header>
 
-<div class="container my-5">
-<h1 class="text-center">Agenda</h1>
+
+
+<div class="container my-7">
+<!-- <h1 class="text-center">Agenda</h1> -->
 <hr>
   <full-calendar 
         
         [header]="{
         left: 'prev,next today',
         center: 'title',
-        right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+        right: 'timeGridWeek,dayGridMonth,timeGridDay,listWeek'
         }"
         
         [businessHours]=" {
@@ -146,8 +150,4 @@
   </form>
 </ng-template>
 
-<script>
-  $(function () {
-    $('#datetimepicker1').datetimepicker();
- });
-</script>
+</div>

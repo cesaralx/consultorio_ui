@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { routerTransition } from '../../router.animations';
+import { routerTransition } from '../../../router.animations';
 import { PacientesService } from './pacientes.service';
 import { PacienteModel } from './pacientes.model';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
-import { LayoutService } from '../layout.service';
+import { LayoutService } from '../../layout.service';
 import {Buffer} from 'buffer';
+
+import { Router } from '@angular/router';
+
 
 
 // sweetalert2
@@ -40,7 +43,8 @@ export class PacientesComponent implements OnInit, OnDestroy {
     imgUrl: any = null;
 
   constructor(private pacientesService: PacientesService,
-    private modal: NgbModal) { }
+    private modal: NgbModal,
+    public router: Router) { }
 
   ngOnInit() {
     this.cargando = true;
@@ -103,6 +107,14 @@ export class PacientesComponent implements OnInit, OnDestroy {
            });
          }
      });
+  }
+
+  gotoExpediente (paciente: PacienteModel, i: number) {
+    console.log('paciente a ver expediente', paciente);
+    this.router.navigate(['pacientes/expediente-paciente/' + paciente._id ]);
+
+
+
   }
 
   actualizar(usuario: PacienteModel, content) {

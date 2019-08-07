@@ -28,7 +28,7 @@ const routes: Routes = [
                 canActivate: [AuthGuard] },
             { path: 'blank-page', loadChildren: () => import('./blank-page/blank-page.module').then(m => m.BlankPageModule),
                 canActivate: [AuthGuard] },
-            { path: 'pacientes', loadChildren: () => import('./pacientes/pacientes.module').then(m => m.PacientesModule),
+            { path: 'pacientes', loadChildren: () => import('./pacientes-main/pacientes-main.module').then(m => m.PacientesMainModule),
                 canActivate: [AuthGuard] },
             { path: 'agenda', loadChildren: () => import('./agenda/agenda.module').then(m => m.AgendaModule),
                 canActivate: [AuthGuard] },
@@ -38,7 +38,7 @@ const routes: Routes = [
                 canActivate: [AuthGuard] },
             { path: 'usuarios', loadChildren: () => import('./usuarios/usuarios.module').then(m => m.UsuariosModule),
                 canActivate: [AuthGuard] },
-                { path: 'historial-visitas', loadChildren: () => import('./historial-visitas/historial-visitas.module').then(m => 
+                { path: 'historial-visitas', loadChildren: () => import('./historial-visitas/historial-visitas.module').then(m =>
                 m.HistorialVisitasModule), canActivate: [AuthGuard] },
             { path: 'perfil', loadChildren: () => import('./perfil/perfil.module').then(m => m.PerfilModule),
             canActivate: [AuthGuard] }

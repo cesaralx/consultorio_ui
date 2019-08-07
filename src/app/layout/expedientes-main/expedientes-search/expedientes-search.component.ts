@@ -5,7 +5,7 @@ import { ExpedientesModel, ConsulModel, PasModel } from '../expedientes/expedien
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 import { LayoutService } from '../../layout.service';
-import { PacientesService } from '../../pacientes/pacientes.service' ;
+import { PacientesService } from '../../pacientes-main/pacientes/pacientes.service' ;
 import { ExpedientesService } from '../../expedientes-main/expedientes/expedientes.service';
 
 
@@ -20,7 +20,8 @@ import { OnDestroy } from '@angular/core';
 @Component({
   selector: 'app-expedientes-search',
   templateUrl: './expedientes-search.component.html',
-  styleUrls: ['./expedientes-search.component.scss']
+  styleUrls: ['./expedientes-search.component.scss'],
+  animations: [routerTransition()]
 })
 export class ExpedientesSearchComponent implements OnInit, OnDestroy {
 

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { PacientesComponent } from './pacientes.component';
 import { PacientesRouterModuling } from './pacientes-routing.module';
-import { PageHeaderModule } from './../../shared';
+import { PageHeaderModule } from '../../../shared';
 
 
 import { TranslateModule } from '@ngx-translate/core';
