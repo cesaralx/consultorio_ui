@@ -131,7 +131,7 @@ class="alert alert-info text-center mt-3 animated fadeIn faster">
                                         <label>Receta</label>
                                          <textarea type="text"
                                                 class="form-control"
-                                                [(ngModel)]="visita.receta"
+                                                [(ngModel)]="visita.receta.medicamento"
                                                 name="extra"></textarea>         
                                 </div>
                     <div class="row d-flex justify-content-end m-1">
@@ -163,10 +163,6 @@ class="alert alert-info text-center mt-3 animated fadeIn faster">
                           >
                           <i class="fas fa-cloud-upload-alt m-3"></i>Selecciona los archivos
                           </div>
-                         
-
-
-                     
                       <div *ngIf="dragFiles">
                         <h3 style="margin:0">Drag Files</h3>
                         <p *ngIf="!dragFiles.length" style="color:red;">

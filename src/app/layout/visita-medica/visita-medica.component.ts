@@ -108,7 +108,7 @@ export class VisitaMedicaComponent implements OnInit {
     this.open(content);
   }
 // Funciones para traerese registros de consultas y pacientes 
-  getConsultorios() {
+  async getConsultorios() {
     this.consultoriosService.getConsultorios()
           .subscribe(  (resp: any) => {
           this.consultorios = resp;
@@ -119,7 +119,7 @@ export class VisitaMedicaComponent implements OnInit {
           });
    }
 
-   getCitas() {
+  async getCitas() {
     this.agendaService.getCitas()
         .subscribe(  (resp: any) => {
         this.citas = resp;
@@ -148,7 +148,7 @@ export class VisitaMedicaComponent implements OnInit {
     });
    }
 
- getPacientes() {
+ async getPacientes() {
   this.agendaService.getPacientes()
         .subscribe(  (resp: any) => {
             this.pacientes = resp;
@@ -185,7 +185,7 @@ export class VisitaMedicaComponent implements OnInit {
   let peticion: Observable <any>;
   if (this.files.length > 0) {
 
-    this.handleFileInput(this.files[0]);
+     this.guardarArchivos();
 
   }
   peticion = this.visitaService.altaVisita(this.visita);
@@ -239,15 +239,9 @@ getDate() {
   return new Date();
 }
 
+async handleFileInput(file: File, contador: any) {
 
-  async handleFileInput(file: File) {
-    //this.imgUrl = files.item(0);
-    // crea una URL
-   // const tmppath = URL.createObjectURL(this.imgUrl );
     const tmppath2 =  file;
-    // console.log('imagen', this.imgUrl);
-    // console.log('url', tmppath);
-
 
     const toBase64 = file => new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -257,13 +251,13 @@ getDate() {
   });
 
   // this.usuario.image = await toBase64(tmppath2);
-  const h = await toBase64(tmppath2);
-  console.log(h);
-  // this.usuario.image = h;
-  // this.usuario.image = btoa(h.toString());
-  //this.visita.doc = this.toBuffer(h);
-  this.visita.anexos.push(this.toBuffer(h));
-  // console.log('Buffer', this.usuario.image);
+      const h = await toBase64(tmppath2);
+      console.log('archivo en base 64', h);
+
+      this.visita.filenames.push(file.name);
+      this.visita.anexos.push(this.toBuffer(h));
+      this.visita.tipoFile.push(file.type);
+      // console.log('Buffer', this.usuario.image);
 
   }
 
@@ -276,12 +270,16 @@ toBuffer(ab) {
   return buf;
 }
 
-guardarArchivos(){
+guardarArchivos() {
+  let contadorcito = 0;
   this.files.forEach(element => {
-    this.handleFileInput(element);
+    this.handleFileInput(element, contadorcito);
+    contadorcito++;
   });
 
 }
+
+
 
 
 }

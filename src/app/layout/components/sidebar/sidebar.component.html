@@ -37,11 +37,11 @@
             <span>{{ 'Recipes' | translate }}</span>
         </a>
         <div class="nested-menu">
-            <a class="list-group-item" (click)="addExpandClass('pages')">
+            <a class="list-group-item" (click)="addExpandClass('medicaVisit')">
                 <i class="fa fa-fw fa-edit"></i>&nbsp;
                 <span>{{ 'Medical Visits' | translate }}</span>
             </a>
-            <li class="nested" [class.expand]="showMenu === 'pages'">
+            <li class="nested" [class.expand]="showMenu === 'medicaVisit'">
                 <ul class="submenu">
                     <li>
                         <a [routerLink]="['/visita-medica']" [routerLinkActive]="['router-link-active']">

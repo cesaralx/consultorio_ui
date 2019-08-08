@@ -1,8 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { DataTablesModule } from 'angular-datatables';
+import { ngfModule} from 'angular-file';
+
+import { ArchwizardModule } from 'angular-archwizard';
 
 import { HistorialVisitasRoutingModule } from './historial-visitas-routing.module';
 import { HistorialVisitasComponent } from './historial-visitas.component';
@@ -16,7 +19,10 @@ import { HistorialVisitasComponent } from './historial-visitas.component';
     HistorialVisitasRoutingModule,
     NgbModalModule,
     FormsModule,
-    DataTablesModule
+    NgbModule,
+    DataTablesModule,
+    ArchwizardModule,
+    ngfModule
   ]
 })
 export class HistorialVisitasModule { }
