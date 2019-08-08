@@ -54,6 +54,12 @@ getPacientes() {
     return this.http.get(`${this.url}/byId`, {headers: this.headers, params: params});
     }
 
+    getExpedienteByUsr( id: string ) {
+      const params = new HttpParams()
+      .set('id', id);
+    return this.http.get(`${this.url}/byPaciente`, {headers: this.headers, params: params});
+    }
+
     altaExpediente( expediente: ExpedientesModel) {
           return this.http.post(`${this.url}`, expediente, {headers: this.headers});
     }

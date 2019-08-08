@@ -19,6 +19,11 @@ export class VisitaMedicaService {
    getVisitasMedicas() {
     return this.http.get(`${this.url}`, {headers: this.headers});
   }
+
+  get3LastVisitas() {
+    return this.http.get(`${this.url}/lastVisitas`, {headers: this.headers});
+  }
+
    getVisitaMedica( id: string ) {
     const params = new HttpParams()
     .set('id', id);

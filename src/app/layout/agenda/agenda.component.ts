@@ -101,7 +101,6 @@ export class AgendaComponent implements OnInit {
     this.args = arg;
     console.log('select:', arg);
     console.log('rango:', moment(arg.start).utcOffset(0).format('yyyy/MM/dd HH:mm') , arg.end); // date=date.format('MM/DD/YYYY');
-
    }
 
 open(content) {
