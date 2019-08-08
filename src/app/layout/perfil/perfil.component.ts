@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuarioModel } from '../usuarios/usuarios.model';
 import { UsuariosService } from '..//usuarios/usuarios.service';
+import { routerTransition } from '../../router.animations';
+
 
 import { LayoutService } from '../layout.service';
 
@@ -11,7 +13,8 @@ import {Buffer} from 'buffer';
 @Component({
   selector: 'app-perfil',
   templateUrl: './perfil.component.html',
-  styleUrls: ['./perfil.component.scss']
+  styleUrls: ['./perfil.component.scss'],
+  animations: [routerTransition()]
 })
 export class PerfilComponent implements OnInit {
 

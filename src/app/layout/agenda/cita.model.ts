@@ -5,11 +5,13 @@ export class CitaModel {
     id_paciente: string = '';
     nombrePaciente: string;
     id_consultorio: string = '';
-    nombreConsultorio: string= '';
-    id_usuario: string= '';
-    fecha: Date;
+    nombreConsultorio: string=  '';
+    id_usuario: string = '';
+    fecha: any;
+    hour_start: string;
+    hour_end: string;
     fecha_update: Date;
-    status: string = 'nueva';
+    status: String = 'nueva';
     costo: string;
     extra: string;
 }

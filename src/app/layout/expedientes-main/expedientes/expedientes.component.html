@@ -1,4 +1,5 @@
 <div [@routerTransition]>
+                <app-page-header [heading]="'Alta de expedientes'" [icon]="'fa fa-pencil-square'"></app-page-header>
 
         
     <form (ngSubmit)="guardar(formulario)" #formulario="ngForm">
@@ -47,7 +48,7 @@
                     </select>
                 </div>
                 <button type="button" class="btn btn-dark pull-right" awNextStep>Next Step</button>
-                <a [routerLink]="['/expedientes']"class="btn btn-outline-danger pull-left">Cancelar</a>
+                <!-- <a [routerLink]="['/expedientes']"class="btn btn-outline-danger pull-left">Cancelar</a> -->
                 <!-- <button type="button" [awGoToStep]="{stepIndex: 2}">Go directly to third Step</button> -->
             </aw-wizard-step>
 

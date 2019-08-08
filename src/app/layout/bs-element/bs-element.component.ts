@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { routerTransition } from '../../router.animations';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-bs-element',
@@ -8,7 +9,14 @@ import { routerTransition } from '../../router.animations';
     animations: [routerTransition()]
 })
 export class BsElementComponent implements OnInit {
-    constructor() {}
+    constructor(public router: Router) {}
 
-    ngOnInit() {}
+    ngOnInit() {
+
+        this.delay(3000);
+    }
+
+    async delay(ms: number) {
+        await new Promise(resolve => setTimeout(() => resolve(), ms)).then(() => this.router.navigateByUrl('/login'));
+    }
 }

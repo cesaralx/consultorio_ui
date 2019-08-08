@@ -1,22 +1,28 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'Agenda'" [icon]="'fa-desktop'"></app-page-header>
 
-<div class="container my-5">
-<h1 class="text-center">Agenda</h1>
+
+
+<div class="container my-7">
+<!-- <h1 class="text-center">Agenda</h1> -->
 <hr>
   <full-calendar 
         
         [header]="{
         left: 'prev,next today',
         center: 'title',
-        right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+        right: 'timeGridWeek,dayGridMonth,timeGridDay,listWeek'
         }"
+        
         [businessHours]=" {
-          daysOfWeek: [ 1, 2, 3, 4,5,6],
+          daysOfWeek: [ 1, 2, 3, 4, 5, 6],
           startTime: '09:00',
           endTime: '19:00'
         }"
         
-        [plugins]="calendarPlugins"
+        [plugins]="calendarPlugins "
         (dateClick)="handleDateClick($event, content)"
+        (select)="handleDateSelect($event, content)"
         (eventClick)="eventClick($event,content)"
         [buttonText]=" {
                     today: 'Hoy',
@@ -29,6 +35,8 @@
         timeZone= 'local'
         deepChangeDetection="true"
         locale='es'
+        defaultView= 'timeGridWeek'
+
         [events]="calendarEvents"
         >
   </full-calendar>
@@ -65,7 +73,7 @@
                     name="id_consultorio"
                     [(ngModel)]="cita.id_consultorio"
                     required
-                    [disabled]="editable">
+                    >
               <option value="" selected>Seleccione el consultorio</option>
               <option  *ngFor="let consultorio of consultorios"
                        [value]="consultorio._id">{{consultorio.nombre}}</option>
@@ -93,6 +101,7 @@
                 name="fecha"
                 [(ngModel)]= "cita.fecha">
        </div>
+
        
       
         <div class="form-group ">
@@ -140,3 +149,5 @@
   </div>
   </form>
 </ng-template>
+
+</div>

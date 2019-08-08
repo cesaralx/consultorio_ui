@@ -22,6 +22,9 @@ import { ConsultoriosService } from '../consultorios/consultorios.service';
 import { TranslateService } from '@ngx-translate/core';
 import { LayoutService, lenguaje } from '../layout.service';
 import { getLocaleTimeFormat } from '@angular/common';
+import { routerTransition } from '../../router.animations';
+
+import * as moment from 'moment';
 
 
 
@@ -30,10 +33,12 @@ import { getLocaleTimeFormat } from '@angular/common';
 @Component({
   selector: 'app-agenda',
   templateUrl: './agenda.component.html',
-  styleUrls: ['./agenda.component.scss']
+  styleUrls: ['./agenda.component.scss'],
+  animations: [routerTransition()]
 })
 export class AgendaComponent implements OnInit {
   // Variables utilizadas
+  time;
   title = '';
   eliminar = false;
   pacientes: PacientModel [] = [];
@@ -47,7 +52,7 @@ export class AgendaComponent implements OnInit {
   calendarPlugins = [dayGridPlugin, timeGridPlugin, listPlugin, interactionPlugin, bootstrapPlugin]; // important!
   calendarEvents: EventInput;
   calEvents: EventInput[] = [];
-  locale = esLocale;
+  // locale = esLocale;
   estatus = [ {color: '#52FF33', status: 'confirmada'},
               {color: '#3346FF', status: 'nueva'},
               {color: '#B533FF', status: 'reagendada'},
@@ -59,24 +64,43 @@ export class AgendaComponent implements OnInit {
   constructor(private translate: TranslateService,
               private modal: NgbModal,
               private agendaService: AgendaService,
-              private consultoriosService: ConsultoriosService) { }
+              private consultoriosService: ConsultoriosService,
+              ) { }
 
-  ngOnInit() {
-    this.getPacientes();
-    this.getConsultorios();
-    this.getCitas();
+  async ngOnInit() {
+    await this.getPacientes();
+    await this.getConsultorios();
+    await this.getCitas();
    // this.calendarEvents = this.calEvents;
   }
 
   handleDateClick(arg, content) {
+    const g = moment(arg.dateStr).toDate();
+
+    this.open(content);
+    this.eliminar = true;
+    this.title = 'Nueva';
+    this.cita = new CitaModel();
+    this.cita.fecha = moment(arg.dateStr).format('YYYY-MM-DD[T]HH:mm');
+    this.cita.hour_start = moment(g).format('YYYY-MM-DD[T]HH:mm');
+    this.args = arg;
+    console.log('args',  arg.dateStr );
+    console.log('hora minuto', moment(g).format('HH:mm'));
+   }
+
+   handleDateSelect(arg, content) {
+    this.time = {hour: 13, minute: 30};
+    // this.open(content);
     this.open(content);
     this.eliminar = true;
     this.title = 'Nueva';
     this.cita = new CitaModel();
     this.cita.fecha = arg;
+    this.cita.hour_start = moment(arg.start).format(' hh:mm');
+    this.cita.hour_end = moment(arg.end).format(' hh:mm');
     this.args = arg;
-    // console.log('cita:', this.cita);
-    // console.log('args', arg);
+    console.log('select:', arg);
+    console.log('rango:', moment(arg.start).utcOffset(0).format('yyyy/MM/dd HH:mm') , arg.end); // date=date.format('MM/DD/YYYY');
    }
 
 open(content) {
@@ -95,62 +119,77 @@ eventClick(arg, content) {
    this.agendaService.getCita(arg.event.id).subscribe( (resp: any) => {
    // console.log('Respuesta de agenda', resp);
     this.cita = resp ;
-  },
-  (error) => {
-  console.log(error.message);
-  if (error.status === 403){ this.g.onLoggedout(); }
-  });
-  this.open(content);
- }
+    this.cita.fecha = moment(this.cita.fecha).format('YYYY-MM-DD[T]HH:mm');
 
- getPacientes() {
-  this.agendaService.getPacientes()
-        .subscribe( (resp: any) => {
-            this.pacientes = resp;
-            console.log('pacientes', this.pacientes);
-        },
-        (error) => {
-        console.log(error.message);
-        if (error.status === 403) { this.g.onLoggedout(); }
-        });
-}
-getConsultorios() {
-  this.consultoriosService.getConsultorios()
-        .subscribe( (resp: any) => {
-        this.consultorios = resp;
-        },
-        (error) => {
-        console.log(error.message);
-        if (error.status === 403) { this.g.onLoggedout(); }
-        });
- }
-
- getCitas() {
-  this.calendarEvents = [];
-  this.calEvents = [];
-  this.agendaService.getCitas()
-      .subscribe( (resp: any) => {
-       this.citas = resp;
-      if (this.citas === null) { return [] }
-      this.citas.forEach( cita => {
-        const resultado = this.estatus.find(busca => busca.status === cita.status);
-        const obj = this.pacientes.find(res => res._id === cita.id_paciente);
-          this.calEvents.push({
-          id: cita._id,
-          start: cita.fecha,
-          title: obj.nombre,
-          backgroundColor: resultado.color,
-          slotDuration: '00:30:00',
-          defaultTimedEventDuration: '00:30:00'
-        });
-      });
-      this.calendarEvents = this.calEvents;
   },
   (error) => {
   console.log(error.message);
   if (error.status === 403) { this.g.onLoggedout(); }
   });
+  this.open(content);
  }
+
+ getPacientes = () => new Promise( (resolve, reject) => {
+  this.agendaService.getPacientes()
+        .subscribe( (resp: any) => {
+            console.log('pacientes', this.pacientes);
+           resolve( this.pacientes = resp);
+        },
+        (error) => {
+        console.log(error.message);
+        reject(error);
+        if (error.status === 403) { this.g.onLoggedout(); }
+        });
+})
+
+
+getConsultorios = ()  => new Promise( (resolve, reject) => {
+  this.consultoriosService.getConsultorios()
+        .subscribe( (resp: any) => {
+        resolve(this.consultorios = resp);
+        },
+        (error) => {
+        console.log(error.message);
+        if (error.status === 403) { this.g.onLoggedout(); }
+        reject(error);
+        });
+ })
+
+  getCitas =  ()  => new Promise( (resolve, reject) => {
+  this.calendarEvents = [];
+  this.calEvents = [];
+  this.agendaService.getCitas()
+      .subscribe( async (resp: any) => {
+       this.citas = resp;
+      if (this.citas === null) { return []; }
+      await this.muestraCitas();
+      this.calendarEvents = this.calEvents;
+      resolve(true);
+  },
+  (error) => {
+  console.log(error.message);
+  if (error.status === 403) { this.g.onLoggedout(); }
+  reject(error);
+  });
+ })
+
+ muestraCitas = () => new Promise((resolve, reject) => {
+
+
+  this.citas.forEach( cita => {
+    const resultado = this.estatus.find(busca => busca.status === cita.status);
+    const obj = this.pacientes.find(res => res._id === cita.id_paciente);
+      this.calEvents.push({
+      id: cita._id,
+      start: cita.fecha,
+      title: obj.nombre,
+      backgroundColor: resultado.color,
+      slotDuration: '01:00:00',
+      defaultTimedEventDuration: '01:00:00'
+    });
+  });
+  resolve(true);
+ })
 
  guardar( form: NgForm ) {
   this.modal.dismissAll();
@@ -162,6 +201,7 @@ getConsultorios() {
   });
   Swal.showLoading();
   let peticion: Observable <any>;
+  // this.cita.fecha = moment(this.cita.fecha).toISOString();
   if (!this.cita._id) {
   peticion = this.agendaService.altaCita(this.cita);
   } else {
@@ -173,8 +213,8 @@ getConsultorios() {
         this.getCitas();
         console.log('respuesta del request ', resp);
         Swal.fire({
-          title: 'Actualizo',
-          text: 'Se actualizo correctamente',
+          title: 'Cita',
+          text: 'Se guardo correctamente',
           type: 'success'
         });
       },
@@ -194,7 +234,7 @@ getConsultorios() {
       showCancelButton: true
      }).then( resp => {
          if ( resp.value ) {
-            this.agendaService.borrarCita(this.cita._id).subscribe( ( resp: any ) => {
+            this.agendaService.borrarCita(this.cita._id).subscribe( ( rsponse: any ) => {
             const eventIndex = this.calendarEvents.findIndex( event => event.id === this.args.id);
             this.calendarEvents.splice(eventIndex, 1);
             this.calEvents = [...this.calEvents];

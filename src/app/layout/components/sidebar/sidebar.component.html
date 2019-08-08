@@ -24,10 +24,6 @@
             <i class="fa fa-fw fa-table"></i>&nbsp;
             <span>{{ 'Users' | translate }}</span>
         </a>
-        <a [routerLink]="['/expedientes']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fa fa-fw fa-edit"></i>&nbsp;
-            <span>{{ 'Case file' | translate }}</span>
-        </a>
         <a [routerLink]="['/bs-element']" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-desktop"></i>&nbsp;
             <span>{{ 'Agenda' | translate }}</span>
@@ -61,8 +57,8 @@
         </div>
         <div class="nested-menu">
             <a class="list-group-item" (click)="addExpandClass('pages')">
-                <i class="fa fa-fw fa-edit"></i>&nbsp;
-                <span>{{ 'Case file 2' | translate }}</span>
+                <i class="fa fa-bars"></i>&nbsp;
+                <span>{{ 'Case file' | translate }}</span>
             </a>
             <li class="nested" [class.expand]="showMenu === 'pages'">
                 <ul class="submenu">

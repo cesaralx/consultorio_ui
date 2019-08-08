@@ -11,6 +11,9 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { FullCalendarModule } from '@fullcalendar/angular'; // for FullCalendar!
 
+import { PageHeaderModule } from './../../shared';
+
+
 
 
 
@@ -23,7 +26,8 @@ import { FullCalendarModule } from '@fullcalendar/angular'; // for FullCalendar!
     AgendaRoutingModule,
     NgbModalModule,
     FormsModule,
-    FullCalendarModule
+    FullCalendarModule,
+    PageHeaderModule
   ],
   bootstrap: [AgendaComponent]
 })

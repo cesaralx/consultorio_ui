@@ -1,4 +1,9 @@
+<div [@routerTransition]>
+  <app-page-header [heading]="'Pacientes'" [icon]="'fa-desktop'"></app-page-header>
+
 <ng-container>
+
+    <router-outlet></router-outlet>
 
     <div class="row">
       <div class="col text-right">
@@ -45,11 +50,18 @@
                      class="btn btn-danger">
                   <i class="fa fa-trash"></i>
                 </button>
+                <button 
+                     (click)="gotoExpediente(paciente , i)"
+                     class="btn btn-info">
+                  <i class="fa fa-plus"></i>
+                </button>
           </td>
         </tr>
       </tbody>
       </table>
     </ng-container>
+
+
   
     <!-- modal -->
     <ng-template #content let-c="close" let-d="dismiss">
@@ -89,18 +101,19 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text">FUM</span>
                     </div>
-                    <input type="text" 
+                    <input type="date" 
                     class="form-control" 
                     name="fum"
                     [(ngModel)]="paciente.fum"
                     placeholder="FUM" >
                 </div>
+                
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                       <span class="input-group-text">FFP</span>
                     </div>
-                    <input type="text" 
+                    <input type="date" 
                     class="form-control" 
                     name="ffp"
                     [(ngModel)]="paciente.ffp"
@@ -248,3 +261,5 @@
         </div>
       </form>
     </ng-template>
+
+  </div>

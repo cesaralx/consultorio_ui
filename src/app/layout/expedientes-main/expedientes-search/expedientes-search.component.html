@@ -1,6 +1,9 @@
-<h1 class="text-center">Consulta expedientes</h1>
+<div [@routerTransition]>
+        <app-page-header [heading]="'Consulta expedientes'" [icon]="'fa fa-search'"></app-page-header>
+
+<!-- <h1 class="text-center">Consulta expedientes</h1> -->
 <!-- <hr> -->
-<a [routerLink]="['/expedientes']"class="btn btn-outline-danger pull-left">Cerrar</a>
+<!-- <a [routerLink]="['/expedientes']"class="btn btn-outline-danger pull-left">Cerrar</a> -->
 <br>
 <hr>
 
@@ -62,7 +65,7 @@ class="alert alert-info text-center mt-3 animated fadeIn faster">
 </div>
 
     <!-- modal -->
-    <ng-template #content let-c="close" let-d="dismiss">
+    <ng-template  #content let-c="close" let-d="dismiss">
         <form (ngSubmit)="guardar(formulario, content)"
         #formulario ="ngForm">
 
@@ -397,3 +400,5 @@ class="alert alert-info text-center mt-3 animated fadeIn faster">
 </form>
 </ng-template>
 
+
+</div>
