@@ -183,11 +183,11 @@ export class VisitaMedicaComponent implements OnInit {
   });
   Swal.showLoading();
   let peticion: Observable <any>;
-  if (this.files.length > 0) {
+  // if (this.files.length > 0) {
 
-     this.guardarArchivos();
+  //    this.guardarArchivos();
 
-  }
+  // }
   peticion = this.visitaService.altaVisita(this.visita);
       // console.log(this.consultorio);
       peticion.subscribe( resp => {
