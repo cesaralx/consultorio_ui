@@ -36,10 +36,29 @@
             <i class="fa fa-fw fa-wrench"></i>&nbsp;
             <span>{{ 'Recipes' | translate }}</span>
         </a>
-        <a [routerLink]="['/visita-medica']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fa fa-th-list"></i>&nbsp;
-            <span>{{ 'Medical Visits' | translate }}</span>
-        </a>
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('medicaVisit')">
+                <i class="fa fa-fw fa-edit"></i>&nbsp;
+                <span>{{ 'Medical Visits' | translate }}</span>
+            </a>
+            <li class="nested" [class.expand]="showMenu === 'medicaVisit'">
+                <ul class="submenu">
+                    <li>
+                        <a [routerLink]="['/visita-medica']" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-pencil-square"></i>&nbsp;
+                            <span>{{ 'Add New' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/historial-visitas']" [routerLinkActive]="['router-link-active']">
+                            <i class="fa fa-search"></i>&nbsp;
+                            <span>{{ 'Search' | translate }}</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+        </div>
         <div class="nested-menu">
             <a class="list-group-item" (click)="addExpandClass('pages')">
                 <i class="fa fa-fw fa-edit"></i>&nbsp;

@@ -1,29 +1,20 @@
-<div class="row">
-  <div class="col-4">
-      <a [routerLink]="['/historial-visitas']" class="btn btn-outline-primary ">Historial de visitas medicas </a>
-  </div>
-  <div class="col-auto">
-      <h1 class="text-center">Visitas medicas</h1>
-  </div> 
-</div>
-<hr>
 <div class="row m-4">
 <div class="col d-flex justify-content-center text-center">
-        Listado de citas, para convertirse en visitas medicas
+       <h3>Convertir cita a Visita medica</h3> 
 </div>
   <div class="col d-flex justify-content-end">
       <button
           (click)="alta(content)" 
           class='btn btn-primary'>
           <i class="fa fa-plus"></i>
-          Agregar
+          Visita medica sin cita
       </button>
 
     </div>
 </div>
 
 <table datatable *ngIf="!cargando && citas.length > 0"
-    class="table table-bordered display compact table-hover w-100 mt-3 animated fadeIn faster">
+    class="animated fadeIn faster">
     <thead class="thead-dark">
     <tr class="text-center">
       <th scope="col">#</th>
@@ -78,8 +69,8 @@ class="alert alert-info text-center mt-3 animated fadeIn faster">
 <!-- Modal convertir cita a visita medica -->
  <ng-template #content let-c="close" let-d="dismiss">
     <form #formulario ="ngForm">
-    <div class="modal-header text-center">
-        <h4 class="modal-title">Visita Medica</h4>
+    <div class="modal-header">
+        <h4 class="modal-title text-center">Visita Medica</h4>
         <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -117,13 +108,14 @@ class="alert alert-info text-center mt-3 animated fadeIn faster">
                           </div>
                                   <div class="form-row" >
                                         <div class="form-group col-md-6">
-                                          <label for="paciente">Empleado</label>
-                                          <input type="text" 
-                                                 class="form-control" 
-                                                 id="Usuario"
-                                                 name="nombreUsuario"
-                                                 required
-                                                 [(ngModel)]="visita.nombreUsuario">
+                                          <label>Motivo de visita</label>
+                                         <input type="text"
+                                                class="form-control"
+                                                required
+                                                pattern=""
+                                                name="motivo"
+                                                [(ngModel)]="visita.motivo"
+                                                placeholder="Motivo de la visita">
                                         </div>
                                         <div class="form-group col-md-6">
                                           <label for="inputPassword4">Fecha</label>
@@ -134,32 +126,18 @@ class="alert alert-info text-center mt-3 animated fadeIn faster">
                                               [disabled]="editable"
                                               [(ngModel)]= "visita.fecha">
                                         </div>
-                                 </div>
-
-                                 <div class="form-group ">
-                                        <label>Motivo de visita</label>
-                                         <input type="text"
-                                                class="form-control"
-                                                required
-                                                pattern=""
-                                                name="motivo"
-                                                [(ngModel)]="visita.motivo"
-                                                placeholder="Motivo de la visita">
-                                       </div>
-                                 
+                                 </div>                               
                                  <div class="form-group ">
                                         <label>Receta</label>
                                          <textarea type="text"
                                                 class="form-control"
-                                                [(ngModel)]="visita.receta"
+                                                [(ngModel)]="visita.receta.medicamento"
                                                 name="extra"></textarea>         
                                 </div>
                     <div class="row d-flex justify-content-end m-1">
                             <button type="button" class="btn btn-dark" awNextStep>Siguiente <i class="fas fa-arrow-circle-right"></i></button>
                     </div>  
-                    
-  
-                    </aw-wizard-step>
+                </aw-wizard-step>
                     <aw-wizard-step class="m-3" [navigationSymbol]="{ symbol: '2' }" stepTitle="Anexos">
                       <ngfFormData
                         [files]      = "files"
@@ -185,10 +163,6 @@ class="alert alert-info text-center mt-3 animated fadeIn faster">
                           >
                           <i class="fas fa-cloud-upload-alt m-3"></i>Selecciona los archivos
                           </div>
-                         
-
-
-                     
                       <div *ngIf="dragFiles">
                         <h3 style="margin:0">Drag Files</h3>
                         <p *ngIf="!dragFiles.length" style="color:red;">
@@ -243,11 +217,11 @@ class="alert alert-info text-center mt-3 animated fadeIn faster">
                       <div  style="margin-bottom: 40px">
                           <h3>{{ files.length }} Archivos seleccionados</h3>
                         <div class="row dt-responsive">
-                            <table class="table table-bordered table-responsive w-100">
+                            <table class="table">
                                 <thead>
                                   <tr>
                                     <th>Nombre</th>
-                                    <th>Tipo de archivo</th>
+                                    <!-- <th>Tipo de archivo</th> -->
                                     <th>Tamaño</th>
                                     <th>Accion</th>
                                   </tr>
@@ -260,9 +234,9 @@ class="alert alert-info text-center mt-3 animated fadeIn faster">
                                       </div>
                                       <strong>{{ item.name }}</strong>
                                     </td>
-                                    <td nowrap>
+                                    <!-- <td nowrap>
                                       {{ item.type }}
-                                    </td>
+                                    </td> -->
                                     <td nowrap>
                                       {{ item.size/1024/1024 | number:'.2' }} MB
                                     </td>
@@ -302,7 +276,7 @@ class="alert alert-info text-center mt-3 animated fadeIn faster">
                        <div class="row container mt-2 d-flex justify-content-end">                      
                             <button type="button"
                             class="btn btn-success btn-s"
-                            (click)="uploadFiles()"
+                            (click)="guardarArchivos()"
                             [disabled]="!files.length">
                             <i class="fas fa-upload"></i> Subir todos
                               </button>

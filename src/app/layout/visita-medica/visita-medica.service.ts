@@ -9,6 +9,7 @@ export class VisitaMedicaService {
   private url = 'http://localhost:3000/visitamedica';
 
   private token = localStorage.getItem('token');
+  private id = localStorage.getItem('id');
     private headers = new HttpHeaders({
     'Authorization': `Bearer ${this.token}`
   });
@@ -26,6 +27,8 @@ export class VisitaMedicaService {
   }
 
   altaVisita( visita: VisitaModel) {
+    visita.id_usuario = this.id;
+    console.log('visitas anexo service', visita.anexos);
     return this.http.post(`${this.url}`, visita, {headers: this.headers});
   }
 
