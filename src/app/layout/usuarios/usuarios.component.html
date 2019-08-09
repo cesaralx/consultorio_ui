@@ -23,6 +23,7 @@
         <th>Cargo</th>
         <th>Telefono </th>
         <th>Email </th>
+        <th>Consultorio </th>
         <th>Fecha de alta </th>
         <th>Acciones </th>
       </tr>
@@ -34,6 +35,7 @@
         <td>{{ usuario.cargo }}</td>
         <td>{{ usuario.telefono }}</td>
         <td>{{ usuario.email }}</td>
+        <td>{{ usuario.consultorio_name  }}</td>
         <td>{{ usuario.fecha_alta }}</td>
         <td>
             <button (click)="actualizar(usuario, content)"
@@ -101,6 +103,15 @@
                       name="password"
                       [(ngModel)]="usuario.password"
                       placeholder="Contrasena">
+           </div>
+           <div class="form-group ">
+              <label>Consultorio</label> 
+              <select class="form-control"
+              name="consultorio"
+              [(ngModel)]="usuario.consultorio_id">
+              <option selected>Seleccione un Consultorio</option>
+              <option  *ngFor="let consultorio of consultorios" [value]=consultorio._id>{{consultorio.nombre}}</option>
+              </select>
            </div>
            <div class="form-group ">
               <label>Nivel</label> 

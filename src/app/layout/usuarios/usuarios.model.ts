@@ -11,6 +11,8 @@ export class UsuarioModel {
     email: {type: string, lowercase: true, required: true};
     status: {type: string, enum: ['enabled', 'disabled'], default: 'enabled'};
     especialidad: string;
+    consultorio_id: string;
+    consultorio_name: string;
     image: any;
     fecha_alta: { type: Date};
     fecha_update: { type: Date};

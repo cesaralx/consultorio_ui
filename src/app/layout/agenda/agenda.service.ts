@@ -21,6 +21,12 @@ export class AgendaService {
     return this.http.get(`${this.url}`, {headers: this.headers});
   }
 
+  getCitasByConsul(id: string) {
+    const params = new HttpParams()
+    .set('id', id);
+    return this.http.get(`${this.url}/byConsultorio`, {headers: this.headers, params: params});
+  }
+
   getCita( id: string ) {
     const params = new HttpParams()
     .set('id', id);
@@ -42,10 +48,9 @@ export class AgendaService {
     return this.http.put(`${ this.url }?id=${cita._id}`, cita, {headers: this.headers});
     }
 
-    getPacientes() {
-      const url = `http://localhost:3000/paciente/`;
-      const respuesta = this.http.get(url, {headers: this.headers});
-      return respuesta;
-    }
+  getPacientes() {
+    const url = `http://localhost:3000/paciente/`;
+    return  this.http.get(url, {headers: this.headers});
+  }
 
 }

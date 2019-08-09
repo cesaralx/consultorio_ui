@@ -59,6 +59,8 @@ export class AgendaComponent implements OnInit {
               {color: '#FF5733', status: 'cancelada'},
             ];
 
+  idconsultorioUsr = localStorage.getItem('id_consultorio');
+  consultorioMostrar = this.idconsultorioUsr;
   private g = new LayoutService();
 
   constructor(private translate: TranslateService,
@@ -103,6 +105,12 @@ export class AgendaComponent implements OnInit {
     console.log('rango:', moment(arg.start).utcOffset(0).format('yyyy/MM/dd HH:mm') , arg.end); // date=date.format('MM/DD/YYYY');
    }
 
+   reloadCalendar(args) {
+    console.log('argumentitos', args.srcElement.value);
+    this.consultorioMostrar = args.srcElement.value;
+    this.ngOnInit();
+   }
+
 open(content) {
   this.modal.open(content).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
@@ -132,7 +140,7 @@ eventClick(arg, content) {
  getPacientes = () => new Promise( (resolve, reject) => {
   this.agendaService.getPacientes()
         .subscribe( (resp: any) => {
-            console.log('pacientes', this.pacientes);
+          console.log('pacientes', resp);
            resolve( this.pacientes = resp);
         },
         (error) => {
@@ -158,7 +166,8 @@ getConsultorios = ()  => new Promise( (resolve, reject) => {
   getCitas =  ()  => new Promise( (resolve, reject) => {
   this.calendarEvents = [];
   this.calEvents = [];
-  this.agendaService.getCitas()
+  // this.agendaService.getCitas()
+  this.agendaService.getCitasByConsul(this.consultorioMostrar)
       .subscribe( async (resp: any) => {
        this.citas = resp;
       if (this.citas === null) { return []; }
@@ -174,21 +183,21 @@ getConsultorios = ()  => new Promise( (resolve, reject) => {
  })
 
  muestraCitas = () => new Promise((resolve, reject) => {
-
-
-  this.citas.forEach( cita => {
-    const resultado = this.estatus.find(busca => busca.status === cita.status);
-    const obj = this.pacientes.find(res => res._id === cita.id_paciente);
-      this.calEvents.push({
-      id: cita._id,
-      start: cita.fecha,
-      title: obj.nombre,
-      backgroundColor: resultado.color,
-      slotDuration: '01:00:00',
-      defaultTimedEventDuration: '01:00:00'
-    });
+     this.citas.forEach( cita => {
+      if (cita.status !== 'completada') {
+        const resultado = this.estatus.find(busca => busca.status === cita.status);
+        const obj = this.pacientes.find(res => res._id === cita.id_paciente);
+          this.calEvents.push({
+          id: cita._id,
+          start: cita.fecha,
+          title: obj.nombre,
+          backgroundColor: resultado.color,
+          slotDuration: '01:00:00',
+          defaultTimedEventDuration: '01:00:00'
+        });
+      }
+    resolve(true);
   });
-  resolve(true);
  })
 
  guardar( form: NgForm ) {

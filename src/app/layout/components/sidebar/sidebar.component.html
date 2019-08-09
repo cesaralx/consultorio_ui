@@ -24,10 +24,10 @@
             <i class="fa fa-fw fa-table"></i>&nbsp;
             <span>{{ 'Users' | translate }}</span>
         </a>
-        <a [routerLink]="['/bs-element']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+        <!-- <a [routerLink]="['/bs-element']" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-desktop"></i>&nbsp;
             <span>{{ 'Agenda' | translate }}</span>
-        </a>
+        </a> -->
         <a [routerLink]="['/grid']" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-wrench"></i>&nbsp;
             <span>{{ 'Recipes' | translate }}</span>
@@ -35,7 +35,7 @@
         <div class="nested-menu">
             <a class="list-group-item" (click)="addExpandClass('medicaVisit')">
                 <i class="fa fa-fw fa-edit"></i>&nbsp;
-                <span>{{ 'Medical Visits' | translate }}</span>
+                <span>{{ 'Medical Consultation' | translate }}</span>
             </a>
             <li class="nested" [class.expand]="showMenu === 'medicaVisit'">
                 <ul class="submenu">
@@ -78,10 +78,11 @@
                 </ul>
             </li>
         </div>
-        <a [routerLink]="['/blank-page']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+        <!-- <a [routerLink]="['/blank-page']" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-file-o"></i>&nbsp;
             <span>{{ 'Blank Page' | translate }}</span>
-        </a>
+        </a> -->
+        
         <!-- <a href="http://www.strapui.com/" class="list-group-item">
             <i class="fa fa-caret-down"></i>&nbsp;
             <span>{{ 'More Themes' | translate }}</span>

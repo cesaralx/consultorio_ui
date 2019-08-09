@@ -6,7 +6,8 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { LayoutService } from '../layout.service';
 import {Buffer} from 'buffer';
 
-
+import { ConsultoriosService } from '../consultorios/consultorios.service';
+import { ConsultorioModel } from '../consultorios/consultorio.model';
 
 // sweetalert2
 import Swal from 'sweetalert2';
@@ -35,16 +36,20 @@ export class UsuariosComponent implements OnDestroy, OnInit {
   usuario = new UsuarioModel();
   usuarios: UsuarioModel[] = [];
   private g = new LayoutService();
+  consultorios: ConsultorioModel [] = [];
   imgUrl: any = null;
   datita ;
 
   constructor(private usuariosService: UsuariosService,
-    private modal: NgbModal) { }
+    private modal: NgbModal,
+    private consultoriosService: ConsultoriosService) { }
 
-  ngOnInit() {
+  async ngOnInit() {
 
     this.cargando = true;
     this.consultaUsuarios();
+    await this.getConsultorios();
+
 
     this.dtOptions = {
       pagingType: 'full_numbers',
@@ -58,7 +63,7 @@ export class UsuariosComponent implements OnDestroy, OnInit {
     this.dtTrigger.unsubscribe();
   }
 
-  open(content) {
+  async open(content) {
     // console.log(this.consultorio);
     this.modal.open(content).result.then((result) => {
         this.closeResult = `Closed with: ${result}`;
@@ -67,9 +72,17 @@ export class UsuariosComponent implements OnDestroy, OnInit {
     });
   }
 
-  consultaUsuarios() {
+  sustituyeData = () => new Promise((resolve, reject) => {
+     this.usuarios.forEach(element => {
+      const obj = this.consultorios.find(res => res._id === element.consultorio_id);
+      element.consultorio_name = obj.nombre;
+    });
+    resolve(this.usuarios[0].consultorio_name);
+  })
+
+   consultaUsuarios() {
     this.usuariosService.getUsuarios()
-      .subscribe( (resp: any) => {
+      .subscribe( async (resp: any) => {
         this.usuarios = resp;
         // Calling the DT trigger to manually render the table
         this.dtTrigger.next();
@@ -80,6 +93,7 @@ export class UsuariosComponent implements OnDestroy, OnInit {
       console.log(error.message);
       if (error.status === 403) { this.g.onLoggedout(); }
       });
+
    }
 
    borrar( usuario: UsuarioModel, i: number) {
@@ -161,6 +175,18 @@ export class UsuariosComponent implements OnDestroy, OnInit {
         }
         });
   }
+
+  getConsultorios = ()  => new Promise( (resolve, reject) => {
+    this.consultoriosService.getConsultorios()
+          .subscribe( (resp: any) => {
+          resolve(this.consultorios = resp);
+          },
+          (error) => {
+          console.log(error.message);
+          if (error.status === 403) { this.g.onLoggedout(); }
+          reject(error);
+          });
+   })
 
 
 
