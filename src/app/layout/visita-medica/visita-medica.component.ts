@@ -111,7 +111,7 @@ export class VisitaMedicaComponent implements OnInit {
     this.cita.status = 'completada';
     console.log(this.cita);
     this.agendaService.actualizaCita(this.cita).subscribe( resp => {
-      console.log(resp);
+      resolve(true);
     }) ;
   })
 
@@ -146,16 +146,16 @@ export class VisitaMedicaComponent implements OnInit {
            } else {
              cita.nombreConsultorio = 'Consulta no valido';
            }
-
+          //  console.log('todas:', cita);
            if (cita.status === 'completada') {
-              // console.log('Completada:', cita);
+              console.log('Completada:', cita);
               const index: number = this.citas.indexOf(cita);
               if (index !== -1) {
-                  this.citas.splice(index, 1);
+                  this.citas.splice(index);
               }
             }
          });
-        //  console.log('Citas medicas:', this.citas);
+         console.log('Citas medicas:', this.citas);
     },
     (error) => {
     console.log(error.message);
