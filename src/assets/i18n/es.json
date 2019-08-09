@@ -41,7 +41,7 @@
     "Case file 2": "Expediente 2",
     "Other": "Otros",
     "Recipes": "Recetas",
-    "Medical Visits": "Visitas Medicas",
+    "Medical Consultation": "Consulta Médica",
     "Statics": "Estadisticas",
     "Patients": "Pacientes",
     "Schedule": "Agenda",
@@ -62,7 +62,11 @@
     "Doctors office": "Consultorios",
     "Users": "Usuarios",
     "Phone": "Telefono",
-    "Location": "Municipio"
+    "Location": "Municipio",
+    "latest visits...": "Ultimas visitas...",
+    "Adds": "Anexos",
+    "Next Appointment": "Proxima Consulta"
+
 
 
 }

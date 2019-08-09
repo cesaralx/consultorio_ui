@@ -23,8 +23,6 @@ import { Observable } from 'rxjs';
 import {Buffer} from 'buffer';
 
 
-
-
 @Component({
   selector: 'app-visita-medica',
   templateUrl: './visita-medica.component.html',
@@ -39,7 +37,7 @@ export class VisitaMedicaComponent implements OnInit {
   cita: CitaModel = new CitaModel();
   consultorios: ConsultorioModel [] = [];
   pacientes: PacientModel [] = [];
-  editable: boolean = false;
+  editable = false;
 
   //  variables que se necesitan para drop file
   accept = '*';
@@ -47,7 +45,7 @@ export class VisitaMedicaComponent implements OnInit {
   progress: number;
   // url = 'https://evening-anchorage-3159.herokuapp.com/api/'
   url = 'https://jquery-file-upload.appspot.com/';
-  hasBaseDropZoneOver: boolean = false;
+  hasBaseDropZoneOver = false;
   httpEmitter: Subscription;
   httpEvent: HttpEvent<{}>;
   lastFileAt: Date;
@@ -92,7 +90,7 @@ export class VisitaMedicaComponent implements OnInit {
     this.open(content);
   }
 
-  citaVisitaMedica(c: CitaModel , content) {
+  async citaVisitaMedica(c: CitaModel , content) {
     this.editable = true;
     this.cita = c;
     const obj = this.pacientes.find(res => res._id === this.cita.id_paciente);
@@ -105,9 +103,19 @@ export class VisitaMedicaComponent implements OnInit {
      this.visita.id_usuario = this.cita.id_usuario;
      this.visita.id_consultorio = this.cita.id_consultorio;
      this.visita.fecha = this.cita.fecha;
+     await this.completeCita();
     this.open(content);
   }
-// Funciones para traerese registros de consultas y pacientes 
+
+  completeCita = () => new Promise((resolve, reject) => {
+    this.cita.status = 'completada';
+    console.log(this.cita);
+    this.agendaService.actualizaCita(this.cita).subscribe( resp => {
+      console.log(resp);
+    }) ;
+  })
+
+// Funciones para traerese registros de consultas y pacientes
   async getConsultorios() {
     this.consultoriosService.getConsultorios()
           .subscribe(  (resp: any) => {
@@ -123,9 +131,8 @@ export class VisitaMedicaComponent implements OnInit {
     this.agendaService.getCitas()
         .subscribe(  (resp: any) => {
         this.citas = resp;
-        if (this.citas === null) { return [] }
+        if (this.citas === null) { return []; }
         this.cargando = false;
-        console.log('Citas medicas:', this.citas);
          this.citas.forEach( cita => {
            const obj = this.pacientes.find(res => res._id === cita.id_paciente);
            if (obj != null) {
@@ -140,7 +147,15 @@ export class VisitaMedicaComponent implements OnInit {
              cita.nombreConsultorio = 'Consulta no valido';
            }
 
+           if (cita.status === 'completada') {
+              // console.log('Completada:', cita);
+              const index: number = this.citas.indexOf(cita);
+              if (index !== -1) {
+                  this.citas.splice(index, 1);
+              }
+            }
          });
+        //  console.log('Citas medicas:', this.citas);
     },
     (error) => {
     console.log(error.message);
@@ -173,6 +188,7 @@ export class VisitaMedicaComponent implements OnInit {
     if (error.status === 403) { this.g.onLoggedout(); }
     });
  }
+
  guardar( form: NgForm ) {
   this.modal.dismissAll();
   Swal.fire({
@@ -233,7 +249,7 @@ uploadFiles(): Subscription {
       }
     },
     error => alert('Error Uploading Files: ' + error.message)
-  )}
+  ); }
 
 getDate() {
   return new Date();

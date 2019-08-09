@@ -31,6 +31,12 @@ export class VisitaMedicaService {
   return this.http.get(`${this.url}/byId`, {headers: this.headers, params: params});
   }
 
+  getVisitaMedicaByPaciente( id: string ) {
+    const params = new HttpParams()
+    .set('id_paciente', id);
+  return this.http.get(`http://localhost:3000/citas/byPaciente`, {headers: this.headers, params: params});
+  }
+
   altaVisita( visita: VisitaModel) {
     visita.id_usuario = this.id;
     console.log('visitas anexo service', visita.anexos);

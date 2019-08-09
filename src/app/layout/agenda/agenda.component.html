@@ -1,7 +1,15 @@
 <div [@routerTransition]>
     <app-page-header [heading]="'Agenda'" [icon]="'fa-desktop'"></app-page-header>
 
-
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Consultorio</label>
+      <div class="col-md-12">
+          <select (change)="reloadCalendar($event)"  [(ngModel)]="idconsultorioUsr" class="form-control" name="id_consultorio">
+            <option  *ngFor="let consultorio of consultorios"
+                     [value]="consultorio._id">{{consultorio.nombre}}</option>
+          </select>
+      </div>
+    </div>
 
 <div class="container my-7">
 <!-- <h1 class="text-center">Agenda</h1> -->

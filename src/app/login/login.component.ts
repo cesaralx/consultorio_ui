@@ -41,6 +41,7 @@ export class LoginComponent implements OnInit {
         this.loginService.getUsr(localStorage.getItem('user')).subscribe(
             res => {
                 localStorage.setItem('id', res['_id']);
+                localStorage.setItem('id_consultorio', res['consultorio_id']);
             }
         );
         localStorage.setItem('isLoggedin', 'true');
