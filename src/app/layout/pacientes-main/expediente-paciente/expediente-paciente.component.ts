@@ -110,6 +110,7 @@ export class ExpedientePacienteComponent implements OnInit, OnDestroy  {
 
   getCitaByPaciente = () => new Promise( (resolve, reject) => {
     this.visitaMedicaService.getVisitaMedicaByPaciente(this.paciente._id).subscribe( (resp: any) =>  {
+      console.log(resp);
       resolve(this.cita = resp);
     });
   })

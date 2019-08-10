@@ -70,11 +70,11 @@ export class VisitaMedicaComponent implements OnInit {
               private modal: NgbModal,
               public httpClient: HttpClient) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.cargando = true;
-    this.getConsultorios();
-    this.getPacientes();
-    this.getCitas();
+    await this.getConsultorios();
+    await this.getPacientes();
+    await this.getCitas();
   }
 // Funciones del modal
   open(content) {
@@ -90,7 +90,7 @@ export class VisitaMedicaComponent implements OnInit {
     this.open(content);
   }
 
-  async citaVisitaMedica(c: CitaModel , content) {
+  async  citaVisitaMedica(c: CitaModel , content) {
     this.editable = true;
     this.cita = c;
     const obj = this.pacientes.find(res => res._id === this.cita.id_paciente);
@@ -116,18 +116,22 @@ export class VisitaMedicaComponent implements OnInit {
   })
 
 // Funciones para traerese registros de consultas y pacientes
-  async getConsultorios() {
+  getConsultorios = () => new Promise((resolve, reject) => {
     this.consultoriosService.getConsultorios()
           .subscribe(  (resp: any) => {
-          this.consultorios = resp;
+          resolve(this.consultorios = resp);
+          
           },
           (error) => {
           console.log(error.message);
-          if (error.status === 403) { this.g.onLoggedout(); }
-          });
-   }
+          if (error.status === 403) { reject(this.g.onLoggedout()); }
+          }
+          
+          
+          );
+   })
 
-  async getCitas() {
+  getCitas = () => new Promise((resolve, reject) => {
     this.agendaService.getCitas()
         .subscribe(  (resp: any) => {
         this.citas = resp;
@@ -156,24 +160,26 @@ export class VisitaMedicaComponent implements OnInit {
             }
          });
          console.log('Citas medicas:', this.citas);
+         resolve(true);
     },
     (error) => {
     console.log(error.message);
-    if (error.status === 403) { this.g.onLoggedout(); }
+    if (error.status === 403) { this.g.onLoggedout();  }
+    
     });
-   }
+   })
 
- async getPacientes() {
+ getPacientes = () => new Promise ((resolve, reject) => {
   this.agendaService.getPacientes()
         .subscribe(  (resp: any) => {
-            this.pacientes = resp;
-           // console.log('pacientes', this.pacientes);
+           resolve(this.pacientes = resp);
+           
         },
         (error) => {
         console.log(error.message);
-        if (error.status === 403) { this.g.onLoggedout(); }
+        if (error.status === 403) { reject(this.g.onLoggedout()); }
         });
-}
+})
 
 // funciones de visitas
   consultarVisitas() {
