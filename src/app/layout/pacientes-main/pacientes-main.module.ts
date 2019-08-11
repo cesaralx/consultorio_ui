@@ -8,9 +8,10 @@ import { PageHeaderModule } from '../../shared';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
+import { ConsultaComponent } from './consulta/consulta.component';
 
 @NgModule({
-  declarations: [PacientesMainComponent],
+  declarations: [PacientesMainComponent, ConsultaComponent],
   imports: [
     CommonModule,
     PacientesMainRoutingModule,

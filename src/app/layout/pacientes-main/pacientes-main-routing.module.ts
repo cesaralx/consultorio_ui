@@ -11,6 +11,8 @@ const routes: Routes = [
     // { path: '', redirectTo: 'pacientes', pathMatch: 'prefix' },
     { path: '', loadChildren: () => import('./pacientes/pacientes.module')
     .then(m => m.PacientesModule)},
+    { path: 'consultas-medicas/:id', loadChildren: () => import('./visita-medica-paciente/visita-medica-paciente.module')
+    .then(m => m.VisitaMedicaPacienteModule)},
     { path: 'expediente-paciente/:id', loadChildren: () => import('./expediente-paciente/expediente-paciente.module')
     .then(m => m.ExpedientePacienteModule)},
     // { path: 'pacientes', loadChildren: () => import('./pacientes/pacientes.module').then(m => m.PacientesModule )}

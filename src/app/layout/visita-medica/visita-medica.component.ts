@@ -120,24 +120,60 @@ export class VisitaMedicaComponent implements OnInit {
     this.consultoriosService.getConsultorios()
           .subscribe(  (resp: any) => {
           resolve(this.consultorios = resp);
-          
+
           },
           (error) => {
           console.log(error.message);
           if (error.status === 403) { reject(this.g.onLoggedout()); }
           }
-          
-          
+
           );
    })
 
-  getCitas = () => new Promise((resolve, reject) => {
+  // getCitas = () => new Promise((resolve, reject) => {
+  //   this.agendaService.getCitas()
+  //       .subscribe(  (resp: any) => {
+  //       this.citas = resp;
+  //       if (this.citas === null) { return []; }
+  //       this.cargando = false;
+  //        this.citas.forEach( cita => {
+  //          const obj = this.pacientes.find(res => res._id === cita.id_paciente);
+  //          if (obj != null) {
+  //           cita.nombrePaciente = obj.nombre;
+  //          } else {
+  //            cita.nombrePaciente = 'Nombre no valido';
+  //          }
+  //          const resultado = this.consultorios.find(busca => busca._id === cita.id_consultorio);
+  //          if (resultado != null) {
+  //           cita.nombreConsultorio = resultado.nombre;
+  //          } else {
+  //            cita.nombreConsultorio = 'Consulta no valido';
+  //          }
+  //         //  console.log('todas:', cita);
+  //          if (cita.status === 'completada') {
+  //             console.log('Completada:', cita);
+  //             const index: number = this.citas.indexOf(cita);
+  //             if (index !== -1) {
+  //                 this.citas.splice(index);
+  //             }
+  //           }
+  //        });
+  //        console.log('Citas medicas:', this.citas);
+  //        resolve(true);
+  //   },
+  //   (error) => {
+  //   console.log(error.message);
+  //   if (error.status === 403) { this.g.onLoggedout();  }
+    
+  //   });
+  //  })
+
+    getCitas = () => new Promise((resolve, reject) => {
     this.agendaService.getCitas()
         .subscribe(  (resp: any) => {
-        this.citas = resp;
-        if (this.citas === null) { return []; }
+        if (resp === null) { return []; }
         this.cargando = false;
-         this.citas.forEach( cita => {
+         resp.forEach( cita => {
            const obj = this.pacientes.find(res => res._id === cita.id_paciente);
            if (obj != null) {
             cita.nombrePaciente = obj.nombre;
@@ -151,12 +187,8 @@ export class VisitaMedicaComponent implements OnInit {
              cita.nombreConsultorio = 'Consulta no valido';
            }
           //  console.log('todas:', cita);
-           if (cita.status === 'completada') {
-              console.log('Completada:', cita);
-              const index: number = this.citas.indexOf(cita);
-              if (index !== -1) {
-                  this.citas.splice(index);
-              }
+           if (cita.status !== 'completada') {
+              this.citas.push(cita);
             }
          });
          console.log('Citas medicas:', this.citas);
@@ -165,7 +197,6 @@ export class VisitaMedicaComponent implements OnInit {
     (error) => {
     console.log(error.message);
     if (error.status === 403) { this.g.onLoggedout();  }
-    
     });
    })
 
@@ -173,7 +204,7 @@ export class VisitaMedicaComponent implements OnInit {
   this.agendaService.getPacientes()
         .subscribe(  (resp: any) => {
            resolve(this.pacientes = resp);
-           
+
         },
         (error) => {
         console.log(error.message);
@@ -219,6 +250,8 @@ export class VisitaMedicaComponent implements OnInit {
           text: 'Se actualizo correctamente',
           type: 'success'
         });
+        this.citas = [];
+        this.getCitas();
       },
       (error) => {
       console.log(error.message);

@@ -52,4 +52,12 @@ export class VisitaMedicaService {
   actualizaVisita(visita: VisitaModel) {
     return this.http.put(`${ this.url }?id=${visita._id}`, visita, {headers: this.headers});
   }
+
+  getVisitaByPaciente( id: string){
+    const params = new HttpParams()
+    .set('id_paciente', id);
+
+    return this.http.get(`${this.url}/byPaci`, {headers: this.headers, params: params});
+
+  }
 }
