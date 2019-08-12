@@ -6,6 +6,7 @@ import {VisitaMedicaService} from '../../visita-medica/visita-medica.service';
 // servicios
 import { LayoutService, lenguaje } from '../../layout.service';
 import {VisitaModel} from '../../visita-medica/visita-medica.model';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-consulta',
@@ -20,6 +21,7 @@ export class ConsultaComponent implements OnInit {
   private g = new LayoutService();
   ver : boolean = false;
   ruta: any = null;
+  extension: any[] = null;
 
 
   constructor(private router: Router,
@@ -40,14 +42,16 @@ export class ConsultaComponent implements OnInit {
       this.visita = resp;
       let contador = 0;
       this.files = [];
+      this.extension=[];
       this.visita.anexos.forEach(element => {
           const tipo = this.visita.tipoFile[contador];
-          console.log('type de archivo ', tipo);
+          console.log('type de archivo', tipo);
           console.log('actualizar element', element);
           const arrb = this.toArrayBuffer(element.data);
           const blob = new Blob([arrb], {type: tipo});
           const fil = new File([blob], this.visita.filenames[contador]);
-
+          const spli = this.visita.filenames[contador].split('.', 2);
+          this.extension.push(spli[1]);
           this.files.push(fil);
           contador++;
         });

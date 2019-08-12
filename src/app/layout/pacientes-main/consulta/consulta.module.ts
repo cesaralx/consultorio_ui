@@ -4,6 +4,7 @@ import { ConsultaComponent } from './consulta.component';
 import { ConsultaRoutingModule } from './consulta.routing.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { PageHeaderModule } from '../../../shared';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -13,7 +14,8 @@ import { PageHeaderModule } from '../../../shared';
     CommonModule,
     ConsultaRoutingModule,
     TranslateModule,
-    PageHeaderModule
+    PageHeaderModule,
+    FormsModule
   ]
 })
 export class ConsultaModule { }

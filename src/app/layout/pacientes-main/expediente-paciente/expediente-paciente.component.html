@@ -10,8 +10,8 @@
           <div class="col text-right">
               <button 
                     (click)="gotoVisita()"
-                  class='btn btn-primary'>
-                  <i class="fa fa-plus"></i>
+                    class='btn btn-primary'>
+                  <i class="fa fa-eye"></i>
                   {{ 'Adds' | translate }}
               </button>
         
@@ -179,7 +179,7 @@
                   <hr>
                   <br>
 
-                  <div class="card">
+                  <div *ngIf="cita != null" class="card">
                     <h4 class="card-header">{{ 'Next Appointment' | translate }}</h4>
                     <div class="card-body">
                       <h5 class="card-title">{{cita.fecha | date}}</h5>

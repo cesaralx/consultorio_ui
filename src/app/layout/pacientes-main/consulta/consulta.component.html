@@ -3,26 +3,31 @@
 
 <div class="row">
 
-  <div class="col-6">
+  <div class="col-4" *ngFor="let item of files; let i=index">
      
-        <div  *ngFor="let item of files; let i=index">
+        <div  >
             <div class="card">
-                <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
-                <div class="card-body">
-                  <h4 class="card-title"><strong>Nombre del archivo: </strong>{{item.name}}</h4>
-                  <p class="card-text"><strong>Tamaño </strong>{{item.size}}</p>
-                  <p class="carda-text">
-                  <button type="button"
-                    class="btn btn-primary bt-xs"
-                     (click)="descargar(item)">
-                    <i class="fas fa-download"></i> 
-                  </button>
-                  <button type="button"
-                    class="mx-2 btn btn-dark bt-xs"
-                    (click)="preview(item)">
-                    <i class="fas fa-eye"></i> 
-                  </button></p>
-                </div>   
+              <div class="card-header">
+                <p><strong>Nombre del archivo: </strong>{{item.name}}</p>
+                {{visita.tipoFile[i]}}
+              </div>
+              <div class="card-body">
+                <img  *ngIf="visita.tipoFile[i] === 'image/pdf'" src="../../../../assets/images/logoPDF.png" alt="">
+                <img *ngIf="visita.tipoFile[i] === 'text/plain'" src="../../../../assets/images/logoTXT.png" alt=""> 
+                 <img *ngIf="(visita.tipoFile[i] === 'image/png') || visita.tipoFile[i] === 'image/jpeg'" src="../../../../assets/images/logoImg.png" alt=""> 
+                 </div>  
+                 <div class="card-footer">
+                    <button type="button"
+                      class="btn btn-primary bt-xs"
+                        (click)="descargar(item)">
+                      <i class="fas fa-download"></i> 
+                    </button>
+                    <button type="button"
+                      class="mx-2 btn btn-dark bt-xs"
+                      (click)="preview(item)">
+                      <i class="fas fa-eye"></i> 
+                    </button>
+                 </div>  
       </div>
 
       <div class="col">
