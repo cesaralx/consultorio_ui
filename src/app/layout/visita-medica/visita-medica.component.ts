@@ -226,7 +226,7 @@ export class VisitaMedicaComponent implements OnInit {
     });
  }
 
- guardar( form: NgForm ) {
+  async guardar( form: NgForm ) {
   this.modal.dismissAll();
   Swal.fire({
     title: 'Espere',
@@ -236,11 +236,11 @@ export class VisitaMedicaComponent implements OnInit {
   });
   Swal.showLoading();
   let peticion: Observable <any>;
-  // if (this.files.length > 0) {
+  if (this.files.length > 0) {
 
-  //    this.guardarArchivos();
+   await this.guardarArchivos();
 
-  // }
+  }
   peticion = this.visitaService.altaVisita(this.visita);
       // console.log(this.consultorio);
       peticion.subscribe( resp => {
@@ -325,14 +325,14 @@ toBuffer(ab) {
   return buf;
 }
 
-guardarArchivos() {
+guardarArchivos = () => new Promise((resolve, reject) => {
   let contadorcito = 0;
   this.files.forEach(element => {
-    this.handleFileInput(element, contadorcito);
-    contadorcito++;
+    this.handleFileInput(element, contadorcito); contadorcito++;
+    resolve(true);
   });
 
-}
+})
 
 
 
