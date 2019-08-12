@@ -15,6 +15,9 @@ const routes: Routes = [
     .then(m => m.VisitaMedicaPacienteModule)},
     { path: 'expediente-paciente/:id', loadChildren: () => import('./expediente-paciente/expediente-paciente.module')
     .then(m => m.ExpedientePacienteModule)},
+    { path: 'consultas-medicas/consulta/:id', loadChildren: () => import('./consulta/consulta.module')
+    .then(m => m.ConsultaModule)},
+
     // { path: 'pacientes', loadChildren: () => import('./pacientes/pacientes.module').then(m => m.PacientesModule )}
     ]
 }

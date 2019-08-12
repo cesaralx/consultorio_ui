@@ -6,9 +6,7 @@ import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { DataTablesModule } from 'angular-datatables';
 import { ArchwizardModule } from 'angular-archwizard';
-
-
-
+import { PageHeaderModule } from '../../shared';
 
 // Componentes
 import { VisitaMedicaComponent } from './visita-medica.component';
@@ -28,7 +26,8 @@ import { VisitaMedicaRoutingModule } from './visita-medica-routing.module';
     DataTablesModule,
     ArchwizardModule,
     ngfModule,
-    NgbModule
+    NgbModule,
+    PageHeaderModule
   ]
 })
 export class VisitaMedicaModule { }

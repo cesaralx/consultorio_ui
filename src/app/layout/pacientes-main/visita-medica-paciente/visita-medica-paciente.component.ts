@@ -26,7 +26,7 @@ export class VisitaMedicaPacienteComponent implements OnInit {
               private expedienteService: ExpedientesService,
               private consultoriosService: ConsultoriosService,
               private visitaService: VisitaMedicaService,
-              private router:Router,
+              private router: Router,
               private activatedRoute: ActivatedRoute) { }
 
    cargando: boolean = true;
@@ -68,7 +68,7 @@ export class VisitaMedicaPacienteComponent implements OnInit {
       if (error.status === 403) { reject(this.g.onLoggedout()); }
       });
    })
-   gotoConsulta (item: VisitaModel) {
+   gotoConsulta (item: any) {
     this.router.navigate(['pacientes/consultas-medicas/consulta/' + item._id]);
   }
 
