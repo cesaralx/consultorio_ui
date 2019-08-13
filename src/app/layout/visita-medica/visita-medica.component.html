@@ -1,7 +1,7 @@
+<app-page-header  [heading]="'Convertir cita a consulta medica'" [icon]="'fa-desktop'">
+</app-page-header>
 <div class="row m-4">
-<div class="col d-flex justify-content-center text-center">
-       <h3>Convertir cita a Visita medica</h3> 
-</div>
+
   <div class="col d-flex justify-content-end">
       <button
           (click)="alta(content)" 
@@ -12,7 +12,6 @@
 
     </div>
 </div>
-
 <table datatable *ngIf="!cargando && citas.length > 0"
     class="animated fadeIn faster">
     <thead class="thead-dark">
@@ -40,7 +39,7 @@
                     (click)="citaVisitaMedica(c, content)"
                     >
                 Convertir a visita medica   
-                <i class="fas fa-thumbs-up"></i>
+                <i class="fa fa-thumbs-up"></i>
         </button>
         </td>
     </tr>
@@ -135,7 +134,7 @@ class="alert alert-info text-center mt-3 animated fadeIn faster">
                                                 name="extra"></textarea>         
                                 </div>
                     <div class="row d-flex justify-content-end m-1">
-                            <button type="button" class="btn btn-dark" awNextStep>Siguiente <i class="fas fa-arrow-circle-right"></i></button>
+                            <button type="button" class="btn btn-dark" awNextStep>Siguiente <i class="fa fa-arrow-circle-right"></i></button>
                     </div>  
                 </aw-wizard-step>
                     <aw-wizard-step class="m-3" [navigationSymbol]="{ symbol: '2' }" stepTitle="Anexos">
@@ -161,7 +160,7 @@ class="alert alert-info text-center mt-3 animated fadeIn faster">
                           [(dragFiles)]    = "dragFiles"
                           class= "well my-drop-zone text-center bg-light"
                           >
-                          <i class="fas fa-cloud-upload-alt m-3"></i>Selecciona los archivos
+                          <i class="fa fa-cloud-upload m-3"></i>Selecciona los archivos
                           </div>
                       <div *ngIf="dragFiles">
                         <h3 style="margin:0">Drag Files</h3>
@@ -206,7 +205,8 @@ class="alert alert-info text-center mt-3 animated fadeIn faster">
                                   class="btn btn-danger btn-xs"
                                   (click)="lastInvalids.splice(i,1)"
                                 >
-                                  <span class="glyphicon glyphicon-trash"></span>
+                                <i class="fa fa-trash m-3" ></i>
+                                
                                 </button>
                               </td>
                             </tr>
@@ -278,26 +278,26 @@ class="alert alert-info text-center mt-3 animated fadeIn faster">
                             class="btn btn-success btn-s"
                             (click)="guardarArchivos()"
                             [disabled]="!files.length">
-                            <i class="fas fa-upload"></i> Subir todos
+                            <i class="fa fa-upload"></i> Subir todos
                               </button>
                             <button type="button"
                             class="btn btn-warning btn-s"
                             (click)="cancel()"
                             [disabled]="!httpEmitter">
-                            <i class="fas fa-ban"></i> Cancelar todos
+                            <i class="fa fa-ban"></i> Cancelar todos
                       </button>
                       <button type="button"
                         class="btn btn-danger btn-s"
                         (click)="files.length=0"
                         [disabled]="!files.length">
-                        <i class="fas fa-trash"></i> Remover archivos
+                        <i class="fa fa-trash"></i> Remover archivos
                       </button>
                        </div>
                       </div>
                       <button type="button" 
                       class="btn btn-dark" 
                       awPreviousStep>
-                      <i class="fas fa-arrow-circle-left"></i> 
+                      <i class="fa fa-arrow-circle-left"></i> 
                       Regresar</button>
                     </aw-wizard-step>
                    

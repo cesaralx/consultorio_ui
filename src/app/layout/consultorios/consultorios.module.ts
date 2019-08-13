@@ -4,7 +4,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { DataTablesModule } from 'angular-datatables';
-
+import { PageHeaderModule } from '../../shared';
 
 // Componentes
 import { ConsultoriosComponent } from './consultorios.component';
@@ -23,7 +23,8 @@ import { ConsultoriosRoutingModule } from './consultorios-routing.module';
     TranslateModule,
     ConsultoriosRoutingModule,
     FormsModule,
-    DataTablesModule
+    DataTablesModule,
+    PageHeaderModule
   ]
 })
 export class ConsultoriosModule { }

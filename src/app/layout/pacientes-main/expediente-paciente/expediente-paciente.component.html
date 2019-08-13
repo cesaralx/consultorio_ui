@@ -9,9 +9,9 @@
       <div class="row">
           <div class="col text-right">
               <button 
-                  (click)="alta(content)"
-                  class='btn btn-primary'>
-                  <i class="fa fa-plus"></i>
+                    (click)="gotoVisita()"
+                    class='btn btn-primary'>
+                  <i class="fa fa-eye"></i>
                   {{ 'Adds' | translate }}
               </button>
         
@@ -165,7 +165,7 @@
                     <div class="panel-body"><a href="http://bootnipets.com">bootnipets.com</a></div>
                   </div> <br>
 
-                  <ul  class="list-group">
+                  <ul class="list-group">
                     <li  class="list-group-item text-muted">{{ 'latest visits...' | translate }} <i class="fa fa-clock-o fa-1x"></i></li>
                     <li *ngFor="let item of lastvisitas" class="list-group-item text-right"><span class="pull-left"><strong>{{item.fecha}}</strong></span> {{item.motivo}}</li>
                   </ul> 
@@ -179,10 +179,10 @@
                   <hr>
                   <br>
 
-                  <div class="card">
+                  <div *ngIf="cita != null" class="card">
                     <h4 class="card-header">{{ 'Next Appointment' | translate }}</h4>
                     <div class="card-body">
-                      <h5 class="card-title">{{cita.fecha}}</h5>
+                      <h5 class="card-title">{{cita.fecha | date}}</h5>
                       <p class="card-text">Consultorio</p>
                       <a href="#" class="btn btn-primary">Generar visita</a>
                     </div>

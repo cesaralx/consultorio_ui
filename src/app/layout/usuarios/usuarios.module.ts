@@ -7,6 +7,9 @@ import { FormsModule } from '@angular/forms';
 
 import { UsuariosRoutingModule } from './usuarios-routing.module';
 import { UsuariosComponent } from './usuarios.component';
+import { PageHeaderModule } from '../../shared';
+
+
 
 import { DataTablesModule } from 'angular-datatables';
 
@@ -20,6 +23,7 @@ import { DataTablesModule } from 'angular-datatables';
     NgbModalModule,
     FormsModule,
     DataTablesModule,
+    PageHeaderModule
   ]
 })
 export class UsuariosModule { }

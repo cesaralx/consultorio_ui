@@ -70,11 +70,11 @@ export class VisitaMedicaComponent implements OnInit {
               private modal: NgbModal,
               public httpClient: HttpClient) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.cargando = true;
-    this.getConsultorios();
-    this.getPacientes();
-    this.getCitas();
+    await this.getConsultorios();
+    await this.getPacientes();
+    await this.getCitas();
   }
 // Funciones del modal
   open(content) {
@@ -90,7 +90,7 @@ export class VisitaMedicaComponent implements OnInit {
     this.open(content);
   }
 
-  async citaVisitaMedica(c: CitaModel , content) {
+  async  citaVisitaMedica(c: CitaModel , content) {
     this.editable = true;
     this.cita = c;
     const obj = this.pacientes.find(res => res._id === this.cita.id_paciente);
@@ -116,24 +116,64 @@ export class VisitaMedicaComponent implements OnInit {
   })
 
 // Funciones para traerese registros de consultas y pacientes
-  async getConsultorios() {
+  getConsultorios = () => new Promise((resolve, reject) => {
     this.consultoriosService.getConsultorios()
           .subscribe(  (resp: any) => {
-          this.consultorios = resp;
+          resolve(this.consultorios = resp);
+
           },
           (error) => {
           console.log(error.message);
-          if (error.status === 403) { this.g.onLoggedout(); }
-          });
-   }
+          if (error.status === 403) { reject(this.g.onLoggedout()); }
+          }
 
-  async getCitas() {
+          );
+   })
+
+  // getCitas = () => new Promise((resolve, reject) => {
+  //   this.agendaService.getCitas()
+  //       .subscribe(  (resp: any) => {
+  //       this.citas = resp;
+  //       if (this.citas === null) { return []; }
+  //       this.cargando = false;
+  //        this.citas.forEach( cita => {
+  //          const obj = this.pacientes.find(res => res._id === cita.id_paciente);
+  //          if (obj != null) {
+  //           cita.nombrePaciente = obj.nombre;
+  //          } else {
+  //            cita.nombrePaciente = 'Nombre no valido';
+  //          }
+  //          const resultado = this.consultorios.find(busca => busca._id === cita.id_consultorio);
+  //          if (resultado != null) {
+  //           cita.nombreConsultorio = resultado.nombre;
+  //          } else {
+  //            cita.nombreConsultorio = 'Consulta no valido';
+  //          }
+  //         //  console.log('todas:', cita);
+  //          if (cita.status === 'completada') {
+  //             console.log('Completada:', cita);
+  //             const index: number = this.citas.indexOf(cita);
+  //             if (index !== -1) {
+  //                 this.citas.splice(index);
+  //             }
+  //           }
+  //        });
+  //        console.log('Citas medicas:', this.citas);
+  //        resolve(true);
+  //   },
+  //   (error) => {
+  //   console.log(error.message);
+  //   if (error.status === 403) { this.g.onLoggedout();  }
+    
+  //   });
+  //  })
+
+    getCitas = () => new Promise((resolve, reject) => {
     this.agendaService.getCitas()
         .subscribe(  (resp: any) => {
-        this.citas = resp;
-        if (this.citas === null) { return []; }
+        if (resp === null) { return []; }
         this.cargando = false;
-         this.citas.forEach( cita => {
+         resp.forEach( cita => {
            const obj = this.pacientes.find(res => res._id === cita.id_paciente);
            if (obj != null) {
             cita.nombrePaciente = obj.nombre;
@@ -147,33 +187,30 @@ export class VisitaMedicaComponent implements OnInit {
              cita.nombreConsultorio = 'Consulta no valido';
            }
           //  console.log('todas:', cita);
-           if (cita.status === 'completada') {
-              console.log('Completada:', cita);
-              const index: number = this.citas.indexOf(cita);
-              if (index !== -1) {
-                  this.citas.splice(index);
-              }
+           if (cita.status !== 'completada') {
+              this.citas.push(cita);
             }
          });
          console.log('Citas medicas:', this.citas);
+         resolve(true);
     },
     (error) => {
     console.log(error.message);
-    if (error.status === 403) { this.g.onLoggedout(); }
+    if (error.status === 403) { this.g.onLoggedout();  }
     });
-   }
+   })
 
- async getPacientes() {
+ getPacientes = () => new Promise ((resolve, reject) => {
   this.agendaService.getPacientes()
         .subscribe(  (resp: any) => {
-            this.pacientes = resp;
-           // console.log('pacientes', this.pacientes);
+           resolve(this.pacientes = resp);
+
         },
         (error) => {
         console.log(error.message);
-        if (error.status === 403) { this.g.onLoggedout(); }
+        if (error.status === 403) { reject(this.g.onLoggedout()); }
         });
-}
+})
 
 // funciones de visitas
   consultarVisitas() {
@@ -189,7 +226,7 @@ export class VisitaMedicaComponent implements OnInit {
     });
  }
 
- guardar( form: NgForm ) {
+  async guardar( form: NgForm ) {
   this.modal.dismissAll();
   Swal.fire({
     title: 'Espere',
@@ -199,11 +236,11 @@ export class VisitaMedicaComponent implements OnInit {
   });
   Swal.showLoading();
   let peticion: Observable <any>;
-  // if (this.files.length > 0) {
+  if (this.files.length > 0) {
 
-  //    this.guardarArchivos();
+   await this.guardarArchivos();
 
-  // }
+  }
   peticion = this.visitaService.altaVisita(this.visita);
       // console.log(this.consultorio);
       peticion.subscribe( resp => {
@@ -213,6 +250,8 @@ export class VisitaMedicaComponent implements OnInit {
           text: 'Se actualizo correctamente',
           type: 'success'
         });
+        this.citas = [];
+        this.getCitas();
       },
       (error) => {
       console.log(error.message);
@@ -286,14 +325,14 @@ toBuffer(ab) {
   return buf;
 }
 
-guardarArchivos() {
+guardarArchivos = () => new Promise((resolve, reject) => {
   let contadorcito = 0;
   this.files.forEach(element => {
-    this.handleFileInput(element, contadorcito);
-    contadorcito++;
+    this.handleFileInput(element, contadorcito); contadorcito++;
+    resolve(true);
   });
 
-}
+})
 
 
 

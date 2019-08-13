@@ -6,6 +6,7 @@ import { DataTablesModule } from 'angular-datatables';
 import { ngfModule} from 'angular-file';
 
 import { ArchwizardModule } from 'angular-archwizard';
+import { PageHeaderModule } from '../../shared';
 
 import { HistorialVisitasRoutingModule } from './historial-visitas-routing.module';
 import { HistorialVisitasComponent } from './historial-visitas.component';
@@ -22,7 +23,8 @@ import { HistorialVisitasComponent } from './historial-visitas.component';
     NgbModule,
     DataTablesModule,
     ArchwizardModule,
-    ngfModule
+    ngfModule,
+    PageHeaderModule
   ]
 })
 export class HistorialVisitasModule { }

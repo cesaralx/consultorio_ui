@@ -1,0 +1,40 @@
+<app-page-header [previous]="'pacientes'" [heading]="'Consulta Medica'" [icon]="'fa-desktop'">
+</app-page-header>
+
+<div class="row">
+
+  <div class="col-4" *ngFor="let item of files; let i=index">
+     
+        <div  >
+            <div class="card">
+              <div class="card-header">
+                <p><strong>Nombre del archivo: </strong>{{item.name}}</p>
+                {{visita.tipoFile[i]}}
+              </div>
+              <div class="card-body">
+                <img  *ngIf="visita.tipoFile[i] === 'image/pdf'" src="../../../../assets/images/logoPDF.png" alt="">
+                <img *ngIf="visita.tipoFile[i] === 'text/plain'" src="../../../../assets/images/logoTXT.png" alt=""> 
+                 <img *ngIf="(visita.tipoFile[i] === 'image/png') || visita.tipoFile[i] === 'image/jpeg'" src="../../../../assets/images/logoImg.png" alt=""> 
+                 </div>  
+                 <div class="card-footer">
+                    <button type="button"
+                      class="btn btn-primary bt-xs"
+                        (click)="descargar(item)">
+                      <i class="fa fa-download"></i> 
+                    </button>
+                    <button type="button"
+                      class="mx-2 btn btn-dark bt-xs"
+                      (click)="preview(item)">
+                      <i class="fa fa-eye"></i> 
+                    </button>
+                 </div>  
+      </div>
+
+      <div class="col">
+
+       <iframe *ngIf="ver" [src]="ruta" frameborder="0"></iframe>
+
+      </div>
+  </div>
+
+</div>

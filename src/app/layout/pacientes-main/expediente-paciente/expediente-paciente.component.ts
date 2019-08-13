@@ -2,7 +2,7 @@ import { Component, OnInit , OnDestroy } from '@angular/core';
 import { routerTransition } from '../../../router.animations';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-
+import { Router } from '@angular/router';
 
 import {PacientesService} from '../pacientes/pacientes.service';
 import {PacienteModel} from '../pacientes/pacientes.model';
@@ -47,7 +47,8 @@ export class ExpedientePacienteComponent implements OnInit, OnDestroy  {
      private sanitizer: DomSanitizer,
      private consultoriosService: ConsultoriosService,
      private modal: NgbModal,
-     private visitaMedicaService: VisitaMedicaService) { }
+     private visitaMedicaService: VisitaMedicaService,
+     public router: Router) { }
 
   ngOnInit() {
     this.paciente_id = this.route.params.subscribe(async params => {
@@ -110,6 +111,7 @@ export class ExpedientePacienteComponent implements OnInit, OnDestroy  {
 
   getCitaByPaciente = () => new Promise( (resolve, reject) => {
     this.visitaMedicaService.getVisitaMedicaByPaciente(this.paciente._id).subscribe( (resp: any) =>  {
+      console.log(resp);
       resolve(this.cita = resp);
     });
   })
@@ -140,6 +142,10 @@ export class ExpedientePacienteComponent implements OnInit, OnDestroy  {
 
   ngOnDestroy() {
     this.paciente_id.unsubscribe();
+  }
+
+  gotoVisita () {
+    this.router.navigate(['pacientes/consultas-medicas/' + this.id]);
   }
 
 }

@@ -167,6 +167,7 @@ actualizar(visita: VisitaModel, content) {
 
     this.visitaService.getVisitaMedica(visita._id).subscribe( (resp: any) => {
     this.visita = resp;
+    console.log('visita medica', this.visita);
     this.editable = true;
     let contador = 0;
     this.files = [];
