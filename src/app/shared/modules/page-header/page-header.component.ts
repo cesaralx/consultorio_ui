@@ -10,6 +10,8 @@ export class PageHeaderComponent implements OnInit {
     @Input() heading: string;
     @Input() icon: string;
     @Input() previous: string;
+    @Input() previous2: string;
+    @Input() variable: string;
     constructor() {}
 
     ngOnInit() {}

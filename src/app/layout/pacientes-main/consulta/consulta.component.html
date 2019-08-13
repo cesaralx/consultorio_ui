@@ -1,6 +1,5 @@
-<app-page-header [previous]="'pacientes'" [heading]="'Consulta Medica'" [icon]="'fa-desktop'">
+<app-page-header [previous2]="'pacientes/consultas-medicas/'+visita.id_paciente" [variable]="'pacientes/consultas-medicas'" [heading]="'Consulta Medica'" [icon]="'fa-desktop'">
 </app-page-header>
-
 <div class="row">
 
   <div class="col-4" *ngFor="let item of files; let i=index">
@@ -9,7 +8,6 @@
             <div class="card">
               <div class="card-header">
                 <p><strong>Nombre del archivo: </strong>{{item.name}}</p>
-                {{visita.tipoFile[i]}}
               </div>
               <div class="card-body">
                 <img  *ngIf="visita.tipoFile[i] === 'image/pdf'" src="../../../../assets/images/logoPDF.png" alt="">
@@ -22,11 +20,11 @@
                         (click)="descargar(item)">
                       <i class="fa fa-download"></i> 
                     </button>
-                    <button type="button"
+                    <!-- <button type="button"
                       class="mx-2 btn btn-dark bt-xs"
                       (click)="preview(item)">
                       <i class="fa fa-eye"></i> 
-                    </button>
+                    </button> -->
                  </div>  
       </div>
 
