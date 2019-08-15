@@ -7,6 +7,8 @@ import {VisitaMedicaService} from '../../visita-medica/visita-medica.service';
 import { LayoutService, lenguaje } from '../../layout.service';
 import {VisitaModel} from '../../visita-medica/visita-medica.model';
 import { NgForm } from '@angular/forms';
+import { Observable } from 'rxjs';
+import {Buffer} from 'buffer';
 
 @Component({
   selector: 'app-consulta',
@@ -91,19 +93,58 @@ descargar(archivo: File) {
     document.body.removeChild(link);
   }
 }
-  preview(archivo: File) {
-    if(navigator.msSaveBlob) {
 
-      navigator.msSaveBlob(archivo, archivo.name);
-    } else {
-      const link = document.createElement('a');
-      link.href = URL.createObjectURL(archivo);
-      link.setAttribute('visibility', 'hidden');
-      document.body.appendChild(link);
-      link.click();
- }
+async uploadFile(event) {
+  for (let index = 0; index < event.length; index++) {
+    const element = event[index];
+    this.files.push(element.name);
+  }
+  this.visita.anexos = [];
+ await this.files.forEach(element => {
+     this.handleFileInput(element);
+  });
+ this.guardar();
 }
 
- 
+async handleFileInput(file: File) {
+
+  const tmppath2 =  file;
+  const toBase64 = file => new Promise((resolve, reject) => {
+  const reader = new FileReader();
+  reader.readAsArrayBuffer(file);
+  reader.onload = () => resolve(reader.result);
+  reader.onerror = error => reject(error);
+});
+
+const h = await toBase64(tmppath2);
+console.log(h);
+this.visita.anexos.push(this.toBuffer(h));
+
+
+}
+
+toBuffer(ab) {
+  const buf = Buffer.alloc(ab.byteLength);
+  const view = new Uint8Array(ab);
+  for (let i = 0; i < buf.length; ++i) {
+      buf[i] = view[i];
+  }
+  return buf;
+  }
+
+  guardar() {
+   let peticion: Observable <any>;
+
+    peticion = this.visitaService.actualizaVisita(this.visita);
+       // console.log(this.consultorio);
+       peticion.subscribe( resp => {
+         this.ngOnInit();
+       },
+       (error) => {
+       console.log(error.message);
+       if (error.status === 403) { this.g.onLoggedout(); }
+       });
+  
+     }
 
 }

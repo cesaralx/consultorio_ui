@@ -154,6 +154,7 @@ export class HistorialVisitasComponent implements OnInit {
          this.visitaService.borrarVisita(visita._id).subscribe( (response: any) => {
           console.log(response);
           this.visitas.splice(i, 1);
+          this.ngOnInit();
          },
          (error) => {
          console.log(error.message);

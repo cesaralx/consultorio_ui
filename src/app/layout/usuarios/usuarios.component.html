@@ -69,65 +69,72 @@
       </div>
       
       <div class="modal-body">
-        <div class="form-group ">
-           <label>Nombre</label> 
-            <input type="text"
-                   class="form-control"
-                   required
-                   name="nombre"
-                   [(ngModel)]="usuario.nombre"
-                   placeholder="Nombre del usuario">
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label>Nombre</label> 
+                 <input type="text"
+                        class="form-control"
+                        required
+                        name="nombre"
+                        [(ngModel)]="usuario.nombre"
+                        placeholder="Nombre del usuario">
+             </div>
+              <div class="form-group col-md-6">
+                 <label>Cargo</label>
+                 <input type="text"
+                        class="form-control"
+                        required
+                        name="cargo"
+                        [(ngModel)]="usuario.cargo"
+                        placeholder="Cargo">
+               </div>
         </div>
-          <div class="form-group row">
-            <label class="col-2 col-form-label">Cargo</label>
-            <div class="col-md-8">
-            <input type="text"
-                   class="form-control"
-                   required
-                   name="cargo"
-                   [(ngModel)]="usuario.cargo"
-                   placeholder="Cargo">
-            </div>
-          </div>
-          
-          <div class="form-group ">
-              <label>Uusario</label> 
-               <input type="text"
-                      class="form-control"
-                      required
-                      name="usuario"
-                      [(ngModel)]="usuario.usuario"
-                      placeholder="usuario">
-           </div>
-           <div class="form-group ">
-              <label>Contrasena</label> 
-               <input type="password"
-                      class="form-control"
-                      required
-                      name="password"
-                      [(ngModel)]="usuario.password"
-                      placeholder="Contrasena">
-           </div>
-           <div class="form-group ">
-              <label>Consultorio</label> 
-              <select class="form-control"
-              name="consultorio"
-              [(ngModel)]="usuario.consultorio_id">
-              <option selected>Seleccione un Consultorio</option>
-              <option  *ngFor="let consultorio of consultorios" [value]=consultorio._id>{{consultorio.nombre}}</option>
-              </select>
-           </div>
-           <div class="form-group ">
-              <label>Nivel</label> 
-              <select class="form-control"
-              name="nivel"
-              [(ngModel)]="usuario.nivel">
-              <option selected>Seleccione un nivel</option>
-              <option value="1">Medico</option>
-              <option value="2">Administrativo</option>
-              </select>
-           </div>
-             <div class="form-group ">
+     
+        <div class="form-row">
+            <div class="form-group col-md-6 ">
+                <label>Usario</label> 
+                 <input type="text"
+                        class="form-control"
+                        required
+                        name="usuario"
+                        [(ngModel)]="usuario.usuario"
+                        placeholder="usuario">
+             </div>
+             <div class="form-group col-md-6 ">
+                <label>Contrasena</label> 
+                 <input type="password"
+                        class="form-control"
+                        required
+                        name="password"
+                        [(ngModel)]="usuario.password"
+                        placeholder="Contrasena">
+             </div>
+        </div>
+        
+        <div class="form-row">
+            <div class="form-group col-md-6 ">
+                <label>Consultorio</label> 
+                <select class="form-control"
+                name="consultorio"
+                [(ngModel)]="usuario.consultorio_id">
+                <option selected>Seleccione un Consultorio</option>
+                <option  *ngFor="let consultorio of consultorios" [value]=consultorio._id>{{consultorio.nombre}}</option>
+                </select>
+             </div>
+             <div class="form-group col-md-6">
+                <label>Nivel</label> 
+                <select class="form-control"
+                name="nivel"
+                [(ngModel)]="usuario.nivel">
+                <option selected>Seleccione un nivel</option>
+                <option value="1">Medico</option>
+                <option value="2">Administrativo</option>
+                </select>
+             </div>
+        </div>
+        <div class="form-row"> 
+            <div class="form-group col-md-6">
                 <label>Teléfono</label> 
                  <input type="number"
                         class="form-control"
@@ -136,7 +143,7 @@
                         [(ngModel)]="usuario.telefono"
                         placeholder="Teléfono">
                </div>
-               <div class="form-group ">
+               <div class="form-group col-md-6 ">
                   <label>Email</label> 
                    <input type="email"
                           class="form-control"
@@ -144,38 +151,37 @@
                           name="email"
                           [(ngModel)]="usuario.email"
                           placeholder="Email">
-              </div>  
-              <div class="form-group">
-                <label>Especialidad</label> 
-                 <input type="text"
-                        class="form-control"
-                        name="especialidad"
-                        [(ngModel)]="usuario.especialidad"
-                        placeholder="Especialidad">
-            </div>  
-            <div class="form-group" >
-              <label>Imagen</label> 
-                                <!-- Standar Form -->
-                                <h4>Select files from your computer</h4>
-                                <div class="form-inline">
-                                  <div class="form-group">
-                                    <input type="file" name="imagen" 
-                                    (change)="handleFileInput($event.target.files)">
-                                  </div>
+              </div> 
+        </div>
+
+        <div class="form-row">       
+           <div class="form-group col-md-6">
+              <label>Especialidad</label> 
+               <input type="text"
+                      class="form-control"
+                      name="especialidad"
+                      [(ngModel)]="usuario.especialidad"
+                      placeholder="Especialidad">
+          </div>  
+          <div class="form-group col-md-6">
+            <label>Imagen</label> 
+                              <!-- Standar Form -->
+                              <h4>Select files from your computer</h4>
+                              <div class="form-inline">
+                                <div class="form-group">
+                                  <input type="file" name="imagen" 
+                                  (change)="handleFileInput($event.target.files)">
                                 </div>
-                    
-                              <!-- Drop Zone -->
-                              <!-- <h4>Or drag and drop files below</h4>
-                              <div class="upload-drop-zone" name="imagen" [(ngModel)]="imgUrl">
-                                Just drag and drop files here
-                              </div> -->
-   
+                              </div>
+                  
+                            <!-- Drop Zone -->
+                            <!-- <h4>Or drag and drop files below</h4>
+                            <div class="upload-drop-zone" name="imagen" [(ngModel)]="imgUrl">
+                              Just drag and drop files here
+                            </div> -->
+ 
           </div> 
-        
-        
-
-
-
+        </div>
       </div>
       <div class="modal-footer align-content-center " data-backdrop="static"> 
           <button 

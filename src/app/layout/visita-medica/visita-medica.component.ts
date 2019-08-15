@@ -329,9 +329,8 @@ guardarArchivos = () => new Promise((resolve, reject) => {
   let contadorcito = 0;
   this.files.forEach(element => {
     this.handleFileInput(element, contadorcito); contadorcito++;
-    resolve(true);
   });
-
+  resolve(true);
 })
 
 

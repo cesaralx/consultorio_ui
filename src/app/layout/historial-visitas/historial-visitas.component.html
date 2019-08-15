@@ -46,7 +46,7 @@
   class="alert alert-info text-center mt-3 animated fadeIn faster">
   <h4>cargando</h4>
   <p>
-     <i class="fas fa-sync-alt fa-spin fa-2x"></i>
+     <i class="fa fa-sync-alt fa-spin fa-2x"></i>
   </p>
   <p class="mb-0">
      Espere por favor
@@ -133,7 +133,7 @@
                                               name="extra"></textarea>         
                               </div>
                   <div class="row d-flex justify-content-end m-1">
-                          <button type="button" class="btn btn-dark" awNextStep>Siguiente <i class="fas fa-arrow-circle-right"></i></button>
+                          <button type="button" class="btn btn-dark" awNextStep>Siguiente <i class="fa fa-arrow-circle-right"></i></button>
                   </div>  
               </aw-wizard-step>
                   <aw-wizard-step class="m-3" [navigationSymbol]="{ symbol: '2' }" stepTitle="Anexos">
@@ -246,12 +246,12 @@
                                   <button type="button"
                                         class="btn btn-danger btn-xs mx-1"
                                         (click)="files.splice(i,1)">
-                                  <i class="fas fa-trash"></i> 
+                                  <i class="fa fa-trash"></i> 
                                   </button>
                                   <button type="button"
                                           class="btn btn-primary bt-xs"
                                            (click)="descargar(item)">
-                                          <i class="fas fa-download"></i> 
+                                          <i class="fa fa-download"></i> 
                                   </button>
                                   </td>
                                 </tr>
@@ -284,26 +284,26 @@
                           class="btn btn-success btn-s"
                           (click)="guardarArchivos()"
                           [disabled]="!files.length">
-                          <i class="fas fa-upload"></i> Subir todos
+                          <i class="fa fa-upload"></i> Subir todos
                             </button>
                           <button type="button"
                           class="btn btn-warning btn-s"
                           (click)="cancel()"
                           [disabled]="!httpEmitter">
-                          <i class="fas fa-ban"></i> Cancelar todos
+                          <i class="fa fa-ban"></i> Cancelar todos
                     </button>
                     <button type="button"
                       class="btn btn-danger btn-s"
                       (click)="files.length=0"
                       [disabled]="!files.length">
-                      <i class="fas fa-trash"></i> Remover archivos
+                      <i class="fa fa-trash"></i> Remover archivos
                     </button>
                      </div>
                     </div>
                     <button type="button" 
                     class="btn btn-dark" 
                     awPreviousStep>
-                    <i class="fas fa-arrow-circle-left"></i> 
+                    <i class="fa fa-arrow-circle-left"></i> 
                     Regresar</button>
                   </aw-wizard-step>
                  

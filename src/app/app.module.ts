@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 
 import { AuthGuard } from './shared';
 import { AuthGuardExternal } from './shared';
+import { NgDropFilesDirective } from './directives/ng-drop-files.directive';
 
 
 
@@ -23,7 +24,7 @@ import { AuthGuardExternal } from './shared';
         LanguageTranslationModule,
         AppRoutingModule,
     ],
-    declarations: [AppComponent],
+    declarations: [AppComponent, NgDropFilesDirective],
     providers: [AuthGuard, AuthGuardExternal],
     bootstrap: [AppComponent]
 })
