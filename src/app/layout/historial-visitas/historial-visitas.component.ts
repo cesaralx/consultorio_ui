@@ -205,6 +205,11 @@ actualizar(visita: VisitaModel, content) {
  let peticion: Observable <any>;
 
    console.log('actualizar');
+   if (this.files.length < 1 ) {
+     this.visita.anexos = [];
+     this.visita.filenames = [];
+     this.visita.tipoFile = [];
+   }
   peticion = this.visitaService.actualizaVisita(this.visita);
 
      // console.log(this.consultorio);
@@ -327,13 +332,20 @@ descargar(archivo: File) {
 
     link.href = URL.createObjectURL(archivo);
 
-    link.setAttribute('visibility','hidden');
+    link.setAttribute('visibility', 'hidden');
     link.download = archivo.name;
 
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
   }
+}
+
+eliminar(i: any) {
+    this.visita.anexos.splice(i, 1);
+    this.visita.filenames.splice(i, 1);
+    this.visita.filenames.splice(i, 1);
+    this.files.splice(i, 1);
 }
 
 
