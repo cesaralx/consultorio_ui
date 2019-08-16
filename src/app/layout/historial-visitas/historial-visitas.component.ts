@@ -154,6 +154,7 @@ export class HistorialVisitasComponent implements OnInit {
          this.visitaService.borrarVisita(visita._id).subscribe( (response: any) => {
           console.log(response);
           this.visitas.splice(i, 1);
+          this.ngOnInit();
          },
          (error) => {
          console.log(error.message);
@@ -204,6 +205,11 @@ actualizar(visita: VisitaModel, content) {
  let peticion: Observable <any>;
 
    console.log('actualizar');
+   if (this.files.length < 1 ) {
+     this.visita.anexos = [];
+     this.visita.filenames = [];
+     this.visita.tipoFile = [];
+   }
   peticion = this.visitaService.actualizaVisita(this.visita);
 
      // console.log(this.consultorio);
@@ -256,20 +262,26 @@ getDate() {
   return new Date();
 }
 
-async handleFileInput(file: File) {
 
-    const tmppath2 =  file;
-    const toBase64 = file => new Promise((resolve, reject) => {
+async handleFileInput(file: File, contador: any) {
+
+  const tmppath2 =  file;
+
+  const toBase64 = file => new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.readAsArrayBuffer(file);
     reader.onload = () => resolve(reader.result);
     reader.onerror = error => reject(error);
 });
 
-const h = await toBase64(tmppath2);
-console.log(h);
-this.visita.anexos.push(this.toBuffer(h));
+// this.usuario.image = await toBase64(tmppath2);
+    const h = await toBase64(tmppath2);
+    console.log('archivo en base 64', h);
 
+    this.visita.filenames.push(file.name);
+    this.visita.anexos.push(this.toBuffer(h));
+    this.visita.tipoFile.push(file.type);
+    // console.log('Buffer', this.usuario.image);
 
 }
 
@@ -282,12 +294,14 @@ for (let i = 0; i < buf.length; ++i) {
 return buf;
 }
 
-guardarArchivos(){
-this.files.forEach(element => {
-  this.handleFileInput(element);
-});
-
-}
+guardarArchivos = () => new Promise((resolve, reject) => {
+  let contadorcito = 0;
+  this.visita.anexos = [];
+  this.files.forEach(element => {
+    this.handleFileInput(element, contadorcito); contadorcito++;
+  });
+  resolve(true);
+})
 
 toArrayBuffer(buf) {
   const ab = new ArrayBuffer(buf.length);
@@ -318,13 +332,20 @@ descargar(archivo: File) {
 
     link.href = URL.createObjectURL(archivo);
 
-    link.setAttribute('visibility','hidden');
+    link.setAttribute('visibility', 'hidden');
     link.download = archivo.name;
 
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
   }
+}
+
+eliminar(i: any) {
+    this.visita.anexos.splice(i, 1);
+    this.visita.filenames.splice(i, 1);
+    this.visita.filenames.splice(i, 1);
+    this.files.splice(i, 1);
 }
 
 

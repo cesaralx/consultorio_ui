@@ -8,6 +8,8 @@ import { FormsModule } from '@angular/forms';
 
 
 
+
+
 @NgModule({
   declarations: [ConsultaComponent],
   imports: [
