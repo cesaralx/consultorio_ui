@@ -30,7 +30,7 @@
         <td>{{ i+1 }}</td>
         <td>{{c.nombrePaciente}}</td>
         <td>{{ c.nombreConsultorio }}</td>
-        <td>{{ c.fecha |  date }}</td>
+        <td>{{ c.fecha |  date: 'MMMM d, y, h:mm a' }}</td>
         <td>{{ c.status}}</td>
         <td>{{ c.costo}}</td> 
         <td>

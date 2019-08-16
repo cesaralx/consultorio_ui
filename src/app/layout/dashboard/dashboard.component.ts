@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { routerTransition } from '../../router.animations';
 import { TranslateService } from '@ngx-translate/core';
+import { ConsultoriosService } from "./dashboard.service";
 
 @Component({
     selector: 'app-dashboard',
@@ -9,6 +10,9 @@ import { TranslateService } from '@ngx-translate/core';
     animations: [routerTransition()]
 })
 export class DashboardComponent implements OnInit {
+    pacientes: [] = [];
+    pacientesNum: any;
+
     public alerts: Array<any> = [];
     public sliders: Array<any> = [];
 
@@ -74,7 +78,9 @@ export class DashboardComponent implements OnInit {
          */
     }
 
-    constructor(private translate: TranslateService) {
+    constructor(
+        private translate: TranslateService,
+        private consultoriosService: ConsultoriosService) {
         this.sliders.push(
             {
                 imagePath: 'assets/images/slider1.jpg',
@@ -119,6 +125,8 @@ export class DashboardComponent implements OnInit {
         this.barChartType = 'bar';
         this.barChartLegend = true;
         this.doughnutChartType = 'doughnut';
+        this.cargaAllPacientes();
+
     }
 
     public closeAlert(alert: any) {
@@ -129,6 +137,19 @@ export class DashboardComponent implements OnInit {
     changeLang(language: string) {
         this.translate.use(language);
     }
+
+    cargaAllPacientes = () => {
+        this.consultoriosService.getAllPacientes()
+        .subscribe( async (resp: any) => {
+            // console.log('Todos los pacientes', resp);
+            this.pacientes = resp;
+            this.pacientesNum = resp.length;
+          },
+          (error) => {
+          console.log(error.message);
+          if (error.status === 403) {}
+          });
+      }
 
 
 }

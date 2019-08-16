@@ -10,12 +10,12 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 
-import {TimelineComponent} from '../../../usr-view/historial/components';
+// import {TimelineComponent} from '../../../usr-view/historial/components';
 import { StatModule } from '../../../shared';
 
 
 @NgModule({
-  declarations: [ExpedientePacienteComponent, TimelineComponent],
+  declarations: [ExpedientePacienteComponent],
   imports: [
     CommonModule,
     ExpedientePacienteRoutingModule,

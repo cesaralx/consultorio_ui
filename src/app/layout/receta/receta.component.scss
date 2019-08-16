@@ -1,0 +1,16 @@
+
+.container {
+    margin: 2rem;
+    display: flex;
+    justify-content: center;
+  }
+  
+  #input-form {
+      position: absolute;
+      z-index: 1;
+      & input {
+          position: absolute;
+          background: transparent;
+          border: 1px solid red;
+      }
+  }

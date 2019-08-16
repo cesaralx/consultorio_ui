@@ -14,6 +14,10 @@ import {ConsultoriosService} from '../../consultorios/consultorios.service';
 import {VisitaMedicaService} from '../../visita-medica/visita-medica.service';
 import {VisitaModel} from '../../visita-medica/visita-medica.model';
 
+import Swal from 'sweetalert2';
+import { RecoveryService } from '../../../recovery/recovery.service';
+
+
 import { DomSanitizer } from '@angular/platform-browser';
 import * as moment from 'moment';
 import { convertUpdateArguments } from '@angular/compiler/src/compiler_util/expression_converter';
@@ -48,7 +52,8 @@ export class ExpedientePacienteComponent implements OnInit, OnDestroy  {
      private consultoriosService: ConsultoriosService,
      private modal: NgbModal,
      private visitaMedicaService: VisitaMedicaService,
-     public router: Router) { }
+     public router: Router,
+     private recoveryService: RecoveryService) { }
 
   ngOnInit() {
     this.paciente_id = this.route.params.subscribe(async params => {
@@ -147,5 +152,39 @@ export class ExpedientePacienteComponent implements OnInit, OnDestroy  {
   gotoVisita () {
     this.router.navigate(['pacientes/consultas-medicas/' + this.id]);
   }
+
+  sendEmail(paciente_id) {
+    console.log(paciente_id);
+    this.recoveryService.getPacByID(paciente_id).subscribe(
+      res => {
+        console.log(res['_id']);
+        Swal.fire({
+          title: 'Espere',
+          text: 'Mandando Email',
+          type: 'info',
+          allowOutsideClick: false
+        });
+        Swal.showLoading();
+        this.recoveryService.sendRecoveryPaci(res['_id']).subscribe(
+          response => {
+            Swal.fire({
+              title: 'Correcto',
+              text: 'Se mando email con datos de inicio de sesion',
+              type: 'success'
+            });
+            console.log(response);
+
+          },
+          error => {
+            console.error(error);
+            // this.isError = true;
+          }
+        );
+    },
+    error => {
+      console.error(error);
+    },
+    );
+}
 
 }

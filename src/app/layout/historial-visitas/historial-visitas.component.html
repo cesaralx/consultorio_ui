@@ -25,7 +25,7 @@
           <td>{{ i+1 }}</td>
           <td>{{ v.nombrePaciente }}</td>
           <td>{{ v.nombreConsultorio }}</td>
-          <td>{{ v.fecha }}</td>
+          <td>{{ v.fecha | date: 'MMMM d, y, h:mm a' }}</td>
           <td>{{ v.motivo}}</td> 
           <td>
               <button (click)="actualizar(v, content)"

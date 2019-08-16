@@ -6,8 +6,8 @@
             <form role="form"  #recoveryForm>
                 <div class="form-content">
                     <div class="form-group">
-                        <input type="email" class="form-control input-underline input-lg" id="email" name="email"
-                            placeholder="{{ 'Email' | translate }}">
+                        <input type="text" class="form-control input-underline input-lg" id="email" name="email"
+                            placeholder="{{ 'User' | translate }}">
                     </div>
                 </div>
                 <a class="btn rounded-btn" (click)="sendEmail(recoveryForm)" >{{ 'Send' | translate }}</a>
