@@ -24,7 +24,7 @@ export class RecoveryComponent implements OnInit {
   sendEmail(data) {
 
     console.log(data.email.value);
-    this.recoveryService.getUsrByEmail(data.email.value).subscribe(
+    this.recoveryService.getUserByUsr(data.email.value).subscribe(
         res => {
           console.log(res['_id']);
           Swal.fire({

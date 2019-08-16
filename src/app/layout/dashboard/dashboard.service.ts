@@ -26,6 +26,10 @@ export class ConsultoriosService {
     return respuesta;
 }
 
+getAllPacientes() {
+  return this.http.get(`http://localhost:3000/paciente`, {headers: this.headers});
+  }
+
   getConsultorios() {
     return this.http.get(`${this.url}`, {headers: this.headers});
   }

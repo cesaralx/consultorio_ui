@@ -41,7 +41,9 @@ const routes: Routes = [
                 { path: 'historial-visitas', loadChildren: () => import('./historial-visitas/historial-visitas.module').then(m =>
                 m.HistorialVisitasModule), canActivate: [AuthGuard] },
             { path: 'perfil', loadChildren: () => import('./perfil/perfil.module').then(m => m.PerfilModule),
-            canActivate: [AuthGuard] }
+            canActivate: [AuthGuard] },
+            { path: 'receta', loadChildren: () => import('./receta/receta.module').then(m => m.RecetaModule),
+                canActivate: [AuthGuard] },
 
 
         ]

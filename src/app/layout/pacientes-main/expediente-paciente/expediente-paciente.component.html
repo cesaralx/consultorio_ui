@@ -14,8 +14,16 @@
                   <i class="fa fa-eye"></i>
                   {{ 'Adds' | translate }}
               </button>
+              
+              <button 
+              (click)="sendEmail(paciente._id)"
+              class='btn btn-primary'>
+            <i class="fa fa-eye"></i>
+            {{ 'Re enviar credenciales' | translate }}
+        </button>
         
             </div>
+
         </div>
 
     <div class="container">
@@ -167,24 +175,24 @@
 
                   <ul class="list-group">
                     <li  class="list-group-item text-muted">{{ 'latest visits...' | translate }} <i class="fa fa-clock-o fa-1x"></i></li>
-                    <li *ngFor="let item of lastvisitas" class="list-group-item text-right"><span class="pull-left"><strong>{{item.fecha}}</strong></span> {{item.motivo}}</li>
+                    <li *ngFor="let item of lastvisitas" class="list-group-item text-right"><span class="pull-left"><strong>{{item.fecha | date: 'MMMM d, y, h:mm a'}}</strong></span> {{item.motivo}}</li>
                   </ul> 
 
-                  <div class="panel panel-default">
+                  <!-- <div class="panel panel-default">
                     <div class="panel-heading">Social Media</div>
                     <div class="panel-body">
                         <i class="fa fa-facebook fa-2x"></i> <i class="fa fa-github fa-2x"></i> <i class="fa fa-twitter fa-2x"></i> <i class="fa fa-pinterest fa-2x"></i> <i class="fa fa-google-plus fa-2x"></i>
                     </div>
-                  </div>
-                  <hr>
+                  </div> -->
+                  <!-- <hr> -->
                   <br>
 
                   <div *ngIf="cita != null" class="card">
                     <h4 class="card-header">{{ 'Next Appointment' | translate }}</h4>
                     <div class="card-body">
-                      <h5 class="card-title">{{cita.fecha | date}}</h5>
+                      <h5 class="card-title">{{cita.fecha | date: 'MMMM d, y, h:mm a'}}</h5>
                       <p class="card-text">Consultorio</p>
-                      <a href="#" class="btn btn-primary">Generar visita</a>
+                      <a  [routerLink]="['/visita-medica']"  class="btn btn-primary">Generar visita</a>
                     </div>
                   </div>
 
@@ -203,23 +211,7 @@
         </div>
 
         <div class="modal-body">
-            <div class="input-group mb-3">
-                <!-- <div class="input-group-prepend">
-                    <span class="input-group-text">Nombre</span>
-                </div> -->
-                <div class="col-lg-12">
-                    <div class="card card-default">
-                        <div class="card-header">
-                            <i class="fa fa-clock-o fa-fw"></i> Responsive Timeline
-                        </div>
-                        card-header 
-                        <app-timeline></app-timeline>
-                          card-body
-                    </div>
-                </div>
-                <!-- <input type="text" class="form-control" name="nombre" [(ngModel)]="paciente.nombre"
-                    placeholder="Nombre del paciente"> -->
-            </div>
+           
 
 
 

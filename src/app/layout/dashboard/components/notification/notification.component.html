@@ -1,6 +1,11 @@
 <div class="card-body">
     <div class="list-group">
-        <a href="#" class="list-group-item clearfix d-block">
+        <a  href="javascript:void(0)" *ngFor="let cita of citas" (click)="gotoExpediente(cita.id_paciente)" class="list-group-item clearfix d-block">
+                <i class="fa fa-user fa-fw"></i> {{cita.nombrePaciente}} 
+                <span class="float-none text-muted small"><em> {{cita.status}}</em></span>
+                <span class="float-right text-muted small"><em>{{cita.fecha | date: 'MMMM d, y, h:mm a'}}</em></span>
+            </a>
+        <!-- <a href="#" class="list-group-item clearfix d-block">
             <i class="fa fa-comment fa-fw"></i> New Comment
             <span class="float-right text-muted small"><em>4 minutes ago</em></span>
         </a>
@@ -35,8 +40,8 @@
         <a href="#" class="list-group-item clearfix d-block">
             <i class="fa fa-money fa-fw"></i> Payment Received
             <span class="float-right text-muted small"><em>Yesterday</em></span>
-        </a>
+        </a> -->
     </div>
     <!-- /.list-group -->
-    <a href="#" class="btn btn-default btn-block">View All Alerts</a>
+    <a [routerLink]="['/agenda']" class="btn btn-default btn-block">Ver todas las citas</a>
 </div>
