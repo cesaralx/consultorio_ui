@@ -112,7 +112,7 @@ export class AgendaComponent implements OnInit {
    }
 
 open(content) {
-  this.modal.open(content).result.then((result) => {
+  this.modal.open(content, {size: 'lg'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
   }, (reason) => {
 

@@ -78,29 +78,30 @@ class="alert alert-info text-center mt-3 animated fadeIn faster">
     </div>
     
     <div class="modal-body">
-      <div class="form-group ">
-         <label>Nombre</label> 
-          <input type="text"
-                 class="form-control"
-                 required
-                 name="nombre"
-                 [(ngModel)]="consultorio.nombre"
-                 placeholder="Nombre del consultorio">
-        </div>
-        <div class="form-group row">
-          <label class="col-2 col-form-label">Enargado</label>
-          <div class="col-md-8">
-              <select class="form-control"
-                      name="encargado"
-                      [(ngModel)]="consultorio.encargado">
-                <option value="">Seleccione un encargado</option>
-                <option  *ngFor="let user of users"
-                         [value]="user._id">{{user.nombre}}</option>
-              </select>
-          </div>
-        </div>
+      <div class="form-row">
+          <div class="form-group col-md-6">
+              <label>Nombre</label> 
+               <input type="text"
+                      class="form-control"
+                      required
+                      name="nombre"
+                      [(ngModel)]="consultorio.nombre"
+                      placeholder="Nombre del consultorio">
+             </div>
+             <div class="form-group col-md-6">
+                <label>Enargado</label>
+                    <select class="form-control"
+                            name="encargado"
+                            [(ngModel)]="consultorio.encargado">
+                      <option value="">Seleccione un encargado</option>
+                      <option  *ngFor="let user of users"
+                               [value]="user._id">{{user.nombre}}</option>
+                    </select>
+               
+              </div>
+      </div>
         
-        <div class="form-group ">
+        <div class="form-group form-row">
             <label>Dirección</label> 
              <input type="text"
                     class="form-control"
@@ -109,42 +110,48 @@ class="alert alert-info text-center mt-3 animated fadeIn faster">
                     [(ngModel)]="consultorio.direccion"
                     placeholder="Dirección">
            </div>
-           <div class="form-group ">
-              <label>Teléfono</label> 
-               <input type="text"
-                      class="form-control"
-                      required
-                      name="telefono"
-                      [(ngModel)]="consultorio.telefono"
-                      placeholder="Teléfono">
-             </div>
-             <div class="form-group ">
-                <label>Horario</label> 
+
+           <div class="form-row">
+             <div class="form-group col-md-6 ">
+                <label>Teléfono</label> 
                  <input type="text"
                         class="form-control"
                         required
-                        name="horario"
-                        [(ngModel)]="consultorio.horario"
-                        placeholder="Horario">
-            </div>  
-            <div class="form-group" *ngIf="consultorio._id !== null">
-              <label>Fecha de alta</label> 
-               <input type="text"
-                      class="form-control"
-                      disabled
-                      name="fecha_alta"
-                      [(ngModel)]="consultorio.fecha_alta"
-                      placeholder="Horario">
-          </div>  
-          <div class="form-group" *ngIf="consultorio._id !== null">
-            <label>Fecha de ultima actualiazación</label> 
-             <input type="text"
-                    class="form-control"
-                    disabled
-                    name="fecha_update"
-                    [(ngModel)]="consultorio.fecha_update"
-                    placeholder="Horario">
-        </div>     
+                        name="telefono"
+                        [(ngModel)]="consultorio.telefono"
+                        placeholder="Teléfono">
+               </div>
+               <div class="form-group col-md-6 ">
+                  <label>Horario</label> 
+                   <input type="text"
+                          class="form-control"
+                          required
+                          name="horario"
+                          [(ngModel)]="consultorio.horario"
+                          placeholder="Horario">
+              </div>  
+           </div>
+           <div class="form-row">
+
+             <div class="form-group col-md-6" *ngIf="consultorio._id !== null">
+               <label>Fecha de alta</label> 
+                <input type="text"
+                       class="form-control"
+                       disabled
+                       name="fecha_alta"
+                       [(ngModel)]="consultorio.fecha_alta"
+                       placeholder="Horario">
+           </div>  
+           <div class="form-group col-md-6" *ngIf="consultorio._id !== null">
+             <label>Fecha de ultima actualiazación</label> 
+              <input type="text"
+                     class="form-control"
+                     disabled
+                     name="fecha_update"
+                     [(ngModel)]="consultorio.fecha_update"
+                     placeholder="Horario">
+         </div>     
+           </div>
     </div>
     <div class="modal-footer align-content-center">
         <button 

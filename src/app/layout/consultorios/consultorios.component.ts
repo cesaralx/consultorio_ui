@@ -9,6 +9,7 @@ import { LayoutService, lenguaje } from '../layout.service';
 import Swal from 'sweetalert2';
 import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { style } from '@angular/animations';
 
 
 @Component({
@@ -38,7 +39,7 @@ export class ConsultoriosComponent implements OnInit {
 
   open(content) {
     // console.log(this.consultorio);
-    this.modal.open(content).result.then((result) => {
+    this.modal.open(content, {size: 'lg'}).result.then((result) => {
         this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
 

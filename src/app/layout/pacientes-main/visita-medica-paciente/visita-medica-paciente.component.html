@@ -7,7 +7,8 @@
 
         <div class="card animated fadeIn fast" >
      
-            <img src="../../../../assets/images/folder.png" class="card-img-top" alt="" width="200" height="300">
+            <img *ngIf="item.anexos.length>0" src="../../../../assets/images/folder.png" class="card-img-top" alt="" width="200" height="300">
+            <img *ngIf="item.anexos.length===0" src="../../../../assets/images/folder-vacio.ico" class="card-img-top" alt="" width="200" height="300">
             <div class="card-body">
               <h5 class="card-title"><strong>Fecha de consulta:</strong>  {{ item.fecha}}</h5>
               <p class="card-text"><strong>Motivo de consulta </strong> {{ item.motivo }}</p>
