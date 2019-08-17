@@ -61,58 +61,43 @@
     </div>
 
     <div class="modal-body">
-      <div class="form-group row">
-        <label class="col-2 col-form-label">Paciente</label>
-        <div class="col-md-12">
-            <select class="form-control"
-                    name="id_paciente"
-                    [(ngModel)]="cita.id_paciente"
-                    required>
-              <option value="">Seleccione un paciente</option>
-              <option  *ngFor="let p of pacientes"
-                       [value]="p._id">{{p.nombre}}</option>
-            </select>
+      <div class="form-row">
+        <div class="col-md-6">
+          <label>Paciente</label>
+              <select class="form-control"
+                      name="id_paciente"
+                      [(ngModel)]="cita.id_paciente"
+                      required>
+                <option value="">Seleccione un paciente</option>
+                <option  *ngFor="let p of pacientes"
+                         [value]="p._id">{{p.nombre}}</option>
+              </select>
+        </div>
+        <div class="form-group col-md-6">
+          <label>Consultorio</label>
+              <select class="form-control"
+                      name="id_consultorio"
+                      [(ngModel)]="cita.id_consultorio"
+                      required
+                      >
+                <option value="" selected>Seleccione el consultorio</option>
+                <option  *ngFor="let consultorio of consultorios"
+                         [value]="consultorio._id">{{consultorio.nombre}}</option>
+              </select>
         </div>
       </div>
       <div class="form-group row">
-        <label class="col-2 col-form-label">Consultorio</label>
-        <div class="col-md-12">
-            <select class="form-control"
-                    name="id_consultorio"
-                    [(ngModel)]="cita.id_consultorio"
-                    required
-                    >
-              <option value="" selected>Seleccione el consultorio</option>
-              <option  *ngFor="let consultorio of consultorios"
-                       [value]="consultorio._id">{{consultorio.nombre}}</option>
-            </select>
+        <div class="form-group col-md-6">
+          <label>Estatus</label>
+              <select class="form-control"
+                      name="status"
+                      [(ngModel)]="cita.status">
+                <option value="" selected>Seleccione el estatus</option>
+                <option  *ngFor="let est of estatus"
+                         [value]="est.status">{{est.status | uppercase}}</option>
+              </select>
         </div>
-      </div>
-      <div class="form-group row">
-        <label class="col-2 col-form-label">Estatus</label>
-        <div class="col-md-12">
-            <select class="form-control"
-                    name="status"
-                    [(ngModel)]="cita.status">
-              <option value="" selected>Seleccione el estatus</option>
-              <option  *ngFor="let est of estatus"
-                       [value]="est.status">{{est.status | uppercase}}</option>
-            </select>
-        </div>
-      </div>
-      
-      <div class="form-group ">
-        <label>Fecha</label>
-         <input type="datetime-local"
-                class="form-control"
-                required
-                name="fecha"
-                [(ngModel)]= "cita.fecha">
-       </div>
-
-       
-      
-        <div class="form-group ">
+        <div class="form-group col-md-6">
             <label>Costo</label>
              <input type="text"
                     class="form-control"
@@ -122,13 +107,23 @@
                     [(ngModel)]="cita.costo"
                     placeholder="Costo">
            </div>
-           <div class="form-group ">
+        
+      </div>
+      <div class="form-group form-row">
+          <label>Fecha</label>
+           <input type="datetime-local"
+                  class="form-control"
+                  required
+                  name="fecha"
+                  [(ngModel)]= "cita.fecha">
+         </div>
+        <div class="form-group form-row ">
             <label>Extra</label>
              <textarea type="text"
                     class="form-control"
                     [(ngModel)]="cita.extra"
                     name="extra"></textarea>         
-           </div>
+        </div>
     <div class="modal-footer align-content-center">
         <button 
                 *ngIf="!eliminar"
