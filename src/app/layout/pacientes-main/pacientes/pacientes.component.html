@@ -26,7 +26,7 @@
           <th>#</th>
           <th>Nombre</th>
           <th>Edad</th>
-          <th>Telefono </th>
+          <th>Teléfono </th>
           <th>Email </th>
           <th>Fecha de alta </th>
           <th>Acciones </th>
@@ -68,24 +68,27 @@
         <form (ngSubmit)="guardar(formulario, content)"
         #formulario ="ngForm">
         <div class="modal-header text-center">
-            <h4 class="modal-title">Usuario</h4>
+            <h4 class="modal-title text-center">Pacientes</h4>
             <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
         
         <div class="modal-body">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">Nombre</span>
+          <div class="form-row">
+            <div class="col md-8">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Nombre</span>
+                    </div>
+                    <input type="text" 
+                    class="form-control" 
+                    name="nombre"
+                    [(ngModel)]="paciente.nombre"
+                    placeholder="Nombre del paciente" >
                 </div>
-                <input type="text" 
-                class="form-control" 
-                name="nombre"
-                [(ngModel)]="paciente.nombre"
-                placeholder="Nombre del paciente" >
             </div>
-
+            <div class="col-md-4">
               <div class="input-group mb-3">
                   <div class="input-group-prepend">
                     <span class="input-group-text">Edad</span>
@@ -96,7 +99,11 @@
                   [(ngModel)]="paciente.edad"
                   placeholder="Edad" >
                 </div>
-
+            </div>
+          </div>
+           
+          <div class="form-row">
+             <div class="col-md-6">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                       <span class="input-group-text">FUM</span>
@@ -107,19 +114,23 @@
                     [(ngModel)]="paciente.fum"
                     placeholder="FUM" >
                 </div>
-                
-
+             </div>
+             <div class="col-md-6">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                      <span class="input-group-text">FFP</span>
+                      <span class="input-group-text">FPP</span>
                     </div>
                     <input type="date" 
                     class="form-control" 
                     name="ffp"
                     [(ngModel)]="paciente.ffp"
-                    placeholder="FFP" >
+                    placeholder="FPP" >
                 </div>
+             </div>
+          </div>
 
+          <div class="form-row">
+            <div class="col-md-6">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                       <label class="input-group-text" for="estado_civil">Estado civil</label>
@@ -129,98 +140,107 @@
                       <option value="Soltera">Soltera</option>
                       <option value="Casada">Casada</option>
                       <option value="Viuda">Viuda</option>
-                      <option value="Union libre">Union libre</option>
+                      <option value="Union libre">Unión libre</option>
                     </select>
                   </div>
-          
-
-             <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">Ocupacion</span>
-                </div>
-                <input type="text" 
-                class="form-control" 
-                name="ocupacion"
-                [(ngModel)]="paciente.ocupacion"
-                placeholder="ocupacion" >
+            </div>
+            <div class="col-md-6">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Ocupación</span>
+                    </div>
+                    <input type="text" 
+                    class="form-control" 
+                    name="ocupacion"
+                    [(ngModel)]="paciente.ocupacion"
+                    placeholder="ocupacion">
+                </div>   
             </div>
 
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">Teléfono</span>
+          </div>
+         
+          <div class="form-row">
+            <div class="col-md-6">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Teléfono</span>
+                    </div>
+                    <input type="text" 
+                    class="form-control" 
+                    name="telefono"
+                    [(ngModel)]="paciente.telefono"
+                    placeholder="Teléfono" >
                 </div>
-                <input type="text" 
-                class="form-control" 
-                name="telefono"
-                [(ngModel)]="paciente.telefono"
-                placeholder="Teléfono" >
             </div>
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">Email</span>
+            <div class="col-md-6">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Email</span>
+                    </div>
+                    <input type="email" 
+                    class="form-control" 
+                    name="email"
+                    [(ngModel)]="paciente.email"
+                    placeholder="Email" >
                 </div>
-                <input type="email" 
-                class="form-control" 
-                name="email"
-                [(ngModel)]="paciente.email"
-                placeholder="Email" >
             </div>
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">Refiere</span>
-                </div>
-                <input type="email" 
-                class="form-control" 
-                name="refiere"
-                [(ngModel)]="paciente.refiere"
-                placeholder="Refiere" >
-            </div>
- 
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">Municipio</span>
-                </div>
-                <input type="email" 
-                class="form-control" 
-                name="municipio"
-                [(ngModel)]="paciente.municipio"
-                placeholder="Municipio" >
-            </div>
-
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">Origen</span>
-                </div>
-                <input type="email" 
-                class="form-control" 
-                name="origen"
-                [(ngModel)]="paciente.origen"
-                placeholder="Origen" >
-            </div>
- 
-              <!-- conyugue -->
-              <label >Conyuge</label>
-              <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">Nombre</span>
-                </div>
-                <input type="text" 
-                class="form-control" 
-                name="cnombre"
-                [(ngModel)]="paciente.conyugue.nombre"
-                placeholder="Nombre conyugue" >
+          </div>
+           
+          <div class="form-row">
+              <div class="col-md-6">
+                  <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">Municipio</span>
+                      </div>
+                      <input type="email" 
+                      class="form-control" 
+                      name="municipio"
+                      [(ngModel)]="paciente.municipio"
+                      placeholder="Municipio" >
+                  </div>
               </div>
-              <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">Ocupacion</span>
-                </div>
-                <input type="text" 
-                class="form-control" 
-                name="ocupacion"
-                [(ngModel)]="paciente.conyugue.ocupacion"
-                placeholder="Ocupacion conyugue" >
+              <div class="col-md-6">
+                  <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">Origen</span>
+                      </div>
+                      <input type="email" 
+                      class="form-control" 
+                      name="origen"
+                      [(ngModel)]="paciente.origen"
+                      placeholder="Origen" >
+                  </div>
               </div>
-
+          </div>
+        <fieldset class="scheduler-border">
+            <legend class="scheduler-border">Cónyuge</legend>
+            <div class="form-row"> 
+                <div class="col-md-7">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">Nombre</span>
+                        </div>
+                        <input type="text" 
+                        class="form-control" 
+                        name="cnombre"
+                        [(ngModel)]="paciente.conyugue.nombre"
+                        placeholder="Nombre del cónyuge" >
+                      </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">Ocupación</span>
+                        </div>
+                        <input type="text" 
+                        class="form-control" 
+                        name="ocupacionConyuge"
+                        [(ngModel)]="paciente.conyugue.ocupacion"
+                        placeholder="Ocupación cónyuge" >
+                      </div>
+                  </div>
+                </div>
+        </fieldset>
               <div class="form-group" >
                                   <!-- Standar Form -->
                                   <h3>Selecciona una imagen</h3>
@@ -236,13 +256,7 @@
                                 <div class="upload-drop-zone" name="imagen" [(ngModel)]="imgUrl">
                                   Just drag and drop files here
                                 </div> -->
-     
-            </div> 
-          
-          
-  
-  
-  
+            </div>  
         </div>
         <div class="modal-footer align-content-center">
             <button 
