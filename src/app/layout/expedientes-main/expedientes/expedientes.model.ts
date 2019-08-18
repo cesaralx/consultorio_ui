@@ -51,7 +51,7 @@ export class ExpedientesModel {
       fup: null
     };
     colonia: String;
-    celular: Number;
+    celular: String;
     email: {type: String, lowercase: true, required: true};
     consultorio_alta: string;
     consultorio_update: string;
@@ -68,7 +68,9 @@ export class ConsulModel {
 }
 
 export class PasModel {
-  nombre: string;
-  _id: string;
+  nombre: String;
+  _id: String;
+  email: {type: String, lowercase: true, required: true};
+  telefono: String;
 }
 

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {  NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ExpedientePacienteRoutingModule } from './expediente-paciente-routing.module';
@@ -12,6 +12,8 @@ import { FormsModule } from '@angular/forms';
 
 // import {TimelineComponent} from '../../../usr-view/historial/components';
 import { StatModule } from '../../../shared';
+
+
 
 
 @NgModule({

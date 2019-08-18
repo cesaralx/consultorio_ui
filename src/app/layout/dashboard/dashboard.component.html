@@ -16,16 +16,16 @@
     <hr>
     <div class="row">
         <div class="col-xl-3 col-lg-6">
-            <app-stat  [bgClass]="'primary'" [icon]="'fa-stethoscope'" [count]="26" [label]="'Citas Medicas'" ></app-stat>
+            <app-stat  [routerLink]="['/agenda']" [bgClass]="'info'" [icon]="'fa-stethoscope'" [count]=citasNum [label]="'Citas Medicas'" ></app-stat>
         </div>
         <div class="col-xl-3 col-lg-6">
-            <app-stat [bgClass]="'warning'" [icon]="'fa-tasks'" [count]="12" [label]="'Expedientes'" ></app-stat>
+            <app-stat [routerLink]="['/expedientes/buscar']"  [bgClass]="'warning'" [icon]="'fa-tasks'" [count]=expdientesNum [label]="'Expedientes'" ></app-stat>
         </div>
         <div class="col-xl-3 col-lg-6">
             <app-stat  [routerLink]="['/pacientes']"  [bgClass]="'success'" [icon]="'fa-user-md'" [count]=pacientesNum [label]="'Pacientes'" ></app-stat>
         </div>
         <div class="col-xl-3 col-lg-6">
-            <app-stat [bgClass]="'danger'" [icon]="'fa-medkit'" [count]="13" [label]="'Visitas'"></app-stat>
+            <app-stat [routerLink]="['/historial-visitas']" [bgClass]="'danger'" [icon]="'fa-medkit'" [count]=visitasNum [label]="'Consultas'"></app-stat>
         </div>
     </div>
     <hr />
@@ -72,15 +72,19 @@
                 <div class="card-header">
                     <i class="fa fa-bell fa-fw"></i> {{ 'Appointments for today' | translate }}
                 </div>
-                <!-- /.card-header -->
                 <app-notification></app-notification>
-                <!-- /.card-body -->
             </div>
-            <!-- /.card -->
-
-            <!-- <app-chat></app-chat> -->
-            <!-- /.card .chat-card -->
         </div>
+        <br>
+        <div class="col col-lg-12">
+            <div class="card card-default mb-3">
+                <div class="card-header">
+                    <i class="fa fa-bell fa-fw"></i> {{ 'Missing Appointments' | translate }}
+                </div>
+                <app-notification-missing></app-notification-missing>
+            </div>
+        </div>
+
         <!-- /.col-lg-4 -->
     </div>
 </div>

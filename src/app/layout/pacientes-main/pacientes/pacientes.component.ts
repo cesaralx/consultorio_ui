@@ -167,6 +167,11 @@ export class PacientesComponent implements OnInit, OnDestroy {
         (error) => {
         console.log(error.message);
         if (error.status === 403) { this.g.onLoggedout(); }
+        if (error.status === 500) { Swal.fire({
+          title: this.paciente.nombre,
+          text: 'Usuario ya existe',
+          type: 'error'
+        }); }
         });
   }
 

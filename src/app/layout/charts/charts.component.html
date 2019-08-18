@@ -42,10 +42,17 @@
         <div class="col col-sm-6">
             <div class="card mb-3">
                 <div class="card-header">
-                    Pie Chart
+                   Citas por consultorio
                 </div>
                 <div class="card-body">
-                    <canvas baseChart height="150px" [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+                    <canvas baseChart height="150px" 
+                    [data]="pieChartData" 
+                    [labels]="pieChartLabels" 
+                    [chartType]="pieChartType" 
+                    [colors]="pieChartColors"
+                    [legend]="pieChartLegend"
+                    (chartHover)="chartHovered($event)" 
+                    (chartClick)="chartClicked($event)">
                     </canvas>
                 </div>
             </div>

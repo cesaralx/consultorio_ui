@@ -28,8 +28,6 @@ import * as moment from 'moment';
 
 
 
-
-
 @Component({
   selector: 'app-agenda',
   templateUrl: './agenda.component.html',

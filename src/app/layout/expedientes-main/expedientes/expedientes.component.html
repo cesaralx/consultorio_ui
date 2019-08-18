@@ -12,8 +12,7 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                     <label for="paciente_id">Paciente</label>
-                    <select class="form-control" name="paciente_id" [(ngModel)]="expediente.paciente_id">
-                        <option selected value="">Seleccione un paciente</option>
+                    <select (change)="onChangePaciente($event.target.value)" class="form-control" name="paciente_id" [(ngModel)]="expediente.paciente_id">
                         <option *ngFor="let paciente of pacientes" [value]="paciente._id">{{paciente.nombre}}</option>
                     </select>
                 </div>
@@ -29,7 +28,7 @@
                 <div class="form-group form-row">
                     <label for="motivo_consulta">Dirección</label>
                     <input type="text" class="form-control" name="colonia" id="colonia" [(ngModel)]="expediente.colonia"
-                        placeholder="calle #, colonia">
+                        placeholder="calle #, colonia"> 
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
