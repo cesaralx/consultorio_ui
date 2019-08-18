@@ -13,7 +13,7 @@
             <span>{{ 'Patients' | translate }}</span>
         </a>
         <a [routerLink]="['/agenda']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fa fa-fw fa-desktop"></i>&nbsp;
+            <i class="fa fa-fw fa-calendar"></i>&nbsp;
             <span>{{ 'Schedule' | translate }}</span>
         </a>
         <a [routerLink]="['/consultorio']" [routerLinkActive]="['router-link-active']" class="list-group-item">
@@ -21,7 +21,7 @@
             <span>{{ 'Doctors office' | translate }}</span>
         </a>
         <a [routerLink]="['/usuarios']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fa fa-fw fa-table"></i>&nbsp;
+            <i class="fa fa-fw fa-address-book-o"></i>&nbsp;
             <span>{{ 'Users' | translate }}</span>
         </a>
         <!-- <a [routerLink]="['/bs-element']" [routerLinkActive]="['router-link-active']" class="list-group-item">
@@ -34,20 +34,21 @@
         </a>
         <div class="nested-menu">
             <a class="list-group-item" (click)="addExpandClass('medicaVisit')">
-                <i class="fa fa-fw fa-edit"></i>&nbsp;
-                <span>{{ 'Medical Consultation' | translate }}</span>
+                <i class="fa fa-fw fa-stethoscope"></i>&nbsp;
+                <span>{{ 'Medical Consultation' | translate }}</span>&nbsp;
+                <i class="fa fa-caret-down"></i>
             </a>
             <li class="nested" [class.expand]="showMenu === 'medicaVisit'">
                 <ul class="submenu">
                     <li>
                         <a [routerLink]="['/visita-medica']" [routerLinkActive]="['router-link-active']">
-                            <i class="fa fa-pencil-square"></i>&nbsp;
+                            <i class="fa fa-fw fa-pencil-square"></i>&nbsp;
                             <span>{{ 'Add New' | translate }}</span>
                         </a>
                     </li>
                     <li>
                         <a [routerLink]="['/historial-visitas']" [routerLinkActive]="['router-link-active']">
-                            <i class="fa fa-search"></i>&nbsp;
+                            <i class="fa fa-fw fa-search"></i>&nbsp;
                             <span>{{ 'Search' | translate }}</span>
                         </a>
                     </li>
@@ -57,20 +58,21 @@
         </div>
         <div class="nested-menu">
             <a class="list-group-item" (click)="addExpandClass('pages')">
-                <i class="fa fa-bars"></i>&nbsp;
-                <span>{{ 'Case file' | translate }}</span>
+                <i class="fa fa-fw fa-archive"></i>&nbsp;
+                <span>{{ 'Case file' | translate }}</span>&nbsp;
+                <i class="fa fa-caret-down"></i>
             </a>
             <li class="nested" [class.expand]="showMenu === 'pages'">
                 <ul class="submenu">
                     <li>
                         <a [routerLink]="['/expedientes/nuevo']" [routerLinkActive]="['router-link-active']">
-                            <i class="fa fa-pencil-square"></i>&nbsp;
+                            <i class="fa fa-fw fa-pencil-square"></i>&nbsp;
                             <span>{{ 'Add New' | translate }}</span>
                         </a>
                     </li>
                     <li>
                         <a [routerLink]="['/expedientes/buscar']" [routerLinkActive]="['router-link-active']">
-                            <i class="fa fa-search"></i>&nbsp;
+                            <i class="fa fa-fw fa-search"></i>&nbsp;
                             <span>{{ 'Search' | translate }}</span>
                         </a>
                     </li>

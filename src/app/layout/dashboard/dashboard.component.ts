@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { routerTransition } from '../../router.animations';
 import { TranslateService } from '@ngx-translate/core';
-import { ConsultoriosService } from "./dashboard.service";
+import { ConsultoriosService } from './dashboard.service';
+import { promise } from 'protractor';
 
 @Component({
     selector: 'app-dashboard',
@@ -12,6 +13,9 @@ import { ConsultoriosService } from "./dashboard.service";
 export class DashboardComponent implements OnInit {
     pacientes: [] = [];
     pacientesNum: any;
+    citasNum: any;
+    visitasNum: any;
+    expdientesNum: any;
 
     public alerts: Array<any> = [];
     public sliders: Array<any> = [];
@@ -121,11 +125,14 @@ export class DashboardComponent implements OnInit {
         );
     }
 
-    ngOnInit() {
+    async ngOnInit() {
         this.barChartType = 'bar';
         this.barChartLegend = true;
         this.doughnutChartType = 'doughnut';
-        this.cargaAllPacientes();
+        await this.cargaAllPacientes();
+        await this.cargaAllCitas();
+        await this.cargaAllVisitas();
+        await this.cargaAllExpedientes();
 
     }
 
@@ -138,18 +145,58 @@ export class DashboardComponent implements OnInit {
         this.translate.use(language);
     }
 
-    cargaAllPacientes = () => {
+
+    cargaAllPacientes = () =>  new Promise((resolve, reject) =>  {
         this.consultoriosService.getAllPacientes()
         .subscribe( async (resp: any) => {
             // console.log('Todos los pacientes', resp);
             this.pacientes = resp;
-            this.pacientesNum = resp.length;
+            resolve(this.pacientesNum = resp.length);
           },
           (error) => {
           console.log(error.message);
           if (error.status === 403) {}
           });
-      }
+      })
+
+    cargaAllCitas = () =>  new Promise((resolve, reject) =>  {
+        this.consultoriosService.getCitas()
+        .subscribe( async (resp: any) => {
+            // console.log('Todos los pacientes', resp);
+            this.pacientes = resp;
+            resolve(this.citasNum = resp.length);
+          },
+          (error) => {
+          console.log(error.message);
+          if (error.status === 403) {}
+          });
+      })
+
+      cargaAllVisitas = () =>  new Promise((resolve, reject) =>  {
+        this.consultoriosService.getVisitas()
+        .subscribe( async (resp: any) => {
+            // console.log('Todos los pacientes', resp);
+            this.pacientes = resp;
+            resolve(this.visitasNum = resp.length);
+          },
+          (error) => {
+          console.log(error.message);
+          if (error.status === 403) {}
+          });
+      })
+
+      cargaAllExpedientes = () =>  new Promise((resolve, reject) =>  {
+        this.consultoriosService.getExpedientes()
+        .subscribe( async (resp: any) => {
+            // console.log('Todos los pacientes', resp);
+            this.pacientes = resp;
+            resolve(this.expdientesNum = resp.length);
+          },
+          (error) => {
+          console.log(error.message);
+          if (error.status === 403) {}
+          });
+      })
 
 
 }

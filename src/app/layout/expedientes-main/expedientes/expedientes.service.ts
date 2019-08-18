@@ -44,6 +44,18 @@ getPacientes() {
   return this.http.get( url, { headers});
 }
 
+getPaciente(id) {
+  const url = 'http://localhost:3000/paciente/byId';
+  const token = localStorage.getItem('token');
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${token}`
+  });
+  const params = {
+    id: id
+  };
+  return this.http.get( url, { headers: headers, params: params});
+}
+
     getexpedientes() {
       return this.http.get(`${this.url}`);
     }

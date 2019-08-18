@@ -18,15 +18,63 @@ export class RecetaComponent implements OnInit {
   // screen DPI / PDF DPI
   readonly dpiRatio = 96 / 72;
 
-    constructor() {
+  Input = {
+    nombre:  'nada'
+  };
+
+
+
+
+  public myForm: FormGroup;
+    public inputList: Input[] = [];
+
+    constructor(private _fb: FormBuilder) {
+      this.myForm = this._fb.group({});
      }
 
+  //    private createInput(annotation: PDFAnnotationData, rect: number[] = null) {
+  //     let formControl = new FormControl(annotation.buttonValue || '');
+
+  //     const input = new Input();
+  //     input.name = annotation.fieldName;
+
+  //     if (annotation.fieldType === 'Tx') {
+  //         input.type = 'text';
+  //         input.value = annotation.buttonValue || '';
+  //     }
+
+  //     // Calculate all the positions and sizes
+  //     if (rect) {
+  //         input.top = rect[1] - (rect[1] - rect[3]);
+  //         input.left = rect[0];
+  //         input.height = (rect[1] - rect[3]);
+  //         input.width = (rect[2] - rect[0]);
+  //     }
+
+  //     this.inputList.push(input);
+  //     return formControl;
+  // }
+
+
+  //    private addInput(annotation: PDFAnnotationData, rect: number[] = null): void {
+  //     // add input to page
+  //     this.myForm.addControl(annotation.fieldName, this.createInput(annotation, rect));
+  // }
 
     private addInput(annotation: PDFAnnotationData, rect: number[] = null): void {
         // add input to page
         console.log(annotation);
 
     }
+
+  //   public getInputPosition(input: Input): any {
+  //     return {
+  //         top: `${input.top}px`,
+  //         left: `${input.left}px`,
+  //         height: `${input.height}px`,
+  //         width: `${input.width}px`,
+  //     };
+  // }
 
 
 

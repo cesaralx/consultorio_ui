@@ -17,6 +17,7 @@ import { Injectable } from '@angular/core';
         localStorage.removeItem('user');
         localStorage.removeItem('id');
         localStorage.removeItem('isLoggedinExternal');
+        localStorage.removeItem('id_consultorio');
     }
 
 }

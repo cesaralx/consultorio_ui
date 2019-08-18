@@ -24,6 +24,7 @@ import { OnDestroy } from '@angular/core';
   animations: [routerTransition()]
 })
 export class ExpedientesSearchComponent implements OnInit, OnDestroy {
+  
 
   // DataTable
   dtOptions: DataTables.Settings = {};
@@ -37,6 +38,7 @@ export class ExpedientesSearchComponent implements OnInit, OnDestroy {
   expedientes: ExpedientesModel[] = [];
   consultorios: ConsulModel[] = [];
   pacientes: PasModel[] = [];
+  // dtOptions: any;
 
 
   private lServices = new LayoutService();
@@ -46,14 +48,20 @@ export class ExpedientesSearchComponent implements OnInit, OnDestroy {
     private expedientesService: ExpedientesService,
     private modal: NgbModal) { }
 
-  ngOnInit() {
-    this.cargando = true;
-    this.consultarExpedeintes();
 
+  ngOnInit() {
     this.dtOptions = {
+
       pagingType: 'full_numbers',
       pageLength: 10
     };
+    this.cargando = true;
+    this.consultarExpedeintes();
+
+    // this.dtOptions = {
+    //   pagingType: 'full_numbers',
+    //   pageLength: 10
+    // };
   }
 
   ngOnDestroy(): void {

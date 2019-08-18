@@ -2,11 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { routerTransition } from '../../../router.animations';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ExpedientesService } from './expedientes.service';
-
-
-
 import { ExpedientesModel, ConsulModel, PasModel } from './expedientes.model';
-
 
 // sweetalert2
 import Swal from 'sweetalert2';
@@ -26,13 +22,14 @@ export class ExpedientesComponent implements OnInit {
   expediente = new ExpedientesModel;
   conlsults: ConsulModel[] = [];
   pacientes: PasModel[] = [];
+  paciente: PasModel;
 
   constructor(private expedeintesServices: ExpedientesService,
     ) {}
 
-  ngOnInit() {
-    this.getConsultorios();
-    this.getPacientes();
+  async ngOnInit() {
+    await this.getConsultorios();
+    await this.getPacientes();
   }
 
   guardar( form: NgForm) {
@@ -66,20 +63,33 @@ export class ExpedientesComponent implements OnInit {
 
   }
 
-  getConsultorios() {
+  getConsultorios = () => new Promise((resolve, reject) =>  {
     this.expedeintesServices.getConsultorios()
       .subscribe( (resp: any) => {
-          console.log(resp);
-          this.conlsults = resp;
+          console.log('Consultorios', resp);
+          resolve(this.conlsults = resp);
       });
-  }
+  })
 
-  getPacientes() {
+  getPacientes = () => new Promise((resolve, reject) =>  {
     this.expedeintesServices.getPacientes()
       .subscribe( (resp: any) => {
-          console.log(resp);
-          this.pacientes = resp;
+          console.log('Pacientes', resp);
+          resolve(this.pacientes = resp);
       });
+  })
+
+  getPaciente = (id_paciente) => new Promise((resolve, reject) =>  {
+    this.expedeintesServices.getPaciente(id_paciente)
+      .subscribe( (resp: any) => {
+          resolve(this.paciente = resp);
+      });
+  })
+
+ async onChangePaciente(id_paciente) {
+   await this.getPaciente(id_paciente);
+this.expediente.email = this.paciente.email;
+this.expediente.celular = this.paciente.telefono;
   }
 
 

@@ -34,6 +34,18 @@ getAllPacientes() {
     return this.http.get(`${this.url}`, {headers: this.headers});
   }
 
+  getCitas() {
+    return this.http.get(`http://localhost:3000/citas`, {headers: this.headers});
+  }
+
+  getVisitas() {
+    return this.http.get(`http://localhost:3000/visitamedica`, {headers: this.headers});
+  }
+
+  getExpedientes() {
+    return this.http.get(`http://localhost:3000/expedientes`, {headers: this.headers});
+  }
+
   getConsultorio( id: string ) {
     const params = new HttpParams()
     .set('id', id);

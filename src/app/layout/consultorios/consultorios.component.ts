@@ -17,12 +17,13 @@ import { Observable } from 'rxjs';
   styleUrls: ['./consultorios.component.scss']
 })
 export class ConsultoriosComponent implements OnInit {
+
   closeResult: string;
   cargando = false;
   consultorio = new ConsultorioModel();
   consultorios: ConsultorioModel[] = [];
   users: UsModel[] = [];
-  dtOptions: DataTables.Settings = {};
+  dtOptions: any = {};
 
   private g = new LayoutService();
 
@@ -30,6 +31,16 @@ export class ConsultoriosComponent implements OnInit {
                 private modal: NgbModal) { }
 
   ngOnInit() {
+    this.dtOptions = {
+      dom: 'Bfrtip',
+      buttons: [
+        'pdfHtml5',
+        'print',
+        'excel'
+      ],
+      pagingType: 'full_numbers',
+      pageLength: 10
+    };
       this.cargando = true;
       this.consultarConsultorios();
       this.getUsuarios();

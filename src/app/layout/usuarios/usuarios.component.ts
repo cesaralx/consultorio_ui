@@ -26,7 +26,7 @@ import { OnDestroy } from '@angular/core';
 export class UsuariosComponent implements OnDestroy, OnInit {
 
   // DataTable
-  dtOptions: DataTables.Settings = {};
+  dtOptions: any = {};
   // We use this trigger because fetching the list of persons can be quite long,
   // thus we ensure the data is fetched before rendering
   dtTrigger: Subject<any> = new Subject();
@@ -45,16 +45,21 @@ export class UsuariosComponent implements OnDestroy, OnInit {
     private consultoriosService: ConsultoriosService) { }
 
   async ngOnInit() {
+    this.dtOptions = {
+      dom: 'Bfrtip',
+      buttons: [
+        'pdfHtml5',
+        'print',
+        'excel'
+      ],
+      pagingType: 'full_numbers',
+      pageLength: 10
+    };
 
     this.cargando = true;
     this.consultaUsuarios();
     await this.getConsultorios();
 
-
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 10
-    };
 
   }
 

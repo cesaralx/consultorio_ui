@@ -6,7 +6,21 @@
         <div *ngIf="selectedwallet === coinwallet[0]" role="tabpanel" class="tab-pane active" id="one">wallet 1 content</div>
         <div *ngIf="selectedwallet === coinwallet[1]" role="tabpanel" class="tab-pane active" id="two">wallet 2 content</div>
       </div> -->
-      <div class="row">
+      <div class="col text-right">
+          <div class="dropdown">
+              <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" >
+                  {{ 'Action' | translate}}
+              </button>
+              <div class="dropdown-menu">
+                  <a class="dropdown-item" href="javascript:void(0)" (click)="gotoVisita()"> <i class="fa fa-eye"></i>
+                      {{ 'Adds' | translate }}</a>
+                  <a class="dropdown-item" href="javascript:void(0)" (click)="sendEmail(paciente._id)"> <i class="fa fa-envelope-o"></i>
+                      {{ 'Re enviar credenciales' | translate }}</a>
+              </div>
+          </div>
+      </div>
+
+      <!-- <div class="row">
           <div class="col text-right">
               <button 
                     (click)="gotoVisita()"
@@ -24,7 +38,7 @@
         
             </div>
 
-        </div>
+        </div> -->
 
     <div class="container">
         <div class="row my-2">
@@ -192,7 +206,7 @@
                     <div class="card-body">
                       <h5 class="card-title">{{cita.fecha | date: 'MMMM d, y, h:mm a'}}</h5>
                       <p class="card-text">Consultorio</p>
-                      <a  [routerLink]="['/visita-medica']"  class="btn btn-primary">Generar visita</a>
+                      <a  [routerLink]="['/visita-medica']"  class="btn btn-primary">Registrar consulta</a>
                     </div>
                   </div>
 
@@ -201,7 +215,7 @@
     </div>
 
 <!-- modal -->
-<ng-template #content let-c="close" let-d="dismiss">
+<!-- <ng-template #content let-c="close" let-d="dismiss">
     <form (ngSubmit)="guardar(formulario, content)" #formulario="ngForm">
         <div class="modal-header text-center">
             <h4 class="modal-title">Anexos</h4>
@@ -227,4 +241,4 @@
             </button>
         </div>
     </form>
-</ng-template>
+</ng-template> -->
