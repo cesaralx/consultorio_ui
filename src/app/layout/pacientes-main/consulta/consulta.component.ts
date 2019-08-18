@@ -9,6 +9,7 @@ import {VisitaModel} from '../../visita-medica/visita-medica.model';
 import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs';
 import {Buffer} from 'buffer';
+import { async } from '@angular/core/testing';
 
 @Component({
   selector: 'app-consulta',
@@ -32,9 +33,8 @@ export class ConsultaComponent implements OnInit {
 
  async ngOnInit() {
     this.paciente_id = this.activatedRoute.params.subscribe(async params => {
-      this.id = params.id;
-   await this.getConsultaByid();
-
+    this.id = params.id;
+    await this.getConsultaByid();
    });
   }
 
@@ -44,7 +44,7 @@ export class ConsultaComponent implements OnInit {
       this.visita = resp;
       let contador = 0;
       this.files = [];
-      this.extension=[];
+      this.extension = [];
       this.visita.anexos.forEach(element => {
           const tipo = this.visita.tipoFile[contador];
           console.log('type de archivo', tipo);
@@ -94,18 +94,32 @@ descargar(archivo: File) {
   }
 }
 
-async uploadFile(event) {
-  for (let index = 0; index < event.length; index++) {
-    const element = event[index];
-    this.files.push(element.name);
-  }
-  this.visita.anexos = [];
- await this.files.forEach(element => {
-     this.handleFileInput(element);
-  });
- this.guardar();
+ async uploadFile(event) {
+   await this.recorrerFile(event);
+   // await this.convertirFile(archivos);
+   console.log('visita: ', this.visita);
 }
 
+
+recorrerFile = (event: any) => new Promise((resolve, reject)=>{
+
+  for (let index = 0; index < event.length; index++) {
+    const element = event[index];
+     // archivos.push(element);
+     this.handleFileInput(element);
+  }
+  resolve(true);
+})
+
+convertirFile =(fileList: File[]) => new Promise((resolve, reject ) => {
+    console.log('Lista de archivos: ', fileList);
+    let contadorcito = 0;
+    fileList.forEach(element => {
+    this.handleFileInput(element);
+    contadorcito++;
+    });
+    resolve(contadorcito === fileList.length);
+})
 async handleFileInput(file: File) {
 
   const tmppath2 =  file;
@@ -118,8 +132,11 @@ async handleFileInput(file: File) {
 
 const h = await toBase64(tmppath2);
 console.log(h);
-this.visita.anexos.push(this.toBuffer(h));
 
+this.visita.filenames.push(file.name);
+this.visita.anexos.push(this.toBuffer(h));
+this.visita.tipoFile.push(file.type);
+this.guardar();
 
 }
 
@@ -135,6 +152,7 @@ toBuffer(ab) {
   guardar() {
    let peticion: Observable <any>;
 
+    console.log('se manda visita a guardad', this.visita);
     peticion = this.visitaService.actualizaVisita(this.visita);
        // console.log(this.consultorio);
        peticion.subscribe( resp => {

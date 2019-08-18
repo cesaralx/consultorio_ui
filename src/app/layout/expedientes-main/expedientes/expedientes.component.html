@@ -6,9 +6,11 @@
 
         <aw-wizard navBarLayout="large-filled">
             <aw-wizard-step [navigationSymbol]="{ symbol: '1' }" stepTitle="Informacion personal">
-
+           <fieldset class="scheduler-border">
+              <legend class="scheduler-border">Información personal</legend>
                 <br>
-                <div class="form-group">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
                     <label for="paciente_id">Paciente</label>
                     <select class="form-control" name="paciente_id" [(ngModel)]="expediente.paciente_id">
                         <option selected value="">Seleccione un paciente</option>
@@ -16,300 +18,347 @@
                     </select>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group col-md-6">
                     <label for="motivo_consulta">Motivo de consulta</label>
                     <input type="text" class="form-control" required name="motivo_consulta" id="motivo_consulta"
                         [(ngModel)]="expediente.motivo_consulta" placeholder="Motivo" required>
                 </div>
+                </div>
+                
 
-                <div class="form-group">
-                    <label for="motivo_consulta">Direccion</label>
+                <div class="form-group form-row">
+                    <label for="motivo_consulta">Dirección</label>
                     <input type="text" class="form-control" name="colonia" id="colonia" [(ngModel)]="expediente.colonia"
                         placeholder="calle #, colonia">
                 </div>
-
-                <div class="form-group">
-                    <label for="celular">Celular</label>
-                    <input type="number" class="form-control" name="celular" id="celular" [(ngModel)]="expediente.celular"
-                        placeholder="celular">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="celular">Celular</label>
+                        <input type="number" class="form-control" name="celular" id="celular" [(ngModel)]="expediente.celular"
+                            placeholder="celular">
+                    </div>
+    
+                    <div class="form-group col-md-6">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" name="email" id="email" [(ngModel)]="expediente.email"
+                            placeholder="email">
+                    </div>
                 </div>
-
-                <div class="form-group">
-                    <label for="email">email</label>
-                    <input type="email" class="form-control" name="email" id="email" [(ngModel)]="expediente.email"
-                        placeholder="email">
+                <div class="form-row">
+                        <div class="form-group col-md-4">
+                                <label for="escolaridad">Escolaridad</label>
+                                <input type="text" class="form-control" name="escolaridad" id="escolaridad"
+                                    [(ngModel)]="expediente.Ante_no_patologicos.escolaridad" placeholder="Escolaridad">
+                        </div>
+                        
+                        <div class="form-group col-md-4">
+                                <label for="seguro_social">Seguro social</label>
+                                <input type="text" class="form-control" name="seguro_social" id="seguro_social"
+                                    [(ngModel)]="expediente.Ante_no_patologicos.seguro_social" placeholder="Número de seguro">
+                        </div>
+        
+                        <div class="form-group col-md-4">
+                            <label for="consultorio_alta">Consultorio</label>
+                            <select class="form-control" name="consultorio_alta" [(ngModel)]="expediente.consultorio_alta">
+                                <option selected value="">Seleccione un consultorio</option>
+                                <option *ngFor="let consul of conlsults" [value]="consul._id">{{consul.nombre}}</option>
+                            </select>
+                        </div>
                 </div>
-
-                <div class="form-group">
-                    <label for="consultorio_alta">Consultorio</label>
-                    <select class="form-control" name="consultorio_alta" [(ngModel)]="expediente.consultorio_alta">
-                        <option selected value="">Seleccione un consultorio</option>
-                        <option *ngFor="let consul of conlsults" [value]="consul._id">{{consul.nombre}}</option>
-                    </select>
-                </div>
-                <button type="button" class="btn btn-dark pull-right" awNextStep>Next Step</button>
+            </fieldset>
+                <button type="button" class="btn btn-dark pull-right" awNextStep>Siguiente</button>
                 <!-- <a [routerLink]="['/expedientes']"class="btn btn-outline-danger pull-left">Cancelar</a> -->
                 <!-- <button type="button" [awGoToStep]="{stepIndex: 2}">Go directly to third Step</button> -->
+       
             </aw-wizard-step>
 
             <aw-wizard-step [navigationSymbol]="{ symbol: '2' }" stepTitle="Atecedentes">
                 <!-- Ante_no_patologicos -->
-
-                <div class="form-group ">
-                    <label for="vacunas_res">vacunas recientes</label>
-                    <input type="text" class="form-control" name="vacunas_res" id="vacunas_res"
-                        [(ngModel)]="expediente.Ante_no_patologicos.vacunas_res" placeholder="vacunas recientes">
+         <!-- Ante_familiares -->
+         <fieldset class="scheduler-border">
+                <legend class="scheduler-border">Antecedentes no patológicos</legend>
+            <div class="form-row">
+                    <div class="form-group col-md-6">
+                            <label for="vacunas_res">Vacunas recientes</label>
+                            <input type="text" class="form-control" name="vacunas_res" id="vacunas_res"
+                                [(ngModel)]="expediente.Ante_no_patologicos.vacunas_res" placeholder="Vacunas recientes">
+                        </div>
+        
+                <div class="form-group col-md-6">
+                    <label for="grupo_rh">Grupo sanguíneo</label>
+                        <select class="form-control"
+                            name="grupo_rh" id="grupo_rh"
+                            [(ngModel)]="expediente.Ante_no_patologicos.grupo_rh">
+                            <option default selected>Seleccione un grupo sanguíneo.......</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>                
+                        </select>
+                    <!-- <input type="text" class="form-control" name="grupo_rh" id="grupo_rh"
+                        [(ngModel)]="expediente.Ante_no_patologicos.grupo_rh" placeholder="Grupo sanguíneo"> -->
                 </div>
+    
+            </div>
 
-                <div class="form-group ">
-                    <label for="escolaridad">escolaridad</label>
-                    <input type="text" class="form-control" name="escolaridad" id="escolaridad"
-                        [(ngModel)]="expediente.Ante_no_patologicos.escolaridad" placeholder="escolaridad">
-                </div>
-
-                <div class="form-group ">
-                    <label for="grupo_rh">Grupo sanguineo</label>
-                    <input type="text" class="form-control" name="grupo_rh" id="grupo_rh"
-                        [(ngModel)]="expediente.Ante_no_patologicos.grupo_rh" placeholder="grupo sanguineo">
-                </div>
-
-                <div class="form-group ">
-                    <label for="seguro_social">seguro social</label>
-                    <input type="text" class="form-control" name="seguro_social" id="seguro_social"
-                        [(ngModel)]="expediente.Ante_no_patologicos.seguro_social" placeholder="num de seguro">
-                </div>
-
+        </fieldset>
                 <!-- antecedentes_gineco_obst -->
-
-                <div class="form-group ">
-                    <label for="Menarca">Menarca</label>
-                    <input type="text" class="form-control" name="Menarca" id="Menarca"
-                        [(ngModel)]="expediente.antecedentes_gineco_obst.Menarca" placeholder="Menarca">
+                <fieldset class="scheduler-border">
+                        <legend class="scheduler-border">Antecedentes Gineco-Obstétricos</legend>
+            <div class="form-row">
+                    <div class="form-group col-md-6">
+                            <label for="Menarca">Menarca</label>
+                            <input type="number" class="form-control" name="Menarca" id="Menarca"
+                                [(ngModel)]="expediente.antecedentes_gineco_obst.Menarca" placeholder="Menarca">
+                        </div>
+        
+                        <div class="form-group col-md-6 ">
+                            <label for="remove">Remove</label>
+                            <input type="text" class="form-control" name="remove" id="remove"
+                                [(ngModel)]="expediente.antecedentes_gineco_obst.remove" placeholder="Remove">
+                        </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-3">
+             <label for="eumenorreica">Eumenorreica</label>
+                    <select class="form-control"
+                                name="eumenorreica" id="eumenorreica"
+                            [(ngModel)]="expediente.antecedentes_gineco_obst.eumenorreica">
+                            <option default selected>Seleccione una opción......</option>
+                            <option value="Si">Si</option>
+                            <option value="No">No</option>               
+                    </select>
+                    </div>
+                <div class="form-group col-md-3 ">
+                            <label for="dismenorreica">Dismenorreica</label>
+                            <input type="text" class="form-control" name="dismenorreica" id="dismenorreica"
+                                [(ngModel)]="expediente.antecedentes_gineco_obst.dismenorreica" placeholder="Dismenorreica">
+                </div>
+                <div class="form-group col-md-3">
+                        <label for="ivsa">IVSA</label>
+                        <input type="number" class="form-control" name="ivsa" id="ivsa"
+                            [(ngModel)]="expediente.antecedentes_gineco_obst.ivsa" placeholder="IVSA">
+                </div>
+                <div class="form-group col-md-3">
+                        <label for="escolaridad">Parejas sexuales</label>
+                        <input type="number" class="form-control" name="parejas_exuales" id="parejas_exuales"
+                            [(ngModel)]="expediente.antecedentes_gineco_obst.parejas_exuales" placeholder="Parejas sexuales">
                 </div>
 
-                <div class="form-group ">
-                    <label for="remove">remove</label>
-                    <input type="text" class="form-control" name="remove" id="remove"
-                        [(ngModel)]="expediente.antecedentes_gineco_obst.remove" placeholder="remove">
-                </div>
-
-                <div class="form-group ">
-                    <label for="eumenorreica">eumenorreica</label>
+            </div>
+            
+<!--           x<div class="form-group">
+                    <label for="eumenorreica">Eumenorreica</label>
                     <input type="text" class="form-control" name="eumenorreica" id="eumenorreica"
                         [(ngModel)]="expediente.antecedentes_gineco_obst.eumenorreica" placeholder="eumenorreica">
                 </div>
-
                 <div class="form-group ">
                     <label for="dismenorreica">dismenorreica</label>
                     <input type="text" class="form-control" name="dismenorreica" id="dismenorreica"
                         [(ngModel)]="expediente.antecedentes_gineco_obst.dismenorreica" placeholder="dismenorreica">
+                </div> -->
+
+                
+                <div class="form-row">
+                        <div class="form-group col-md-4">
+                                <label for="mdf_tipo">mdf_tipo</label>
+                                <input type="text" class="form-control" name="mdf_tipo" id="mdf_tipo"
+                                    [(ngModel)]="expediente.antecedentes_gineco_obst.mdf_tipo" placeholder="mdf_tipo">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="tiempo_de_uso">Tiempo de uso</label>
+                                <input type="text" class="form-control" name="tiempo_de_uso" id="tiempo_de_uso"
+                                    [(ngModel)]="expediente.antecedentes_gineco_obst.tiempo_de_uso" placeholder="Tiempo de uso">
+                            </div>  
+                            <div class="form-group col-md-4">
+                            <label for="causas_descontinuo">Causas de descontinuó</label>
+                            <input type="text" class="form-control" name="causas_descontinuo" id="causas_descontinuo"
+                                [(ngModel)]="expediente.antecedentes_gineco_obst.causas_descontinuo"
+                                placeholder="Causas de descontinuó">
+                        </div>
                 </div>
+                
+                <div class=" form-row">
+                   
+                        <div class="form-group col-md-3">
+                            <label for="g">Gestas</label>
+                            <input type="number" class="form-control" name="g" id="g"
+                                [(ngModel)]="expediente.antecedentes_gineco_obst.g" placeholder="Gestas">
+                        </div>
 
-                <div class="form-group ">
-                    <label for="ivsa">ivsa</label>
-                    <input type="text" class="form-control" name="ivsa" id="ivsa"
-                        [(ngModel)]="expediente.antecedentes_gineco_obst.ivsa" placeholder="ivsa">
-                </div>
+                        <div class="form-group col-md-3">
+                            <label for="p">Partos</label>
+                            <input type="number" class="form-control" name="p" id="p"
+                                [(ngModel)]="expediente.antecedentes_gineco_obst.p" placeholder="Partos">
+                        </div>
 
-                <div class="form-group ">
-                    <label for="escolaridad">parejas_exuales</label>
-                    <input type="number" class="form-control" name="parejas_exuales" id="parejas_exuales"
-                        [(ngModel)]="expediente.antecedentes_gineco_obst.parejas_exuales" placeholder="parejas_exuales">
-                </div>
-
-                <div class="form-group ">
-                    <label for="mdf_tipo">mdf_tipo</label>
-                    <input type="text" class="form-control" name="mdf_tipo" id="mdf_tipo"
-                        [(ngModel)]="expediente.antecedentes_gineco_obst.mdf_tipo" placeholder="mdf_tipo">
-                </div>
-
-
-                <div class="form-group ">
-                    <label for="tiempo_de_uso">tiempo_de_uso</label>
-                    <input type="text" class="form-control" name="tiempo_de_uso" id="tiempo_de_uso"
-                        [(ngModel)]="expediente.antecedentes_gineco_obst.tiempo_de_uso" placeholder="tiempo_de_uso">
-                </div>
-
-                <div class="form-group ">
-                    <label for="causas_descontinuo">causas_descontinuo</label>
-                    <input type="text" class="form-control" name="causas_descontinuo" id="causas_descontinuo"
-                        [(ngModel)]="expediente.antecedentes_gineco_obst.causas_descontinuo"
-                        placeholder="causas_descontinuo">
+                        <div class="form-group col-md-3">
+                            <label for="c">Cesáreas</label>
+                            <input type="number" class="form-control" name="c" id="c"
+                                [(ngModel)]="expediente.antecedentes_gineco_obst.c" placeholder="Cesáreas">
+                        </div>
+                        <div class="form-group col-md-3">
+                                <label for="a">Abortos</label>
+                                <input type="number" class="form-control" name="a" id="a"
+                                    [(ngModel)]="expediente.antecedentes_gineco_obst.a" placeholder="Abortos">
+                            </div>
+                  
                 </div>
 
                 <div class="form-group ">
                     <div class="row">
                         <div class="col">
-                            <label for="g">g</label>
-                            <input type="text" class="form-control" name="g" id="g"
-                                [(ngModel)]="expediente.antecedentes_gineco_obst.g" placeholder="g">
+                            <label for="fup">Fecha de última regla (FUR)</label>
+                            <input type="date" class="form-control" name="fup" id="fup"
+                            [(ngModel)]="expediente.antecedentes_gineco_obst.fup" placeholder="FUR">
+                        </div>
+                        <div class="col">
+                            <label for="ffp">Fecha probable del parto (FPP) </label>
+                            <input type="date" class="form-control" name="ffp" id="ffp"
+                                [(ngModel)]="expediente.antecedentes_gineco_obst.ffp" placeholder="FPP">
                         </div>
 
-                        <div class="col">
-                            <label for="p">p</label>
-                            <input type="text" class="form-control" name="p" id="p"
-                                [(ngModel)]="expediente.antecedentes_gineco_obst.p" placeholder="p">
-                        </div>
-
-                        <div class="col">
-                            <label for="c">c</label>
-                            <input type="text" class="form-control" name="c" id="c"
-                                [(ngModel)]="expediente.antecedentes_gineco_obst.c" placeholder="c">
-                        </div>
                     </div>
                 </div>
 
-                <div class="form-group ">
-                    <div class="row">
-                        <div class="col">
-                            <label for="a">a</label>
-                            <input type="text" class="form-control" name="a" id="a"
-                                [(ngModel)]="expediente.antecedentes_gineco_obst.a" placeholder="a">
-                        </div>
-
-                        <div class="col">
-                            <label for="ffp">ffp</label>
-                            <input type="text" class="form-control" name="ffp" id="ffp"
-                                [(ngModel)]="expediente.antecedentes_gineco_obst.ffp" placeholder="ffp">
-                        </div>
-
-                        <div class="col">
-                            <label for="fup">fup</label>
-                            <input type="text" class="form-control" name="fup" id="fup"
-                                [(ngModel)]="expediente.antecedentes_gineco_obst.fup" placeholder="fup">
-                        </div>
-                    </div>
-                </div>
-
-                <button type="button" class="btn btn-secondary pull-left" awPreviousStep>Go to previous step</button>
-                <button type="button" class="btn btn-dark pull-right" awNextStep>Go to next step</button>
+            </fieldset>
+                <button type="button" class="btn btn-secondary pull-left" awPreviousStep>Anterior</button>
+                <button type="button" class="btn btn-dark pull-right" awNextStep>Siguiente</button>
             </aw-wizard-step>
 
             <aw-wizard-step [navigationSymbol]="{ symbol: '3' }" stepTitle="Antecedentes familiares">
 
                 <!-- Ante_familiares -->
-
+                <fieldset class="scheduler-border">
+                        <legend class="scheduler-border">Antecedentes Familiares</legend>
                 <div class="form-group ">
-                    <h5>Ante_familiares</h5>
                     <div class="row">
                         <div class="col">
-                            <label for="hipertension">hipertension</label>
+                            <label for="hipertension">Hipertensión</label>
                             <input type="text" class="form-control" name="hipertension" id="hipertension"
-                                [(ngModel)]="expediente.Ante_familiares.hipertension" placeholder="hipertension">
+                                [(ngModel)]="expediente.Ante_familiares.hipertension" placeholder="Hipertensión">
                         </div>
 
                         <div class="col">
-                            <label for="cancer">cancer</label>
-                            <input type="text" class="form-control" name="cancer" id="cancer"
-                                [(ngModel)]="expediente.Ante_familiares.cancer" placeholder="cancer">
+                            <label for="cancer">Cáncer</label>
+                            <input type="text" class="form-control" name="cancer" id="Cancer"
+                                [(ngModel)]="expediente.Ante_familiares.cancer" placeholder="Cáncer">
                         </div>
 
                         <div class="col">
-                            <label for="diabetes">diabetes</label>
+                            <label for="diabetes">Diabetes</label>
                             <input type="text" class="form-control" name="diabetes" id="diabetes"
-                                [(ngModel)]="expediente.Ante_familiares.diabetes" placeholder="diabetes">
+                                [(ngModel)]="expediente.Ante_familiares.diabetes" placeholder="Diabetes">
                         </div>
 
                         <div class="col">
-                            <label for="otros">otros</label>
+                            <label for="otros">Otros</label>
                             <input type="text" class="form-control" name="otros" id="otros"
-                                [(ngModel)]="expediente.Ante_familiares.otros" placeholder="otros">
+                                [(ngModel)]="expediente.Ante_familiares.otros" placeholder="Otros">
                         </div>
                     </div>
                 </div>
-
+            </fieldset>
                 <!-- Ante_fam_pato -->
-
+        <fieldset class="scheduler-border">
+             <legend class="scheduler-border">Antecedentes familiares patológicos</legend>
                 <div class="form-group ">
-                    <h5>Ante_fam_pato</h5>
-                    <div class="row">
-                        <div class="col">
-                            <label for="cirugias">cirugias</label>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="cirugias">Cirugías</label>
                             <input type="text" class="form-control" name="cirugias" id="cirugias"
-                                [(ngModel)]="expediente.Ante_fam_pato.cirugias" placeholder="cirugias">
+                                [(ngModel)]="expediente.Ante_fam_pato.cirugias" placeholder="Cirugías">
                         </div>
 
                         <!-- transfucion -->
 
-                        <div class="col">
-                            <label for="transfucion">transfucion</label>
+                        <div class="form-group col-md-4">
+                            <label for="transfucion">Transfusión</label>
                             <input type="text" class="form-control" name="transfucion" id="transfucion"
                                 [(ngModel)]="expediente.Ante_fam_pato.transfuciones.transfucion"
-                                placeholder="transfucion">
+                                placeholder="Transfusión">
                         </div>
 
-                        <div class="col">
-                            <label for="motivo">motivo</label>
+                        <div class="form-group col-md-4">
+                            <label for="motivo">Motivo</label>
                             <input type="text" class="form-control" name="motivo" id="motivo"
-                                [(ngModel)]="expediente.Ante_fam_pato.transfuciones.motivo" placeholder="motivo">
+                                [(ngModel)]="expediente.Ante_fam_pato.transfuciones.motivo" placeholder="Motivo">
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col">
-                            <label for="fracturas">fracturas</label>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="fracturas">Fracturas</label>
                             <input type="text" class="form-control" name="fracturas" id="fracturas"
-                                [(ngModel)]="expediente.Ante_fam_pato.fracturas" placeholder="fracturas">
+                                [(ngModel)]="expediente.Ante_fam_pato.fracturas" placeholder="Fracturas">
                         </div>
 
-
-                        <div class="col">
-                            <label for="hospitalizaciones">hospitalizaciones</label>
+                        <div class="form-group col-md-3">
+                            <label for="hospitalizaciones">Hospitalizaciones</label>
                             <input type="text" class="form-control" name="hospitalizaciones" id="hospitalizaciones"
                                 [(ngModel)]="expediente.Ante_fam_pato.hospitalizaciones"
-                                placeholder="hospitalizaciones">
+                                placeholder="Hospitalizaciones">
                         </div>
 
-                        <div class="col">
-                            <label for="fuma">fuma</label>
-                            <input type="text" class="form-control" name="fuma" id="fuma"
-                                [(ngModel)]="expediente.Ante_fam_pato.fumar.fuma" placeholder="fuma">
+                        <div class="form-group col-md-3">
+                            <label for="fuma">Fuma</label>
+                        <select class="form-control"
+                                name="fuma" id="fuma"
+                                [(ngModel)]="expediente.Ante_fam_pato.fumar.fuma">
+                            <option default selected>Seleccione una opción......</option>
+                            <option value="Si">Si</option>
+                            <option value="No">No</option>               
+                        </select>
                         </div>
 
-                        <div class="col">
-                            <label for="cantidad">cantidad</label>
+                        <div class="form-group col-md-2">
+                            <label for="cantidad">Cantidad</label>
                             <input type="text" class="form-control" name="cantidad" id="cantidad"
-                                [(ngModel)]="expediente.Ante_fam_pato.fumar.cantidad" placeholder="cantidad">
+                                [(ngModel)]="expediente.Ante_fam_pato.fumar.cantidad" placeholder="Cantidad">
                         </div>
-
-                        <div class="col">
-                            <label for="alcohol">alcohol</label>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="alcohol">Alcohol</label>
                             <input type="text" class="form-control" name="alcohol" id="alcohol"
-                                [(ngModel)]="expediente.Ante_fam_pato.alcohol" placeholder="alcohol">
+                                [(ngModel)]="expediente.Ante_fam_pato.alcohol" placeholder="Alcohol">
                         </div>
 
-                        <div class="col">
-                            <label for="alergia">alergia</label>
+                        <div class="form-group col-md-4">
+                            <label for="alergia">Alergias</label>
                             <input type="text" class="form-control" name="alergia" id="alergia"
-                                [(ngModel)]="expediente.Ante_fam_pato.alergias.alergia" placeholder="alergia">
+                                [(ngModel)]="expediente.Ante_fam_pato.alergias.alergia" placeholder="Alergia">
                         </div>
 
-                        <div class="col">
-                            <label for="efecto">efecto</label>
+                        <div class="form-group col-md-4">
+                            <label for="efecto">Efecto</label>
                             <input type="text" class="form-control" name="efecto" id="efecto"
-                                [(ngModel)]="expediente.Ante_fam_pato.alergias.efecto" placeholder="efecto">
+                                [(ngModel)]="expediente.Ante_fam_pato.alergias.efecto" placeholder="Efecto">
                         </div>
-
-
                     </div>
 
                     <div class="row">
                         <div class="col">
-                            <label for="patologias_cronicas_degenerativas">patologias_cronicas_degenerativas</label>
+                            <label for="patologias_cronicas_degenerativas">Patológias crónicas degenerativas</label>
                             <input type="text" class="form-control" name="patologias_cronicas_degenerativas"
                                 id="patologias_cronicas_degenerativas"
                                 [(ngModel)]="expediente.Ante_fam_pato.patologias_cronicas_degenerativas"
-                                placeholder="patologias_cronicas_degenerativas">
+                                placeholder="Patológias crónicas degenerativas">
                         </div>
                     </div>
 
 
                 </div>
+            </fieldset>
 
-                <button type="button" class="btn btn-secondary pull-left" awPreviousStep>Previous Step</button>
+                <button type="button" class="btn btn-secondary pull-left" awPreviousStep>Anterior</button>
 
                 <button [disabled]="!formulario.valid" class="btn btn-success pull-right" type="submit" awResetWizard><i
-                        class="fa fa-save"></i>Guardar</button>
+                        class="fa fa-save"></i> Guardar</button>
 
             </aw-wizard-step>
 

@@ -1,11 +1,11 @@
-/* layout.css Style */
+/* layout.css Style 
 .upload-drop-zone {
     height: 200px;
     border-width: 2px;
     margin-bottom: 20px;
-  }
+  } */
   
-  /* skin.css Style*/
+  /* skin.css Style
   .upload-drop-zone {
     color: #ccc;
     border-style: dashed;
@@ -16,4 +16,22 @@
   .upload-drop-zone.drop {
     color: #222;
     border-color: #222;
-  }
+  }*/
+
+  .uploadfilecontainer {
+    background-image: url("../../../assets/images/cloud-2044823_960_720.png");
+    background-repeat: no-repeat;
+    background-size: 100px;
+    background-position: center;
+    height: 100px;
+    width: 80%;
+    margin: 5px auto;
+    border: 2px dashed #1C8ADB;
+    border-radius: 10px;
+}
+
+.uploadfilecontainer:hover {
+    cursor: pointer;
+    background-color: #9ecbec !important;
+    opacity: 0.8;
+}
