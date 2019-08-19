@@ -1,11 +1,7 @@
-<app-page-header  [heading]="'Historila de consultas medicas'" [icon]="'fa-desktop'">
+<app-page-header  [heading]="'Historial de consultas médicas'" [icon]="'fa-desktop'">
   </app-page-header>
 
-<div class="row">
-    <div class="col-auto">
-        <h1 class="text-center">Visitas medicas</h1>
-    </div> 
-  </div>
+
   <hr>
 
   <table datatable *ngIf="!cargando && visitas.length > 0"
@@ -15,8 +11,8 @@
         <th scope="col">#</th>
         <th scope="col">Paciente</th>
         <th scope="col">Consultorio</th>
-        <th scope="col">fecha</th>
-        <th scope="col">motivo</th>
+        <th scope="col">Fecha</th>
+        <th scope="col">Motivo</th>
         <th scope="col">Acciones</th>
       </tr>
     </thead>

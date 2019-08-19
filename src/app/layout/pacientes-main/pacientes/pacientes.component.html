@@ -6,6 +6,14 @@
     <router-outlet></router-outlet>
 
     <div class="row">
+      <div class="col text-left">
+          <button 
+          (click)="gotoAltaExpediente()"
+          class='btn btn-dark'>
+          <i class="fa fa-archive"></i>
+          Alta expediente
+      </button>
+      </div>
       <div class="col text-right">
           <button 
               (click)="alta(content)"
@@ -23,6 +31,7 @@
     <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
       <thead>
         <tr>
+          <th hidden></th>
           <th>#</th>
           <th>Nombre</th>
           <th>Edad</th>
@@ -34,6 +43,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let paciente of pacientes; let i=index">
+          <th hidden>{{ paciente._id }}</th>
           <td>{{ i+1}}</td>
           <td>{{ paciente.nombre }}</td>
           <td>{{ paciente.edad }}</td>
@@ -53,7 +63,7 @@
                 <button 
                      (click)="gotoExpediente(paciente , i)"
                      class="btn btn-dark">
-                  <i class="fa fa-plus"></i>
+                  <i class="fa fa-eye"></i>
                 </button>
           </td>
         </tr>
@@ -242,14 +252,14 @@
                 </div>
         </fieldset>
               <div class="form-group" >
-                                  <!-- Standar Form -->
-                                  <h3>Selecciona una imagen</h3>
-                                  <div class="form-inline">
-                                    <div class="form-group">
-                                      <input class="btn btn-outline-primary" type="file" name="imagen" 
-                                      (change)="handleFileInput($event.target.files)">
-                                    </div>
-                                  </div>
+                     <!-- Standar Form -->
+                      <h3>Selecciona una imagen</h3>
+                      <div class="form-inline">
+                      <div class="form-group">
+                      <input class="btn btn-outline-primary" type="file" name="imagen" 
+                     (change)="handleFileInput($event.target.files)">
+                   </div>
+                </div>
                       
                                 <!-- Drop Zone -->
                                 <!-- <h4>Or drag and drop files below</h4>
