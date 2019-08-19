@@ -37,7 +37,8 @@ export class ConsultoriosComponent implements OnInit {
       buttons: [
         'pdfHtml5',
         'print',
-        'excel'
+        'excel',
+        'pageLength'
       ],
       pagingType: 'full_numbers',
       pageLength: 10
