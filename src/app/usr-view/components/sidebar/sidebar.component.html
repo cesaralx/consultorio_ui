@@ -1,8 +1,16 @@
 <nav class="sidebar" [ngClass]="{sidebarPushRight: isActive, collapsed: collapsed}">
     <div class="list-group">
         <a routerLink="inicio" [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fa fa-fw fa-dashboard"></i>&nbsp;
+            <i class="fa fa-fw fa-user"></i>&nbsp;
             <span>{{ 'Index' | translate }}</span>
+        </a>
+        <a routerLink="historial" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-archive"></i>&nbsp;
+            <span>{{ 'Case file' | translate }}</span>&nbsp;
+        </a>
+        <a routerLink="consultas" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-archive"></i>&nbsp;
+            <span> {{ 'Adds' | translate }}</span>&nbsp;
         </a>
         <!-- <a [routerLink]="['/charts']" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-bar-chart-o"></i>&nbsp;

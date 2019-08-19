@@ -22,12 +22,14 @@ export class AnexosComponent implements OnInit {
   ruta: any = null;
   extension: any[] = null;
 
-  constructor(private activatedRoute: ActivatedRoute,
+  constructor(private router: Router,
+              private activatedRoute: ActivatedRoute,
               private visitaService: VisitaMedicaService) { }
 
  async ngOnInit() {
     this.paciente_id = this.activatedRoute.params.subscribe(async params => {
       this.id = params.id;
+      console.log(this.id);
       await this.getConsultaByid();
      });
   }
