@@ -3,9 +3,10 @@ import { routerTransition } from '../../router.animations';
 import { Label } from 'ng2-charts';
 import { ChartsServices } from './charts.service';
 import { LayoutService } from '../layout.service';
+import {ExpedientesModel } from '../expedientes-main/expedientes/expedientes.model';
 
 
-import { CitaModel, UsuarioModel, ConsultorioModel, PacienteModel } from './charts.model';
+import { CostoCitasModel, CitaModel, UsuarioModel, ConsultorioModel, PacienteModel } from './charts.model';
 import { reject } from 'q';
 import { resolve } from 'url';
 
@@ -23,7 +24,12 @@ export class ChartsComponent implements OnInit {
     citas: CitaModel [] = [];
     private g = new LayoutService();
     citaxmexconsul: any;
-    
+    consultaxmexconsul: any;
+    private barDatita1: any[] = [];
+    private lineDatita1: any[] = [];
+    dtOptions: any;
+    costoCitas: CostoCitasModel [];
+    expedientesLite: ExpedientesModel[] = [];
 
 
     // bar chart
@@ -109,27 +115,30 @@ export class ChartsComponent implements OnInit {
         { data: [18, 48, 77, 9, 100, 27, 40], label: 'Series C' }
     ];
     public lineChartLabels: Array<any> = [
-        'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-        'July'
+        'Enero',
+        'Febrero',
+        'Marzo',
+        'Abril',
+        'Mayo',
+        'Junio',
+        'Julio',
+        'Agosto',
+        'Septiembre',
+        'Noviembre',
+        'Diciembre'
     ];
     public lineChartOptions: any = {
         responsive: true
     };
     public lineChartColors: Array<any> = [
-        {
-            // grey
-            backgroundColor: 'rgba(148,159,177,0.2)',
-            borderColor: 'rgba(148,159,177,1)',
+        { // red
+            backgroundColor: 'rgba(255,0,0,0.3)',
+            borderColor: 'red',
             pointBackgroundColor: 'rgba(148,159,177,1)',
             pointBorderColor: '#fff',
             pointHoverBackgroundColor: '#fff',
             pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-        },
+          },
         {
             // dark grey
             backgroundColor: 'rgba(77,83,96,0.2)',
@@ -182,10 +191,6 @@ export class ChartsComponent implements OnInit {
          */
     }
 
-
-
-
-
     constructor(
         private chartsServices: ChartsServices
     ) {}
@@ -203,28 +208,44 @@ export class ChartsComponent implements OnInit {
     this.lineChartLegend = true;
     this.lineChartType = 'line';
 
+    this.dtOptions = {
+        dom: 'Bfrtip',
+        buttons: [
+          'pdfHtml5',
+          'print',
+          'excel'
+        ]};
 
         await this.getPacientes();
         await this.getCitas();
+        await this.getCostoCitas();
         await this.getConsultorios();
         await this.getUsuarios();
+        await this.getExpedientes();
         await this.getCitasxMesxConsul();
+        await this.getConsultasxMesxConsul();
 
         await this.AgregaDatosPacixMes();
+        await this.AgregavisitasxMesxConsul();
+        await this.AgregaConsultasxMesxConsul();
+
+        this.llenaCostoCitas();
+        this.llenaPaciAntecedentes();
+    }
 
 
+    llenaCostoCitas = () => {
+        this.costoCitas.forEach(e => {
+            const obj = this.consultorios.find(res => res._id === e._id);
+            e._id = obj.nombre;
+        });
+    }
 
-
-
-
-        // this.citaxmexconsul.forEach(element, index => {
-        //     console.log(element.meses[element].count);
-        //     cucu.data.push(element.meses);
-        //     cucu.label.push(element._id);
-        // });
-
-
-
+    llenaPaciAntecedentes = () => {
+        this.expedientesLite.forEach(e => {
+            const obj = this.pacientes.find(res => res._id === e.paciente_id);
+            e.paciente_id = obj.nombre;
+        });
     }
 
     async AgregaDatosPacixMes() {
@@ -236,43 +257,47 @@ export class ChartsComponent implements OnInit {
         this.consultorios.forEach(async element => {
         await this.pushDataPie(element.nombre , element.citas );
         });
+    }
 
-        let cucu = { data: [], label: [] };
-        let barChartData: any[] = [
-        ];
+    async AgregavisitasxMesxConsul() {
+        this.citaxmexconsul.forEach(async element => {
+            const obj = this.consultorios.find(res => res._id === element._id);
 
-        // let cucu: Array<any> = [
-        //     { data: [], label: [] }
-        // ];
+            const cucu = { data: [], label: [] };
+            // console.log('elemento', element);
+            cucu.label.push([obj.nombre]) ;
+            element.meses.forEach(item => {
+                cucu.data.push(item.count);
+            });
+            await this.popeaBarDatita1(cucu);
+        });
+        this.barChartData = this.barDatita1;
+    }
 
-        this.citaxmexconsul.forEach(function(element, index) {
-            console.log(element);
-            console.log(index);
-            // cucu.data.push([element.meses.count]);
 
+    popeaBarDatita1 = (cucu: {}) => new Promise( (resol) => {
+        resol(this.barDatita1.push(cucu));
+    })
+
+    async AgregaConsultasxMesxConsul() {
+        this.consultaxmexconsul.forEach(async element => {
+            const obj = this.consultorios.find(res => res._id === element._id);
+            const cucu = { data: [], label: [] };
+            // console.log('elemento', element);
+            cucu.label.push([obj.nombre]) ;
 
             element.meses.forEach(item => {
-                // console.log('interno', item.count);
-                // cucu.data.push( item.count);
                 cucu.data.push(item.count);
-
             });
-            // cucu.label.pop();
-            cucu.label.push([element._id]) ;
-            console.log('aqui esta', cucu);
-            barChartData.push(cucu);
-
-            // cucu[index].label.push(element._id);
-
-
+            await this.popeaLineDatita2(cucu);
         });
-
-        console.log('Arreglo chido', cucu);
-        // this.barChartData = [cucu];
-        // barChartData.push(cucu);
-        console.log('Arreglo chido2', barChartData);
-        this.barChartData = barChartData;
+        this.lineChartData = this.lineDatita1;
     }
+
+
+    popeaLineDatita2 = (cucu: {}) => new Promise( (resolved) => {
+        resolved(this.lineDatita1.push(cucu));
+    })
 
 
     asignaCitasConsul = (count: {}) => new Promise( (resolve) => {
@@ -290,13 +315,13 @@ export class ChartsComponent implements OnInit {
         resolve(true);
     })
 
-    cuentaCitasConsul = () => new Promise( (resolve) => {
+    cuentaCitasConsul = () => new Promise( (resolved) => {
         // cuenta cuantas citas para cada consultorio existen
         let counts = {};
         this.citas.forEach( cita => {
             counts[cita.id_consultorio] = (counts[cita.id_consultorio] || 0) + 1 ;
         });
-        resolve(counts);
+        resolved(counts);
     })
 
 
@@ -314,6 +339,20 @@ export class ChartsComponent implements OnInit {
             .subscribe( (resp: any) => {
                 // console.log(resp);
                 resolve( this.citaxmexconsul = resp);
+            },
+            (error) => {
+            console.log(error.message);
+            reject(error);
+            if (error.status === 403) { this.g.onLoggedout(); }
+            });
+        })
+
+
+    getConsultasxMesxConsul = () => new Promise( (resolve, reject) => {
+        this.chartsServices.getConsultasxMesxConsul()
+            .subscribe( (resp: any) => {
+                // console.log(resp);
+                resolve( this.consultaxmexconsul = resp);
             },
             (error) => {
             console.log(error.message);
@@ -362,6 +401,34 @@ export class ChartsComponent implements OnInit {
             if (error.status === 403) { this.g.onLoggedout(); }
             });
         })
+
+    getExpedientes = () => new Promise( (resolve, reject) => {
+        this.chartsServices.getExpedientes()
+            .subscribe( (resp: any) => {
+                console.log('Expedientes', resp);
+                resolve( this.expedientesLite = resp);
+            },
+            (error) => {
+            console.log(error.message);
+            reject(error);
+            if (error.status === 403) { this.g.onLoggedout(); }
+            });
+        })
+
+
+    getCostoCitas = () => new Promise( (resolve, reject) => {
+        this.chartsServices.getCostoCitas()
+            .subscribe( (resp: any) => {
+                // console.log('costo citas', resp);
+
+                resolve( this.costoCitas = resp);
+            },
+            (error) => {
+            console.log(error.message);
+            reject(error);
+            if (error.status === 403) { this.g.onLoggedout(); }
+            });
+    })
 
     getCitas = () => new Promise( (resolve, reject) => {
         this.chartsServices.getCitas()

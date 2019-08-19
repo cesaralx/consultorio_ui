@@ -17,7 +17,6 @@ import {VisitaModel} from '../../visita-medica/visita-medica.model';
 import Swal from 'sweetalert2';
 import { RecoveryService } from '../../../recovery/recovery.service';
 
-
 import { DomSanitizer } from '@angular/platform-browser';
 import * as moment from 'moment';
 import { convertUpdateArguments } from '@angular/compiler/src/compiler_util/expression_converter';
@@ -53,7 +52,8 @@ export class ExpedientePacienteComponent implements OnInit, OnDestroy  {
      private modal: NgbModal,
      private visitaMedicaService: VisitaMedicaService,
      public router: Router,
-     private recoveryService: RecoveryService) { }
+     private recoveryService: RecoveryService,
+     ) { }
 
   ngOnInit() {
     this.paciente_id = this.route.params.subscribe(async params => {
@@ -112,7 +112,7 @@ export class ExpedientePacienteComponent implements OnInit, OnDestroy  {
     this.visitaMedicaService.get3LastVisitas().subscribe( (resp: any) =>  {
       resolve(this.lastvisitas = resp);
     });
-  }) 
+  })
 
   getCitaByPaciente = () => new Promise( (resolve, reject) => {
     this.visitaMedicaService.getVisitaMedicaByPaciente(this.paciente._id).subscribe( (resp: any) =>  {
@@ -151,6 +151,10 @@ export class ExpedientePacienteComponent implements OnInit, OnDestroy  {
 
   gotoVisita () {
     this.router.navigate(['pacientes/consultas-medicas/' + this.id]);
+  }
+
+  editaExpe = () => {
+    this.router.navigate(['expedientes/buscar/'], {queryParams: {expedienteId: this.expediente._id}} );
   }
 
   sendEmail(paciente_id) {

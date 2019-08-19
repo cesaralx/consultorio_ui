@@ -34,6 +34,16 @@ export class ChartsServices {
 
   getCitasxMesxConsul () {
     const respuesta = this.http.get(`${this.url}/citas/xMesxConsultorio`, {headers: this.headers});
+    return respuesta; 
+  }
+
+  getCostoCitas () {
+    const respuesta = this.http.get(`${this.url}/citas/costoCitas`, {headers: this.headers});
+    return respuesta;
+  }
+
+  getConsultasxMesxConsul () {
+    const respuesta = this.http.get(`${this.url}/visitamedica/xMesxConsultorio`, {headers: this.headers});
     return respuesta;
   }
 
@@ -43,6 +53,10 @@ export class ChartsServices {
 
   getCitas() {
     return this.http.get(`${this.url}/citas`, {headers: this.headers});
+  }
+
+  getExpedientes() {
+    return this.http.get(`${this.url}/expedientes/getLite`, {headers: this.headers});
   }
 
 

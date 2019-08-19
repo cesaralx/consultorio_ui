@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-access-denied',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AccessDeniedComponent implements OnInit {
 
-  constructor() { }
+  constructor(public router: Router) { }
 
   ngOnInit() {
+    setTimeout(() => {
+      this.navigateLogin();
+    }, 2000);
   }
+
+  navigateLogin() {
+    // localStorage.setItem('isLoggedin', 'false');
+    this.router.navigateByUrl('/login');
+    }
 
 }

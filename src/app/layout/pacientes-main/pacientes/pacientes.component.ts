@@ -61,7 +61,7 @@ export class PacientesComponent implements OnInit, OnDestroy {
 
   open(content) {
     // console.log(this.consultorio);
-    this.modal.open(content, { size: 'lg' }).result.then((result) => {
+    this.modal.open(content, { backdrop: 'static', size: 'lg' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
 
@@ -159,7 +159,7 @@ export class PacientesComponent implements OnInit, OnDestroy {
       console.log(this.paciente);
     peticion = this.pacientesService.actualizaPacientes(this.paciente);
     }
-  
+
         // console.log(this.consultorio);
         peticion.subscribe( resp => {
           this.ngOnDestroy();

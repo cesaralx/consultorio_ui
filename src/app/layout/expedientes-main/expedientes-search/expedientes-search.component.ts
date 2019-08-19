@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, Input, ElementRef } from '@angular/core';
 import { routerTransition } from '../../../router.animations';
 import { ExpedientesSearchService } from './expedientes-search.service';
 import { ExpedientesModel, ConsulModel, PasModel } from '../expedientes/expedientes.model';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { ActivatedRoute, Router } from '@angular/router';
+import { filter } from 'rxjs/operators';
+
 
 import { LayoutService } from '../../layout.service';
 import { PacientesService } from '../../pacientes-main/pacientes/pacientes.service' ;
@@ -25,7 +28,9 @@ import { element } from 'protractor';
   animations: [routerTransition()]
 })
 export class ExpedientesSearchComponent implements OnInit, OnDestroy {
-  
+  @ViewChild('content', {static: false} ) content: ElementRef;
+  expedienteID: string;
+
   private g = new LayoutService();
   // DataTable
   dtOptions: DataTables.Settings = {};
@@ -36,6 +41,7 @@ export class ExpedientesSearchComponent implements OnInit, OnDestroy {
   closeResult: string;
   cargando = false;
   expediente = new ExpedientesModel();
+  expediente_ext = new ExpedientesModel();
   expedientes: ExpedientesModel[] = [];
   consultorios: ConsulModel[] = [];
   pacientes: PasModel[] = [];
@@ -47,23 +53,32 @@ export class ExpedientesSearchComponent implements OnInit, OnDestroy {
   constructor(private expedientesSearchService: ExpedientesSearchService,
     private pacientesService: PacientesService,
     private expedientesService: ExpedientesService,
-    private modal: NgbModal) { }
+    private modal: NgbModal,
+    public router: Router,
+    private route: ActivatedRoute) { }
 
 
- async ngOnInit() {
+  async ngOnInit() {
     this.dtOptions = {
-
       pagingType: 'full_numbers',
       pageLength: 10
     };
+
+// carga el parametro si es que existe
+    this.route.queryParams.pipe(
+      filter(params => params.expedienteId) )
+      .subscribe(params => {
+        // console.log(params);
+        this.expedienteID = params.expedienteId;
+        // console.log('Parametro', this.pacienteId);
+    });
+
     this.cargando = true;
     await this.getPacientes();
     this.consultarExpedeintes();
+    await this.getExpediente();
+    this.updateExternal();
 
-    // this.dtOptions = {
-    //   pagingType: 'full_numbers',
-    //   pageLength: 10
-    // };
   }
 
   ngOnDestroy(): void {
@@ -71,16 +86,27 @@ export class ExpedientesSearchComponent implements OnInit, OnDestroy {
     this.dtTrigger.unsubscribe();
   }
 
-  // consultaPacientes() {
-  //   this.pacientesService.getPacientes()
-  //     .subscribe( (resp: any) => {
-  //       this.pacientes = resp;
-  //     },
-  //     (error) => {
-  //     console.log(error.message);
-  //     if (error.status === 403) { this.lServices.onLoggedout(); }
-  //     });
-  //  }
+  updateExternal() {
+    if (this.expedienteID) {
+      console.log('expediente a editar', this.expedienteID);
+      console.log('expediente a editar', this.expediente_ext);
+      this.actualizar(this.expediente_ext, this.content);
+    }
+  }
+
+  getExpediente = () => new Promise( (resolve, reject) => {
+    if (this.expedienteID) {
+      this.expedientesSearchService.getExpediente(this.expedienteID)
+        .subscribe( (resp: any) => {
+          resolve( this.expediente_ext = resp);
+        },
+        (error) => {
+        console.log(error.message);
+        if (error.status === 403) { this.lServices.onLoggedout(); }
+        });
+    } else { resolve(true); }
+   })
+
  getPacientes = () => new Promise ((resolve, reject) => {
   this.pacientesService.getPacientes()
         .subscribe(  (resp: any) => {
@@ -181,7 +207,7 @@ export class ExpedientesSearchComponent implements OnInit, OnDestroy {
       });
    }
 
-   actualizar(cons: ExpedientesModel, content) {
+    actualizar(cons: ExpedientesModel, content) {
     // this.consultorio = cons;
     this.expedientesSearchService.getExpediente(cons._id).subscribe( (resp: any) => {
       // console.log('Respuesta de consulta consultorio: ', resp);
