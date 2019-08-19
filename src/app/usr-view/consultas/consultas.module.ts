@@ -1,19 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UserPacienteComponent } from './user-paciente.component';
-import { UserPacienteRoutingModule } from './user-paciente-routing.module';
 import { TranslateModule } from '@ngx-translate/core';
-
+import { ConsultasComponent } from './consultas.component';
+import { ConsultasRoutingModule } from './consultas-routing.module';
 import { PageHeaderModule, StatModule } from '../../shared';
 
+
+
 @NgModule({
-  declarations: [UserPacienteComponent],
+  declarations: [ConsultasComponent],
   imports: [
     CommonModule,
-    PageHeaderModule,
-    UserPacienteRoutingModule,
     TranslateModule,
+    ConsultasRoutingModule,
+    PageHeaderModule,
     StatModule
   ]
 })
-export class UserPacienteModule { }
+export class ConsultasModule { }

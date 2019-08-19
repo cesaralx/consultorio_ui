@@ -16,6 +16,7 @@ import { Observable } from 'rxjs';
 // DataTable
 import { Subject } from 'rxjs';
 import { OnDestroy } from '@angular/core';
+import { element } from 'protractor';
 
 @Component({
   selector: 'app-expedientes-search',
@@ -25,7 +26,7 @@ import { OnDestroy } from '@angular/core';
 })
 export class ExpedientesSearchComponent implements OnInit, OnDestroy {
   
-
+  private g = new LayoutService();
   // DataTable
   dtOptions: DataTables.Settings = {};
   // We use this trigger because fetching the list of persons can be quite long,
@@ -49,13 +50,14 @@ export class ExpedientesSearchComponent implements OnInit, OnDestroy {
     private modal: NgbModal) { }
 
 
-  ngOnInit() {
+ async ngOnInit() {
     this.dtOptions = {
 
       pagingType: 'full_numbers',
       pageLength: 10
     };
     this.cargando = true;
+    await this.getPacientes();
     this.consultarExpedeintes();
 
     // this.dtOptions = {
@@ -69,17 +71,27 @@ export class ExpedientesSearchComponent implements OnInit, OnDestroy {
     this.dtTrigger.unsubscribe();
   }
 
-  consultaPacientes() {
-    this.pacientesService.getPacientes()
-      .subscribe( (resp: any) => {
-        this.pacientes = resp;
-      },
-      (error) => {
-      console.log(error.message);
-      if (error.status === 403) { this.lServices.onLoggedout(); }
-      });
-   }
+  // consultaPacientes() {
+  //   this.pacientesService.getPacientes()
+  //     .subscribe( (resp: any) => {
+  //       this.pacientes = resp;
+  //     },
+  //     (error) => {
+  //     console.log(error.message);
+  //     if (error.status === 403) { this.lServices.onLoggedout(); }
+  //     });
+  //  }
+ getPacientes = () => new Promise ((resolve, reject) => {
+  this.pacientesService.getPacientes()
+        .subscribe(  (resp: any) => {
+           resolve(this.pacientes = resp);
 
+        },
+        (error) => {
+        console.log(error.message);
+        if (error.status === 403) { reject(this.g.onLoggedout()); }
+        });
+})
    guardar( form: NgForm) {
     Swal.fire({
       title: 'Espere',
@@ -117,7 +129,7 @@ export class ExpedientesSearchComponent implements OnInit, OnDestroy {
    }
 
   open(content) {
-    this.consultaPacientes();
+    // this.consultaPacientes();
     this.consultaConsultorios();
     // console.log(this.consultorio);
     this.modal.open(content, {size: 'lg'}).result.then((result) => {
@@ -130,7 +142,7 @@ export class ExpedientesSearchComponent implements OnInit, OnDestroy {
   borrar( expediente: ExpedientesModel, i: number) {
     Swal.fire({
       title: '¿Está seguro?',
-      text: `Está seguro de que desea borrar a ${ expediente._id}`,
+      text: `Está seguro de que desea borrar el expediente de ${ expediente.namePaciente}`,
       type: 'question',
       showConfirmButton: true,
       showCancelButton: true
@@ -154,6 +166,11 @@ export class ExpedientesSearchComponent implements OnInit, OnDestroy {
     this.expedientesSearchService.getExpedientes()
       .subscribe( (resp: any) => {
         this.expedientes = resp;
+        this.expedientes.forEach( element => {
+          const obj = this.pacientes.find(res => res._id === element.paciente_id);
+          element.namePaciente = obj.nombre;
+        });
+
         // console.log('consultorios: ', resp);
         this.dtTrigger.next();
         this.cargando = false;

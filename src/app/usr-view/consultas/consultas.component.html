@@ -1,0 +1,18 @@
+<div class="row container">
+    <div class="col-xs-12 col-md-4" *ngFor="let item of visitas">
+
+      <div class="card animated fadeIn fast" >
+   
+          <img *ngIf="item.anexos.length>0" src="../../../assets/images/folder.png" class="card-img-top" alt="" width="200" height="300">
+          <img *ngIf="item.anexos.length===0" src="../../../assets/images/folder-vacio.ico" class="card-img-top" alt="" width="200" height="300">
+          <div class="card-body">
+            <h5 class="card-title"><strong>Fecha de consulta:</strong>  {{ item.fecha}}</h5>
+            <p class="card-text"><strong>Motivo de consulta </strong> {{ item.motivo }}</p>
+            <p class="card-text"><small class="text-muted">{{ item._id }}</small></p>
+            <button *ngIf="item.anexos.length > 0" type="button" class="btn btn-outline-primary btn-block" (click)="gotoConsulta(item)" >
+               Ver más...
+            </button>
+            <!-- <a [routerLink]="['/heroe',i]"  class="btn btn-outline-primary">Ver más link...</a> -->
+          </div>
+         </div>
+  </div>

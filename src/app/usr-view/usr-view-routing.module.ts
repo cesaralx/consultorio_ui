@@ -8,7 +8,9 @@ const routes: Routes = [
         component: UsrViewComponent,
         children: [
             { path: '', redirectTo: 'historial', pathMatch: 'prefix' },
-            { path: 'historial', loadChildren: () => import('./historial/historial.module').then(m => m.HistorialModule) }
+            { path: 'inicio', loadChildren: () => import('./historial/historial.module').then(m => m.HistorialModule) },
+            { path: 'historial', loadChildren: () => import('./user-paciente/user-paciente.module').then(m => m.UserPacienteModule) },
+            { path: 'consultas', loadChildren: () => import('./consultas/consultas.module').then(m => m.ConsultasModule) }
             // { path: 'charts', loadChildren: () => import('./charts/charts.module').then(m => m.ChartsModule) },
             // { path: 'tables', loadChildren: () => import('./tables/tables.module').then(m => m.TablesModule) },
             // { path: 'forms', loadChildren: () => import('./form/form.module').then(m => m.FormModule) },
