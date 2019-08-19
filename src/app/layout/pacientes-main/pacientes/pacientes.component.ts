@@ -159,7 +159,7 @@ export class PacientesComponent implements OnInit, OnDestroy {
       console.log(this.paciente);
     peticion = this.pacientesService.actualizaPacientes(this.paciente);
     }
-  
+
         // console.log(this.consultorio);
         peticion.subscribe( resp => {
           this.ngOnDestroy();
