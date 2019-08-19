@@ -18,6 +18,7 @@ export class CitaModel {
 export class CostoCitasModel {
     _id: string;
     costo: number;
+    total: number;
 }
 
 export class ConsultorioModel {

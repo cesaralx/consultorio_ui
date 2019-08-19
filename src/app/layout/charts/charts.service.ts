@@ -55,6 +55,10 @@ export class ChartsServices {
     return this.http.get(`${this.url}/citas`, {headers: this.headers});
   }
 
+  getExpedientes() {
+    return this.http.get(`${this.url}/expedientes/getLite`, {headers: this.headers});
+  }
+
 
 
 

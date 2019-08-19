@@ -41,7 +41,7 @@
                     Remuneracion de consultas por consultorio
                 </div>
                 <div class="card-body">
-                        <table datatable [dtOptions]="dtOptions" *ngIf="!cargando && consultorios.length > 0"
+                        <table datatable [dtOptions]="dtOptions" *ngIf="consultorios.length > 0"
                                 class="mt-3 animated fadeIn faster">
                                 <thead>
                                     <tr>
@@ -79,9 +79,30 @@
         <div class="col col-sm-6">
             <div class="card mb-3">
                 <div class="card-header">
-                    Polar Area Chart
+                    Antecedentes gineco
                 </div>
                 <div class="card-body">
+                        <table datatable [dtOptions]="dtOptions" *ngIf=" expedientesLite.length > 0"
+                                class="mt-3 animated fadeIn faster">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Paciente</th>
+                                        <th scope="col">Gestas</th>
+                                        <th scope="col">Partos</th>
+                                        <th scope="col">Cesáreas</th>
+                                        <th scope="col">Abortos</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let c of expedientesLite ">
+                                        <td>{{ c.paciente_id }}</td>
+                                        <td>{{ c.antecedentes_gineco_obst.g }}</td>
+                                        <td>{{ c.antecedentes_gineco_obst.p }}</td>
+                                        <td>{{ c.antecedentes_gineco_obst.c }}</td>
+                                        <td>{{ c.antecedentes_gineco_obst.a }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                     <!-- <canvas baseChart height="130px" [data]="polarAreaChartData" [labels]="polarAreaChartLabels" [legend]="polarAreaLegend" [chartType]="polarAreaChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
                     </canvas> -->
                 </div>
@@ -90,7 +111,7 @@
         <div class="col col-sm-6">
             <div class="card mb-3">
                 <div class="card-header">
-                    Remuneracion de consultas por consultorio
+                    ...
                 </div>
                 <div class="card-body">
                     

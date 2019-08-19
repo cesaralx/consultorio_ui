@@ -3,6 +3,7 @@ import { routerTransition } from '../../router.animations';
 import { Label } from 'ng2-charts';
 import { ChartsServices } from './charts.service';
 import { LayoutService } from '../layout.service';
+import {ExpedientesModel } from '../expedientes-main/expedientes/expedientes.model';
 
 
 import { CostoCitasModel, CitaModel, UsuarioModel, ConsultorioModel, PacienteModel } from './charts.model';
@@ -28,6 +29,7 @@ export class ChartsComponent implements OnInit {
     private lineDatita1: any[] = [];
     dtOptions: any;
     costoCitas: CostoCitasModel [];
+    expedientesLite: ExpedientesModel[] = [];
 
 
     // bar chart
@@ -189,10 +191,6 @@ export class ChartsComponent implements OnInit {
          */
     }
 
-
-
-
-
     constructor(
         private chartsServices: ChartsServices
     ) {}
@@ -223,6 +221,7 @@ export class ChartsComponent implements OnInit {
         await this.getCostoCitas();
         await this.getConsultorios();
         await this.getUsuarios();
+        await this.getExpedientes();
         await this.getCitasxMesxConsul();
         await this.getConsultasxMesxConsul();
 
@@ -231,15 +230,9 @@ export class ChartsComponent implements OnInit {
         await this.AgregaConsultasxMesxConsul();
 
         this.llenaCostoCitas();
-
-        // this.citaxmexconsul.forEach(element, index => {
-        //     console.log(element.meses[element].count);
-        //     cucu.data.push(element.meses);
-        //     cucu.label.push(element._id);
-        // });
-
-
+        this.llenaPaciAntecedentes();
     }
+
 
     llenaCostoCitas = () => {
         this.costoCitas.forEach(e => {
@@ -248,7 +241,12 @@ export class ChartsComponent implements OnInit {
         });
     }
 
-
+    llenaPaciAntecedentes = () => {
+        this.expedientesLite.forEach(e => {
+            const obj = this.pacientes.find(res => res._id === e.paciente_id);
+            e.paciente_id = obj.nombre;
+        });
+    }
 
     async AgregaDatosPacixMes() {
         const count: {} = await this.cuentaCitasConsul();
@@ -277,8 +275,8 @@ export class ChartsComponent implements OnInit {
     }
 
 
-    popeaBarDatita1 = (cucu: {}) => new Promise( (resolve) => {
-        resolve(this.barDatita1.push(cucu));
+    popeaBarDatita1 = (cucu: {}) => new Promise( (resol) => {
+        resol(this.barDatita1.push(cucu));
     })
 
     async AgregaConsultasxMesxConsul() {
@@ -297,8 +295,8 @@ export class ChartsComponent implements OnInit {
     }
 
 
-    popeaLineDatita2 = (cucu: {}) => new Promise( (resolve) => {
-        resolve(this.lineDatita1.push(cucu));
+    popeaLineDatita2 = (cucu: {}) => new Promise( (resolved) => {
+        resolved(this.lineDatita1.push(cucu));
     })
 
 
@@ -317,13 +315,13 @@ export class ChartsComponent implements OnInit {
         resolve(true);
     })
 
-    cuentaCitasConsul = () => new Promise( (resolve) => {
+    cuentaCitasConsul = () => new Promise( (resolved) => {
         // cuenta cuantas citas para cada consultorio existen
         let counts = {};
         this.citas.forEach( cita => {
             counts[cita.id_consultorio] = (counts[cita.id_consultorio] || 0) + 1 ;
         });
-        resolve(counts);
+        resolved(counts);
     })
 
 
@@ -396,6 +394,19 @@ export class ChartsComponent implements OnInit {
             .subscribe( (resp: any) => {
                 // console.log(resp);
                 resolve( this.consultorios = resp);
+            },
+            (error) => {
+            console.log(error.message);
+            reject(error);
+            if (error.status === 403) { this.g.onLoggedout(); }
+            });
+        })
+
+    getExpedientes = () => new Promise( (resolve, reject) => {
+        this.chartsServices.getExpedientes()
+            .subscribe( (resp: any) => {
+                console.log('Expedientes', resp);
+                resolve( this.expedientesLite = resp);
             },
             (error) => {
             console.log(error.message);
