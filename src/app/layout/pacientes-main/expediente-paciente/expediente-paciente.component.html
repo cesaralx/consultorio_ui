@@ -208,7 +208,7 @@
                     <div class="card-body">
                       <h5 class="card-title">{{cita.fecha | date: 'MMMM d, y, h:mm a'}}</h5>
                       <p class="card-text">Consultorio</p>
-                      <a  [routerLink]="['/visita-medica']"  class="btn btn-primary">Registrar consulta</a>
+                      <a (click)="gotoVisitaMEdica()"   class="btn btn-primary">Registrar consulta</a>
                     </div>
                   </div>
 

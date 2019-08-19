@@ -157,6 +157,10 @@ export class ExpedientePacienteComponent implements OnInit, OnDestroy  {
     this.router.navigate(['expedientes/buscar/'], {queryParams: {expedienteId: this.expediente._id}} );
   }
 
+  gotoVisitaMEdica = () => {
+    this.router.navigate(['visita-medica/'], {queryParams: {citaID: this.cita._id}} );
+  }
+
   sendEmail(paciente_id) {
     console.log(paciente_id);
     this.recoveryService.getPacByID(paciente_id).subscribe(
@@ -190,5 +194,7 @@ export class ExpedientePacienteComponent implements OnInit, OnDestroy  {
     },
     );
 }
+
+
 
 }

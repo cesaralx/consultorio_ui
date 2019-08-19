@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -17,6 +17,9 @@ import { LayoutService, lenguaje } from '../layout.service';
 import { AgendaService } from '../agenda/agenda.service';
 import { ConsultoriosService } from '../consultorios/consultorios.service';
 
+import { ActivatedRoute, Router } from '@angular/router';
+import { filter } from 'rxjs/operators';
+
 // sweetalert2
 import Swal from 'sweetalert2';
 import { Observable } from 'rxjs';
@@ -29,12 +32,16 @@ import {Buffer} from 'buffer';
   styleUrls: ['./visita-medica.component.scss']
 })
 export class VisitaMedicaComponent implements OnInit {
+  @ViewChild('content', {static: false} ) content: ElementRef;
+  citaID: string;
+
   closeResult: string;
   cargando = false;
   visita = new VisitaModel();
   visitas: VisitaModel[] = [];
   citas: CitaModel[] = [];
   cita: CitaModel = new CitaModel();
+  cita_ext: CitaModel = new CitaModel();
   consultorios: ConsultorioModel [] = [];
   pacientes: PacientModel [] = [];
   editable = false;
@@ -68,13 +75,26 @@ export class VisitaMedicaComponent implements OnInit {
               private agendaService: AgendaService,
               private consultoriosService: ConsultoriosService,
               private modal: NgbModal,
-              public httpClient: HttpClient) { }
+              public httpClient: HttpClient,
+              public router: Router,
+              private route: ActivatedRoute) { }
 
   async ngOnInit() {
+    // carga el parametro si es que existe
+    this.route.queryParams.pipe(
+      filter(params => params.citaID) )
+      .subscribe(params => {
+        // console.log(params);
+        this.citaID = params.citaID;
+        // console.log('Parametro', this.citaID);
+    });
+
     this.cargando = true;
     await this.getConsultorios();
     await this.getPacientes();
     await this.getCitas();
+    await this.getCita();
+    this.updateExternal();
   }
 // Funciones del modal
   open(content) {
@@ -89,6 +109,27 @@ export class VisitaMedicaComponent implements OnInit {
     this.visita = new VisitaModel();
     this.open(content);
   }
+
+  updateExternal() {
+    if (this.citaID) {
+      console.log('expediente a editar', this.citaID);
+      console.log('expediente a editar', this.cita_ext);
+      this.citaVisitaMedica(this.cita_ext, this.content);
+    }
+  }
+
+  getCita = () => new Promise( (resolve, reject) => {
+    if (this.citaID) {
+      this.agendaService.getCita(this.citaID)
+        .subscribe( (resp: any) => {
+          resolve( this.cita_ext = resp);
+        },
+        (error) => {
+        console.log(error.message);
+        if (error.status === 403) { this.g.onLoggedout(); }
+        });
+    } else { resolve(true); }
+   })
 
   async  citaVisitaMedica(c: CitaModel , content) {
     this.editable = true;
