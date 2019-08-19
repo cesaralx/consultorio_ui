@@ -23,7 +23,7 @@
     <tbody>
       <tr *ngFor="let exp of expedientes; let i=index">
         <td>{{ i+1}}</td>
-        <td>{{ exp.paciente_id }}</td>
+        <td>{{ exp.namePaciente }}</td>
         <td>{{ exp.motivo_consulta }}</td>
         <td>{{ exp.email }}</td>
         <td>{{ exp.fecha_alta }}</td>
@@ -132,8 +132,8 @@ class="alert alert-info text-center mt-3 animated fadeIn faster">
         </div>
     </div>
     </fieldset>
-        <button type="button" class="btn btn-dark pull-right" awNextStep>Seguiente</button>
-        <a [routerLink]="['/expedientes']"class="btn btn-outline-danger pull-left">Cancelar</a>
+        <button type="button" class="btn btn-dark pull-right" awNextStep>Siguiente</button>
+        <!-- <a [routerLink]="['/expedientes']"class="btn btn-outline-danger pull-left">Cancelar</a> -->
         <!-- <button type="button" [awGoToStep]="{stepIndex: 2}">Go directly to third Step</button> -->
 
     </aw-wizard-step>
@@ -414,8 +414,8 @@ class="alert alert-info text-center mt-3 animated fadeIn faster">
 
         <button type="button" class="btn btn-secondary pull-left" awPreviousStep>Anterior</button>
 
-        <button [disabled]="!formulario.valid" class="btn btn-success pull-right" type="submit" awResetWizard><i
-                class="fa fa-save"></i>Guardar</button>
+        <!-- <button [disabled]="!formulario.valid" class="btn btn-success pull-right" type="submit" awResetWizard><i
+                class="fa fa-save"></i>Guardar</button> -->
 
     </aw-wizard-step>
 

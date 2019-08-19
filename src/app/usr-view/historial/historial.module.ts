@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HistorialRoutingModule } from './historial-routing.module';
 import { HistorialComponent } from './historial.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { PageHeaderModule } from '../../shared';
 import {
@@ -16,7 +17,8 @@ import { StatModule } from '../../shared';
     CommonModule,
     HistorialRoutingModule,
     PageHeaderModule,
-    StatModule
+    StatModule,
+    TranslateModule
   ]
 })
 export class HistorialModule { }

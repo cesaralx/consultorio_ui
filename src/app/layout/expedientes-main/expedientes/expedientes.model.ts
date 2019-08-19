@@ -59,6 +59,7 @@ export class ExpedientesModel {
     usuario_alta: string;
     usuario_mod: string;
     fecha_alta: Date;
+    namePaciente: String;
 
 }
 

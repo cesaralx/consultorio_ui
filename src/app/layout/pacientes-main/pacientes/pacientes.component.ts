@@ -28,13 +28,12 @@ import { OnDestroy } from '@angular/core';
 
 })
 export class PacientesComponent implements OnInit, OnDestroy {
-
     // DataTable
     dtOptions: DataTables.Settings = {};
     // We use this trigger because fetching the list of persons can be quite long,
     // thus we ensure the data is fetched before rendering
     dtTrigger: Subject<any> = new Subject();
-
+    message = '';
     cargando = false;
     closeResult: string;
     paciente = new PacienteModel();
@@ -55,7 +54,6 @@ export class PacientesComponent implements OnInit, OnDestroy {
       pageLength: 10
     };
   }
-
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
@@ -64,7 +62,7 @@ export class PacientesComponent implements OnInit, OnDestroy {
   open(content) {
     // console.log(this.consultorio);
     this.modal.open(content, { backdrop: 'static', size: 'lg' }).result.then((result) => {
-        this.closeResult = `Closed with: ${result}`;
+      this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
 
     });
@@ -107,14 +105,17 @@ export class PacientesComponent implements OnInit, OnDestroy {
            });
          }
      });
+
   }
 
   gotoExpediente (paciente: PacienteModel, i: number) {
-    console.log('paciente a ver expediente', paciente);
+    // console.log('paciente a ver expediente', paciente);
     this.router.navigate(['pacientes/expediente-paciente/' + paciente._id ]);
+  }
 
-
-
+  gotoAltaExpediente () {
+    // console.log('paciente a ver expediente', paciente);
+    this.router.navigate(['expedientes/nuevo']);
   }
 
   actualizar(usuario: PacienteModel, content) {
@@ -128,6 +129,7 @@ export class PacientesComponent implements OnInit, OnDestroy {
     if (error.status === 403) { this.g.onLoggedout(); }
     });
     this.open(content);
+
    }
 
    alta( content) {
@@ -136,6 +138,7 @@ export class PacientesComponent implements OnInit, OnDestroy {
    }
 
    guardar( form: NgForm) {
+     let updat = false;
     this.modal.dismissAll();
     Swal.fire({
       title: 'Espere',
@@ -148,21 +151,39 @@ export class PacientesComponent implements OnInit, OnDestroy {
     if (!this.paciente._id) {
       // console.log(this.usuario.image);
       console.log('nuevo paciente');
+      updat = false;
     peticion = this.pacientesService.altaPacientes(this.paciente);
     } else {
+      updat = true;
       console.log('actualizar paciente');
       console.log(this.paciente);
     peticion = this.pacientesService.actualizaPacientes(this.paciente);
     }
+  
         // console.log(this.consultorio);
         peticion.subscribe( resp => {
           this.ngOnDestroy();
           this.ngOnInit();
-          Swal.fire({
-            title: this.paciente.nombre,
-            text: 'Se guardo correctamente',
-            type: 'success'
-          });
+          if (updat) {
+            Swal.fire({
+              title: this.paciente.nombre,
+              text: 'Se guardo correctamente',
+              type: 'success'
+            });
+          } else {
+            Swal.fire({
+              title: this.paciente.nombre,
+              text: `¿Desea dar de alta el expediente?`,
+              type: 'question',
+              showConfirmButton: true,
+              showCancelButton: true
+             }).then( resp => {
+                 if ( resp.value ) {
+                   this.gotoAltaExpediente();
+                 }
+             });
+
+          }
         },
         (error) => {
         console.log(error.message);
