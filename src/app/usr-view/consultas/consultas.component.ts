@@ -40,7 +40,8 @@ export class ConsultasComponent implements OnInit {
  })
 
  gotoConsulta (item: any) {
-  this.router.navigate(['/usuario-view/consultas/:id' + item._id]);
+   console.log(item);
+  this.router.navigate(['/usuario-view/consulta/' + item._id]);
 }
 
 }
