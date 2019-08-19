@@ -38,8 +38,9 @@ export class ConsultasComponent implements OnInit {
     if (error.status === 403) { reject(this.g.onLoggedout()); }
     });
  })
- gotoConsulta () {
-  this.router.navigate(['usuario-view/consultas-medicas/']);
+
+ gotoConsulta (item: any) {
+  this.router.navigate(['/usuario-view/consultas/:id' + item._id]);
 }
 
 }

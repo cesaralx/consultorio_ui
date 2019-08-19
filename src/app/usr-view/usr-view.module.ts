@@ -7,7 +7,7 @@ import { UsrViewRoutingModule } from './usr-view-routing.module';
 import { UsrViewComponent } from './usr-view.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { HeaderComponent } from './components/header/header.component';
-import { AnexosComponent } from './anexos/anexos.component';
+
 
 
 @NgModule({
@@ -17,6 +17,6 @@ import { AnexosComponent } from './anexos/anexos.component';
     NgbDropdownModule,
     UsrViewRoutingModule
   ],
-  declarations: [UsrViewComponent, SidebarComponent, HeaderComponent, AnexosComponent]
+  declarations: [UsrViewComponent, SidebarComponent, HeaderComponent]
 })
 export class UsrViewModule { }
