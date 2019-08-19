@@ -15,6 +15,11 @@ export class CitaModel {
     extra: string;
 }
 
+export class CostoCitasModel {
+    _id: string;
+    costo: number;
+}
+
 export class ConsultorioModel {
     _id: string = null;
     nombre: string;

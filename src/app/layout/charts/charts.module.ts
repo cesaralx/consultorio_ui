@@ -6,8 +6,11 @@ import { ChartsRoutingModule } from './charts-routing.module';
 import { ChartsComponent } from './charts.component';
 import { PageHeaderModule } from '../../shared';
 
+import { DataTablesModule } from 'angular-datatables';
+
 @NgModule({
-    imports: [CommonModule, Ng2Charts, ChartsRoutingModule, PageHeaderModule],
+    imports: [CommonModule, Ng2Charts, ChartsRoutingModule, PageHeaderModule,
+        DataTablesModule],
     declarations: [ChartsComponent]
 })
 export class ChartsModule {}

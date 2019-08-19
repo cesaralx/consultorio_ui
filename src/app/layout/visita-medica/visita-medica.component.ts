@@ -78,7 +78,7 @@ export class VisitaMedicaComponent implements OnInit {
   }
 // Funciones del modal
   open(content) {
-    this.modal.open(content, { size: 'lg' }).result.then((result) => {
+    this.modal.open(content, { backdrop: 'static', size: 'lg' }).result.then((result) => {
         this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
 
@@ -103,7 +103,6 @@ export class VisitaMedicaComponent implements OnInit {
      this.visita.id_usuario = this.cita.id_usuario;
      this.visita.id_consultorio = this.cita.id_consultorio;
      this.visita.fecha = this.cita.fecha;
-     await this.completeCita();
     this.open(content);
   }
 
@@ -164,7 +163,7 @@ export class VisitaMedicaComponent implements OnInit {
   //   (error) => {
   //   console.log(error.message);
   //   if (error.status === 403) { this.g.onLoggedout();  }
-    
+
   //   });
   //  })
 
@@ -187,7 +186,7 @@ export class VisitaMedicaComponent implements OnInit {
              cita.nombreConsultorio = 'Consulta no valido';
            }
           //  console.log('todas:', cita);
-           if (cita.status !== 'completada') {
+           if ( (cita.status !== 'completada') && (cita.status !== 'cancelada') ) {
               this.citas.push(cita);
             }
          });
@@ -243,7 +242,8 @@ export class VisitaMedicaComponent implements OnInit {
   }
   peticion = this.visitaService.altaVisita(this.visita);
       // console.log(this.consultorio);
-      peticion.subscribe( resp => {
+      peticion.subscribe( async resp => {
+        await this.completeCita();
         console.log('respuesta del request ', resp);
         Swal.fire({
           title: 'Actualizo',
