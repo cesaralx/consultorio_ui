@@ -50,6 +50,7 @@ export class HeaderComponent implements OnInit {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
         localStorage.removeItem('id');
+        localStorage.removeItem('id_consultorio');
         localStorage.removeItem('isLoggedinExternal');
     }
 

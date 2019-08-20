@@ -51,10 +51,10 @@ export class AgendaComponent implements OnInit {
   calendarEvents: EventInput;
   calEvents: EventInput[] = [];
   // locale = esLocale;
-  estatus = [ {color: '#52FF33', status: 'confirmada'},
-              {color: '#3346FF', status: 'nueva'},
-              {color: '#B533FF', status: 'reagendada'},
-              {color: '#FF5733', status: 'cancelada'},
+  estatus = [ {color: '##00FF7F', status: 'confirmada'},
+              {color: '#87CEEB', status: 'nueva'},
+              {color: '#BC8F8F', status: 'reagendada'},
+              {color: '#FA8072', status: 'cancelada'},
             ];
 
   idconsultorioUsr = localStorage.getItem('id_consultorio');

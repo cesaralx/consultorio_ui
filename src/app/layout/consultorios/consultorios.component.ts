@@ -51,7 +51,7 @@ export class ConsultoriosComponent implements OnInit {
 
   open(content) {
     // console.log(this.consultorio);
-    this.modal.open(content, {size: 'lg'}).result.then((result) => {
+    this.modal.open(content, {backdrop: 'static', size: 'lg'}).result.then((result) => {
         this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
 

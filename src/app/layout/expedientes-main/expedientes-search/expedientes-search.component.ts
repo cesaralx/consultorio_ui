@@ -91,6 +91,7 @@ export class ExpedientesSearchComponent implements OnInit, OnDestroy {
       console.log('expediente a editar', this.expedienteID);
       console.log('expediente a editar', this.expediente_ext);
       this.actualizar(this.expediente_ext, this.content);
+      this.cargando = false;
     }
   }
 
@@ -158,7 +159,7 @@ export class ExpedientesSearchComponent implements OnInit, OnDestroy {
     // this.consultaPacientes();
     this.consultaConsultorios();
     // console.log(this.consultorio);
-    this.modal.open(content, {size: 'lg'}).result.then((result) => {
+    this.modal.open(content, {size: 'lg', backdrop: 'static'}).result.then((result) => {
         this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
 
