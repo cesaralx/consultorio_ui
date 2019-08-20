@@ -90,8 +90,12 @@ export class ExpedientePacienteComponent implements OnInit, OnDestroy  {
 
   getPacient = () => new Promise( (resolve, reject) => {
     this.paccientesService.getPaciente(this.id).subscribe( (resp: any) =>  {
-      const arrb = this.toArrayBuffer(resp['image'].data);
-      this.imagen  = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpeg;base64,' + this._arrayBufferToBase64(arrb));
+      if (resp.image != null) {
+        const arrb = this.toArrayBuffer(resp['image'].data);
+        this.imagen  = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpeg;base64,' + this._arrayBufferToBase64(arrb));
+      } else {
+        this.imagen = '../../../../assets/images/userDefault.png';
+      }
       resolve(this.paciente = resp);
     });
   })
