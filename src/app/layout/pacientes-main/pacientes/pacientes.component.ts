@@ -19,6 +19,8 @@ import { Observable } from 'rxjs';
 // DataTable
 import { Subject } from 'rxjs';
 import { OnDestroy } from '@angular/core';
+import { FILE } from 'dns';
+import { fileURLToPath } from 'url';
 
 @Component({
   selector: 'app-pacientes',
@@ -147,6 +149,11 @@ export class PacientesComponent implements OnInit, OnDestroy {
       allowOutsideClick: false
     });
     Swal.showLoading();
+//       if (this.paciente.image === null) {
+//         const path = '../../../../assets/images/userDefault.png';
+//  let fie: File = new fileURLToPath(path);
+//         var path = require('path');
+
     let peticion: Observable <any>;
     if (!this.paciente._id) {
       // console.log(this.usuario.image);

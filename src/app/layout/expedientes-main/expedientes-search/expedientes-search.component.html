@@ -179,11 +179,11 @@ class="alert alert-info text-center mt-3 animated fadeIn faster">
                     [(ngModel)]="expediente.antecedentes_gineco_obst.Menarca" placeholder="Menarca">
             </div>
     
-            <div class="form-group col-md-6">
+            <!-- <div class="form-group col-md-6">
                 <label for="remove">remove</label>
                 <input type="text" class="form-control" name="remove" id="remove"
                     [(ngModel)]="expediente.antecedentes_gineco_obst.remove" placeholder="remove">
-            </div>
+            </div> -->
         </div>
         <div class="form-row">
             <div class="form-group col-md-3 ">
@@ -318,7 +318,7 @@ class="alert alert-info text-center mt-3 animated fadeIn faster">
         </fieldset>
         <!-- Ante_fam_pato -->
         <fieldset class="scheduler-border">
-                <legend class="scheduler-border">Antecedentes familiares patológicos</legend>
+                <legend class="scheduler-border">Antecedentes patológicos</legend>
         <div class="form-group ">
           
             <div class="form-row">
@@ -374,7 +374,7 @@ class="alert alert-info text-center mt-3 animated fadeIn faster">
 
                 <div class="form-group col-md-2">
                     <label for="cantidad">Cantidad</label>
-                    <input type="text" class="form-control" name="cantidad" id="cantidad"
+                    <input type="number" class="form-control" name="cantidad" id="cantidad"
                         [(ngModel)]="expediente.Ante_fam_pato.fumar.cantidad" placeholder="Cantidad">
                 </div>
             </div>
@@ -414,8 +414,8 @@ class="alert alert-info text-center mt-3 animated fadeIn faster">
 
         <button type="button" class="btn btn-secondary pull-left" awPreviousStep>Anterior</button>
 
-        <!-- <button [disabled]="!formulario.valid" class="btn btn-success pull-right" type="submit" awResetWizard><i
-                class="fa fa-save"></i>Guardar</button> -->
+        <button [disabled]="!formulario.valid" class="btn btn-success pull-right" type="submit" awResetWizard><i
+                class="fa fa-save"></i>Guardar</button>
 
     </aw-wizard-step>
 
