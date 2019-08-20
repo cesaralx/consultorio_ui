@@ -73,5 +73,7 @@ export class PasModel {
   _id: String;
   email: {type: String, lowercase: true, required: true};
   telefono: String;
+  fum: Date;
+  ffp: Date;
 }
 

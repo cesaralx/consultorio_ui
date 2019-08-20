@@ -88,8 +88,10 @@ export class ExpedientesComponent implements OnInit {
 
  async onChangePaciente(id_paciente) {
    await this.getPaciente(id_paciente);
-this.expediente.email = this.paciente.email;
-this.expediente.celular = this.paciente.telefono;
+  this.expediente.email = this.paciente.email;
+  this.expediente.celular = this.paciente.telefono;
+  this.expediente.antecedentes_gineco_obst.ffp = this.paciente.ffp;
+  this.expediente.antecedentes_gineco_obst.fup = this.paciente.fum;
   }
 
 

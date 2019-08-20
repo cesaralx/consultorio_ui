@@ -95,7 +95,7 @@ export class UserPacienteComponent implements OnInit {
   })
 
   get3LastestVisitas = () => new Promise( (resolve, reject) => {
-    this.visitaMedicaService.get3LastVisitas().subscribe( (resp: any) =>  {
+    this.visitaMedicaService.get3LastVisitas(this.paciente._id).subscribe( (resp: any) =>  {
       resolve(this.lastvisitas = resp);
     });
   }) 
