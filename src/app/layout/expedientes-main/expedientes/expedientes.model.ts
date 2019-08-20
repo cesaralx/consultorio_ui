@@ -2,19 +2,46 @@ export class ExpedientesModel {
     _id: string = null;
     paciente_id: string;
     motivo_consulta: {type: String, required: true};
-    Ante_familiares: {} = {
+    Ante_familiares: {
+      hipertension: string,
+      cancer: string,
+      diabetes: string,
+      otros: string,
+    } = {
       hipertension: null,
       cancer: null,
       diabetes: null,
       otros: null,
     };
-    Ante_no_patologicos: {} = {
+    Ante_no_patologicos: {
+      vacunas_res: string,
+      escolaridad: string,
+      grupo_rh: string,
+      seguro_social: string,
+    } = {
       vacunas_res: null,
       escolaridad: null,
       grupo_rh: null,
       seguro_social: null,
     };
-    Ante_fam_pato: {} = {
+    Ante_fam_pato: {
+      cirugias: string,
+      transfuciones: {
+        transfucion: string,
+        motivo: string,
+      },
+      fracturas: string,
+      hospitalizaciones: string,
+      fumar: {
+        fuma: string,
+        cantidad: number,
+      },
+      alcohol: string,
+      alergias: {
+        alergia: string,
+        efecto: string,
+      },
+      patologias_cronicas_degenerativas: string} = {
       cirugias: null,
       transfuciones: {
         transfucion: null,
@@ -33,7 +60,23 @@ export class ExpedientesModel {
       },
       patologias_cronicas_degenerativas: null,
     };
-    antecedentes_gineco_obst: {} = {
+    antecedentes_gineco_obst: {
+      Menarca: string,
+      remove: string,
+      eumenorreica: string,
+      dismenorreica: string,
+      ivsa: string,
+      parejas_exuales: string,
+      mdf_tipo: string,
+      tiempo_de_uso: string,
+      causas_descontinuo: string,
+      g: string,
+      p: string,
+      c: string,
+      a: string,
+      ffp: Date,
+      fup: Date
+    } = {
       Menarca: null,
       remove: null,
       eumenorreica: null,

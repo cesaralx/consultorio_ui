@@ -142,7 +142,7 @@
                                 <label>Fecha de alta de expediente</label>
                             </div>
                             <div class="col-md-6">
-                                <p>{{ expediente.fecha_alta }}</p>
+                                <p>{{ expediente.fecha_alta | date: 'MMMM d, y, h:mm a' }}</p>
                             </div>
                         </div>
                         <div class="row">
@@ -177,6 +177,145 @@
                                 <p>{{expediente.Ante_familiares['diabetes']}}</p>
                             </div>
                         </div>
+                        <!-- -- -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Vacunas</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{expediente.Ante_no_patologicos['vacunas_res']}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Grupo sanguíneo</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{expediente.Ante_no_patologicos['grupo_rh']}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Seguro social</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{expediente.Ante_no_patologicos['seguro_social']}}</p>
+                            </div>
+                        </div>
+                        <!-- - -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Cirugía</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{expediente.Ante_fam_pato['cirugias']}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Fracturas</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{expediente.Ante_fam_pato['fracturas']}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Hospitalización</label> 
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{expediente.Ante_fam_pato['hospitalizaciones']}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Alcohol</label> 
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{expediente.Ante_fam_pato['alcohol']}}</p>
+                            </div>
+                        </div>
+                        <!-- - -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Menarca</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{expediente.antecedentes_gineco_obst['Menarca']}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Eumenorreica</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{expediente.antecedentes_gineco_obst['eumenorreica']}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Dismenorreica</label> 
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{expediente.antecedentes_gineco_obst['dismenorreica']}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>IVSA</label> 
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{expediente.antecedentes_gineco_obst['ivsa']}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Parejas sexuales</label> 
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{expediente.antecedentes_gineco_obst['parejas_exuales']}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>MDF tipo</label> 
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{expediente.antecedentes_gineco_obst['mdf_tipo']}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Gestas</label> 
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{expediente.antecedentes_gineco_obst['g']}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Partos</label> 
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{expediente.antecedentes_gineco_obst['p']}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Cesáreas</label> 
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{expediente.antecedentes_gineco_obst['c']}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Abortos</label> 
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{expediente.antecedentes_gineco_obst['a']}}</p>
+                            </div>
+                        </div>
 
                     </div>
                 </div>
@@ -208,7 +347,7 @@
                     <div class="card-body">
                       <h5 class="card-title">{{cita.fecha | date: 'MMMM d, y, h:mm a'}}</h5>
                       <p class="card-text">Consultorio</p>
-                      <a (click)="gotoVisitaMEdica()"   class="btn btn-primary">Registrar consulta</a>
+                      <button  (click)="gotoVisitaMEdica()"   class="btn btn-primary">Registrar consulta</button >
                     </div>
                   </div>
 

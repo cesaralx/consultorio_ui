@@ -47,6 +47,7 @@ export class ChartsComponent implements OnInit {
         'Julio',
         'Agosto',
         'Septiembre',
+        'Octubre',
         'Noviembre',
         'Diciembre'
     ];
@@ -124,6 +125,7 @@ export class ChartsComponent implements OnInit {
         'Julio',
         'Agosto',
         'Septiembre',
+        'Octubre',
         'Noviembre',
         'Diciembre'
     ];
