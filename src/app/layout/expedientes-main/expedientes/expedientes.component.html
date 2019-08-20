@@ -164,9 +164,9 @@
                 
                 <div class="form-row">
                         <div class="form-group col-md-4">
-                                <label for="mdf_tipo">mdf_tipo</label>
+                                <label for="mdf_tipo">MDF tipo</label>
                                 <input type="text" class="form-control" name="mdf_tipo" id="mdf_tipo"
-                                    [(ngModel)]="expediente.antecedentes_gineco_obst.mdf_tipo" placeholder="mdf_tipo">
+                                    [(ngModel)]="expediente.antecedentes_gineco_obst.mdf_tipo" placeholder="MDF tipo">
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="tiempo_de_uso">Tiempo de uso</label>
@@ -264,7 +264,7 @@
             </fieldset>
                 <!-- Ante_fam_pato -->
         <fieldset class="scheduler-border">
-             <legend class="scheduler-border">Antecedentes familiares patológicos</legend>
+             <legend class="scheduler-border">Antecedentes patológicos</legend>
                 <div class="form-group ">
                     <div class="form-row">
                         <div class="form-group col-md-4">
@@ -316,7 +316,7 @@
 
                         <div class="form-group col-md-2">
                             <label for="cantidad">Cantidad</label>
-                            <input type="text" class="form-control" name="cantidad" id="cantidad"
+                            <input type="number" class="form-control" name="cantidad" id="cantidad"
                                 [(ngModel)]="expediente.Ante_fam_pato.fumar.cantidad" placeholder="Cantidad">
                         </div>
                     </div>

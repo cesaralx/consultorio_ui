@@ -76,8 +76,12 @@ export class UserPacienteComponent implements OnInit {
 
   getPacient = () => new Promise( (resolve, reject) => {
     this.paccientesService.getPaciente(this.id).subscribe( (resp: any) =>  {
+      if (resp.image != null) {
       const arrb = this.toArrayBuffer(resp['image'].data);
       this.imagen  = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpeg;base64,' + this._arrayBufferToBase64(arrb));
+    } else {
+      this.imagen = '../../../assets/images/userDefault.png';
+    }
       resolve(this.paciente = resp);
     });
   })
