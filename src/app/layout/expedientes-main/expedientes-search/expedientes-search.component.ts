@@ -91,6 +91,7 @@ export class ExpedientesSearchComponent implements OnInit, OnDestroy {
       console.log('expediente a editar', this.expedienteID);
       console.log('expediente a editar', this.expediente_ext);
       this.actualizar(this.expediente_ext, this.content);
+      this.cargando = false;
     }
   }
 

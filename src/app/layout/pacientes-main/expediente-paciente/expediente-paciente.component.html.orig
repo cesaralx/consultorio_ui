@@ -1,0 +1,390 @@
+<div [@routerTransition]>
+    <app-page-header [previous]="'pacientes'" [heading]="'Expediente de paciente'" [icon]="'fa-desktop'">
+    </app-page-header>
+
+    <!-- <div class="tab-content">
+        <div *ngIf="selectedwallet === coinwallet[0]" role="tabpanel" class="tab-pane active" id="one">wallet 1 content</div>
+        <div *ngIf="selectedwallet === coinwallet[1]" role="tabpanel" class="tab-pane active" id="two">wallet 2 content</div>
+      </div> -->
+      <div class="col text-right">
+          <div class="dropdown">
+              <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" >
+                  {{ 'Action' | translate}}
+              </button>
+              <div class="dropdown-menu">
+                  <a class="dropdown-item" href="javascript:void(0)" (click)="gotoVisita()"> <i class="fa fa-eye"></i>
+                      {{ 'Adds' | translate }}</a>
+                  <a class="dropdown-item" href="javascript:void(0)" (click)="sendEmail(paciente._id)"> <i class="fa fa-envelope-o"></i>
+                      {{ 'Resend' | translate }}</a>
+                      <a class="dropdown-item" href="javascript:void(0)" (click)="editaExpe()"> <i class="fa fa-pencil"></i>
+                        {{ 'Editar expediente' | translate }}</a>
+              </div>
+          </div>
+      </div>
+
+      <!-- <div class="row">
+          <div class="col text-right">
+              <button 
+                    (click)="gotoVisita()"
+                    class='btn btn-primary'>
+                  <i class="fa fa-eye"></i>
+                  {{ 'Adds' | translate }}
+              </button>
+              
+              <button 
+              (click)="sendEmail(paciente._id)"
+              class='btn btn-primary'>
+            <i class="fa fa-eye"></i>
+            {{ 'Re enviar credenciales' | translate }}
+        </button>
+        
+            </div>
+
+        </div> -->
+
+    <div class="container">
+        <div class="row my-2">
+            <div class="col-lg-8 order-lg-2">
+                <ul class="nav nav-tabs side_nav" role="tablist">
+                    <li *ngFor="let wallet of coinwallet; let first = first;" [ngClass]="{firstItem: first}"
+                        role="presentation" class="nav-link " [class.active]="selectedwallet===wallet">
+                        <a (click)="selectedwallet = wallet" aria-controls="one" role="tab"
+                            data-toggle="tab">{{wallet}}</a>
+                    </li>
+                </ul>
+                <div class="tab-content py-4">
+                    <div *ngIf="selectedwallet === coinwallet[0]" class="tab-pane  fade show active" role="tabpanel"
+                        id="one">
+                        <h5 class="mb-3">Datos de paciente</h5>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Paciente Id</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>{{ paciente._id }}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Nombre</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>{{ paciente.nombre }}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Edad</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>{{ paciente.edad }} anos</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Email</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>{{ paciente.email }}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Ocupacion</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>{{ paciente.ocupacion }}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>{{ 'Phone' | translate }}</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>{{ paciente.telefono }}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>{{ 'Location' | translate }}</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>{{ paciente.municipio }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/row-->
+                    </div>
+                    <div *ngIf="selectedwallet === coinwallet[1]" class="tab-pane fade show active" role="tabpanel"
+                        id="two">
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Expedeinte Id</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{ expediente._id }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Motivo de consulta</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{ expediente.motivo_consulta }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Fecha de alta de expediente</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{ expediente.fecha_alta | date: 'MMMM d, y, h:mm a' }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Consultorio alta</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{ consultorio.nombre }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Hipertension</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{expediente.Ante_familiares['hipertension']}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Cancer</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{expediente.Ante_familiares['cancer']}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Diabetes</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{expediente.Ante_familiares['diabetes']}}</p>
+                            </div>
+                        </div>
+                        <!-- -- -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Vacunas</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{expediente.Ante_no_patologicos['vacunas_res']}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Grupo sanguíneo</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{expediente.Ante_no_patologicos['grupo_rh']}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Seguro social</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{expediente.Ante_no_patologicos['seguro_social']}}</p>
+                            </div>
+                        </div>
+                        <!-- - -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Cirugía</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{expediente.Ante_fam_pato['cirugias']}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Fracturas</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{expediente.Ante_fam_pato['fracturas']}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Hospitalización</label> 
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{expediente.Ante_fam_pato['hospitalizaciones']}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Alcohol</label> 
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{expediente.Ante_fam_pato['alcohol']}}</p>
+                            </div>
+                        </div>
+                        <!-- - -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Menarca</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{expediente.antecedentes_gineco_obst['Menarca']}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Eumenorreica</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{expediente.antecedentes_gineco_obst['eumenorreica']}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Dismenorreica</label> 
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{expediente.antecedentes_gineco_obst['dismenorreica']}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>IVSA</label> 
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{expediente.antecedentes_gineco_obst['ivsa']}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Parejas sexuales</label> 
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{expediente.antecedentes_gineco_obst['parejas_exuales']}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>MDF tipo</label> 
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{expediente.antecedentes_gineco_obst['mdf_tipo']}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Gestas</label> 
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{expediente.antecedentes_gineco_obst['g']}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Partos</label> 
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{expediente.antecedentes_gineco_obst['p']}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Cesáreas</label> 
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{expediente.antecedentes_gineco_obst['c']}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Abortos</label> 
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{expediente.antecedentes_gineco_obst['a']}}</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 order-lg-1 text-center">
+                <img [src]="imagen" class="mx-auto img-fluid img-responsive img-circle d-block" alt="avatar" /><br>
+<<<<<<< HEAD
+
+                <!-- <div class="panel panel-default">
+=======
+                
+                <div class="panel panel-default">
+>>>>>>> origin/master
+                    <div class="panel-heading">Website <i class="fa fa-link fa-1x"></i></div>
+                    <div class="panel-body"><a href="http://bootnipets.com">bootnipets.com</a></div>
+                  </div> <br> -->
+
+                  <ul class="list-group">
+                    <li  class="list-group-item text-muted">{{ 'latest visits...' | translate }} <i class="fa fa-clock-o fa-1x"></i></li>
+                    <li *ngFor="let item of lastvisitas" class="list-group-item text-right"><span class="pull-left"><strong>{{item.fecha | date: 'MMMM d, y, h:mm a'}}</strong></span> {{item.motivo}}</li>
+                  </ul> 
+
+                  <!-- <div class="panel panel-default">
+                    <div class="panel-heading">Social Media</div>
+                    <div class="panel-body">
+                        <i class="fa fa-facebook fa-2x"></i> <i class="fa fa-github fa-2x"></i> <i class="fa fa-twitter fa-2x"></i> <i class="fa fa-pinterest fa-2x"></i> <i class="fa fa-google-plus fa-2x"></i>
+                    </div>
+                  </div> -->
+                  <!-- <hr> -->
+                  <br>
+
+                  <div *ngIf="cita != null" class="card">
+                    <h4 class="card-header">{{ 'Next Appointment' | translate }}</h4>
+                    <div class="card-body">
+                      <h5 class="card-title">{{cita.fecha | date: 'MMMM d, y, h:mm a'}}</h5>
+                      <p class="card-text">Consultorio</p>
+                      <button  (click)="gotoVisitaMEdica()"   class="btn btn-primary">Registrar consulta</button >
+                    </div>
+                  </div>
+
+            </div>
+        </div>
+    </div>
+
+<!-- modal -->
+<!-- <ng-template #content let-c="close" let-d="dismiss">
+    <form (ngSubmit)="guardar(formulario, content)" #formulario="ngForm">
+        <div class="modal-header text-center">
+            <h4 class="modal-title">Anexos</h4>
+            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <div class="modal-body">
+           
+
+
+
+        </div>
+        <div class="modal-footer align-content-center">
+            <button type="button" class="btn btn-secondary" (click)="c('Close click')">
+                Cerrar
+            </button>
+
+            <button [disabled]="!formulario.valid" class="btn btn-primary" type="submit">
+                <i class="fa fa-save"></i>
+                Guardar
+            </button>
+        </div>
+    </form>
+</ng-template> -->

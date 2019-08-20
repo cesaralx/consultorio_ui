@@ -4,7 +4,7 @@
         <div class="col col-sm-6">
             <div class="card mb-3">
                 <div class="card-header">
-                    Citas por mes en consultorios
+                    Citas por mes
                 </div>
                 <div class="card-body">
                     <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
@@ -20,7 +20,7 @@
         <div class="col col-sm-6">
             <div class="card mb-3">
                 <div class="card-header">
-                    Consultas por mes por consultorio
+                    Consultas por mes
                 </div>
                 <div class="card-body">
                     <canvas baseChart height="130" [datasets]="lineChartData" [labels]="lineChartLabels"
@@ -38,7 +38,7 @@
         <div class="col col-sm-6">
             <div class="card mb-3">
                 <div class="card-header">
-                    Remuneracion de consultas por consultorio
+                    Remuneración de consultas
                 </div>
                 <div class="card-body">
                         <table datatable [dtOptions]="dtOptions" *ngIf="consultorios.length > 0"
@@ -79,7 +79,7 @@
         <div class="col col-sm-6">
             <div class="card mb-3">
                 <div class="card-header">
-                    Antecedentes gineco
+                    Antecedentes
                 </div>
                 <div class="card-body">
                         <table datatable [dtOptions]="dtOptions" *ngIf=" expedientesLite.length > 0"
